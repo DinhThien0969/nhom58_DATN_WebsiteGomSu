@@ -1,0 +1,375 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; 
+}
+
+.head
+{
+  background:linear-gradient(to left,rgba(0,0,0,.8),rgba(0,0,0,.2)),url(../images/cover.jpg);
+  width:100%;
+  height:100vh;
+  background-size:cover;
+  background-position:center;
+  /* background-repeat: no-repeat; */
+}
+.container
+{
+  max-width:1200px;
+  margin:0 auto;
+}
+.row
+{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.col-2
+{
+  flex-basis:50%;
+  min-width:150px;
+}
+.head .logo
+{
+  padding:5px 10px;
+}
+.head .logo img
+{
+  width:40%;
+  cursor:pointer;
+}
+nav ul
+{
+  list-style:none;
+  display:flex;
+  justify-content:flex-start;
+}
+nav ul li
+{
+  margin:0 12px;
+}
+nav ul li a
+{
+  text-decoration:none;
+  font-size:1.2rem;
+  color:#fff;
+  font-style:bold;
+}
+
+.content-text
+{
+  position:absolute;
+  top:40%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:8rem;
+  color:#fff;
+  letter-spacing:4px;
+}
+.content-text span
+{
+  color:#7C1218;
+}
+.content-bar
+{
+  position: absolute;
+  top: 63%;
+  left: 40%;
+  transform: translate(-15%,-50%);
+  font-size: .8rem;
+  color: #f7f7f7;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-top: 40px;
+}
+.head-bar
+{
+  position:absolute;
+  top:80%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+.head-bar span
+{
+  display:block;
+  width:20px;
+  height:20px;
+  border-right:2px solid #fff;
+  border-bottom:2px solid #fff; 
+  transform:rotate(45deg);
+  margin:-5px;
+  animation:bar 2s infinite;
+}
+@keyframes bar
+{
+  0%
+  {
+    opacity:0;
+    transform:rotate(45deg) translate(-10px,-10px);
+  }
+  50%
+  {
+    opacity:1;
+  }
+  100%
+  {
+    opacity:0;
+    transform:rotate(45deg) translate(10px,10px);
+  }
+}
+.btn-now
+{
+  position:absolute;
+  top:90%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+.btn-now a
+{
+  display:block;
+  background:transparent;
+  width:140px;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  color:#fff;
+  border:1px solid #fff;
+  border-radius:10px;
+  text-decoration:none;
+  text-transform:uppercase;
+  transition: .8s;
+}
+.btn-now a:hover
+{
+  background:#fff;
+  color:#7C1218;
+  
+}
+
+/* Start Food Gallery ========================================= */
+
+.food-gallery
+{
+  text-align:center;
+  margin:20px 0;
+}
+
+.food-gallery h1
+{
+  font-size:2.5rem;
+  color:#7c1218;
+  font-family: 'Krona One', sans-serif;
+  padding:40px;
+}
+
+.container-food
+{
+  max-width: 1080px;
+  margin: 10px auto;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-auto-rows:100px 300px;
+  grid-gap:10px;
+  grid-auto-flow:dense;
+}
+.gallery-item
+{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+.gallery-item .img-gallery
+{
+  widows: 100%;
+  height:100%;
+  overflow:hidden;
+}
+
+.gallery-item .img-gallery img
+{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:50% 50%;
+  cursor:pointer;
+  transition:.5s ease-in-out;
+}
+.gallery-item .img-gallery:hover img
+{
+  transform:scale(1.5);
+}
+
+.gallery-item .image-text
+{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  opacity:0;
+}
+
+.gallery-item .image-text p
+{
+  color:#fff;
+  font-size:2rem;
+  font-style:italic;
+  font-weight:bold;
+}
+
+/* Animate Text ================================================= */
+
+.gallery-item:hover .image-text
+{
+  opacity:1;
+  animation:move-down .2s linear;
+}
+
+@keyframes move-down
+{
+  0%
+  {
+    top:10%;
+  }
+
+  50%
+  {
+    top:35%;
+  }
+
+  100%
+  {
+    top:50%;
+  }
+}
+
+/* For Exceed Width Gallery Photos ======================================*/
+.w-1
+{
+  grid-column:span 1;
+}
+
+.w-2
+{
+  grid-column:span 2;
+}
+.w-3
+{
+  grid-column:span 3;
+}
+.w-4
+{
+  grid-column:span 4;
+}
+.w-5
+{
+  grid-column:span 5;
+}
+.w-6
+{
+  grid-column:span 6;
+}
+/* For exceed Height Gallery Photos ======================================*/
+.h-1
+{
+  grid-row:span 1;
+}
+
+.h-2
+{
+  grid-row:span 2;
+}
+.h-3
+{
+  grid-row:span 3;
+}
+.h-4
+{
+  grid-row:span 4;
+}
+.h-5
+{
+  grid-row:span 5;
+}
+.h-6
+{
+  grid-row:span 6;
+}
+/* Start Footer========================================================= */
+.footer
+{
+  background:#efefef;
+  padding:50px 0;
+}
+
+.footer-head
+{
+  text-align:center;
+}
+
+.footer-head h1
+{
+  font-size:2.5rem;
+  color:#7c1218;
+  font-family: 'Krona One', sans-serif;
+  padding:5px;
+}
+
+.footer-head p
+{
+  color:#902121;
+  font-size:1.5rem;
+}
+.container-footer
+{
+  max-width:1200px;
+  margin:auto;
+}
+
+.footer .row
+{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+
+}
+.footer .col-2
+{
+  flex-basis:50%;
+}
+
+.footer-left-text h1
+{
+  text-align:center;
+}
+.footer-left-text p
+{
+  padding:5px;
+  font-size:1.2rem;
+  
+}
+.footer-right-text h1
+{
+  text-align:center;
+}
+.footer-right-text p
+{
+  padding:5px;
+  font-size:1.2rem;
+  
+}
+
+.copyright
+{
+  text-align:center;
+  padding:5px;
+}
+/* End Footer */
