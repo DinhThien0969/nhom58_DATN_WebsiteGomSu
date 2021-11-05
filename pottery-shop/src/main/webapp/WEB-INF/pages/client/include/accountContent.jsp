@@ -6,7 +6,7 @@
 <script src="<c:url value='/js/client/information.js'/>"></script>
 <script src="<c:url value='/js/client/password.js'/>"></script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function() {
 		$(".mytable .tongGiaTri ").each(function() {
 			var value = accounting.formatMoney($(this).text()) + ' VND';
@@ -15,7 +15,7 @@
 		});
 
 	});
-</script>
+</script> -->
 
 <body>
 
