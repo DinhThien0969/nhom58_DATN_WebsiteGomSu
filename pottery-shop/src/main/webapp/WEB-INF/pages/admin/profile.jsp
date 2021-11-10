@@ -35,7 +35,7 @@
 			<div class="form-group row">
 				<div class="col-sm-10">
 					<input type="hidden" class="form-control-plaintext nguoiDungId"
-						value="">
+						value="${user.id }">
 				</div>
 			</div>
 			<div class="form-group row">
@@ -43,7 +43,7 @@
 					Tên</label>
 				<div class="col-sm-10">
 					<input type="text" readonly class="form-control-plaintext"
-						value="">
+						value="${user.hoTen }">
 				</div>
 			</div>
 
@@ -52,7 +52,7 @@
 					đăng ký</label>
 				<div class="col-sm-10">
 					<input type="text" readonly class="form-control-plaintext"
-						value="">
+						value="${user.email }">
 				</div>
 			</div>
 
@@ -61,7 +61,7 @@
 					điện thoại</label>
 				<div class="col-sm-10">
 					<input type="text" readonly class="form-control-plaintext"
-						value="">
+						value="${user.soDienThoai }">
 				</div>
 			</div>
 
@@ -70,7 +70,7 @@
 					chỉ</label>
 				<div class="col-sm-10">
 					<input type="text" readonly class="form-control-plaintext"
-						value="">
+						value="${user.diaChi }">
 				</div>
 			</div>
 		</form>
@@ -95,11 +95,11 @@
 							</div>
 							<div class="modal-body">
 
-								<input type="hidden" name=""
-									value="" />
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 								<div class="form-group">
 									<input type="hidden" class="form-control" name="id"
-										value="" />
+										value="${user.id }" />
 								</div>
 								<div class="form-group">
 									<label for="name">Họ tên</label> <input type="text"
@@ -143,8 +143,8 @@
 							</div>
 							<div class="modal-body">
 								<div>
-									<input type="hidden" name=""
-										value="" />
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
 								</div>
 
 								<div class="form-group">
@@ -176,5 +176,6 @@
 	</div>
 	</div>
 	<jsp:include page="template/footer.jsp"></jsp:include>
+	<script src="<c:url value='/js/profileAdminAjax.js'/>"></script>
 </body>
 </html>

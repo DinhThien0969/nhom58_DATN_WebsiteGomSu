@@ -34,7 +34,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li>
             <a href="<c:url value='/admin/profile' />">
-              <span class="glyphicon glyphicon-user">&nbsp;</span>Xin chào:</a>
+              <span class="glyphicon glyphicon-user">&nbsp;</span>Xin chào: ${loggedInUser.hoTen }</a>
           </li>
           <li>
             <a href="<c:url value='/logout' />"><span class="glyphicon glyphicon-log-out"></span> Đăng xuất</a>

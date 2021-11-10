@@ -157,7 +157,7 @@
 											<h5 class="font-weight-bold mb-4">
 												<strong>Thông tin khác</strong>
 											</h5>
-											<p class="mb-1" id="shipper"></p>
+											<p class="mb-1" id="employee"></p>
 											<p class="mb-1" id="nguoiDat"></p>
 											<p id="ghiChu"></p>
 										</div>
@@ -195,11 +195,11 @@
 									<input type="hidden" id="donHangId" value="">
 								</div>
 								<div class="form-group">
-									Chọn shipper cho đơn hàng: <select class="form-control"
-										name="shipper">
-										<c:forEach var="shipper" items="">
-											<option value="">
-												</option>
+									Chọn employee cho đơn hàng: <select class="form-control"
+										name="employee">
+										<c:forEach var="employee" items="${allEmployee }">
+											<option value="${employee.email }">${employee.hoTen }
+												(${fn:length(employee.listDonHang)})</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -316,5 +316,7 @@
 			}
 		});
 	</script>
+
+	<script src="<c:url value='/js/donHangAjax.js'/>"></script>
 </body>
 </html>

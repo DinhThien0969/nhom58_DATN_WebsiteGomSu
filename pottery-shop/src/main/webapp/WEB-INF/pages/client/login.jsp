@@ -18,34 +18,34 @@
 <body>
 
 
-	<c:set var="contextPath" value="" />
+	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<div class="login-page">
 		<div class="form">
 		    <h2 class="form-signin-heading" style="text-align: center">PotteryShop - Đăng nhập</h2>
 		    <hr>
-			<c:if test="">
+			<c:if test="${param.error != null}">
 				<div class="alert alert-danger">
 					<p>Tên đăng nhập hoặc mật khẩu không đúng.</p>
 				</div>
 			</c:if>
-			<c:if test="">
+			<c:if test="${param.logout != null}">
 				<div class="alert alert-success">
 					<p>Bạn đã đăng xuất thành công.</p>
 				</div>
 			</c:if>
-			<c:if test="">
+			<c:if test="${param.accessDenied != null}">
 				<div class="alert alert-danger">
 					<p>Bạn không có quyền truy cập vào trang này</p>
 				</div>
 			</c:if>
 
-			<form class="login-form" method="POST" action="/login">
+			<form class="login-form" method="POST" action="${contextPath}/login">
 			    
 				<input type="text" placeholder="Email" name="email" required="required" style="padding:  10px;"/> 
 				
 				<input type="password" placeholder="Mật khẩu" name="password" required="required" style="padding:  10px;" /> 
 				
-				<input type="hidden" name="" value="" />
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				
                 <label style="padding-right: 130px; font-size: 15px;" id="label">
                     <input type="checkbox" class="form-check-input" id="" name="remember-me">

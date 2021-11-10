@@ -15,10 +15,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="danhMuc" items="">
+			<c:forEach var="danhMuc" items="${listDanhMuc }">
 				<tr>
-					<td></td>
-					<td></td>
+					<td>${danhMuc.id }</td>
+					<td>${danhMuc.tenDanhMuc }</td>
 				</tr>
 			</c:forEach>
 		</tbody>

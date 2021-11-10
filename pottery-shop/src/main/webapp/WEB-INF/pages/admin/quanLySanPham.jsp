@@ -24,8 +24,8 @@
 		<div class="form-group form-inline">
 			<label for="sel1">THÊM MỚI SẢN PHẨM (THEO DANH MỤC): </label> <select
 				id="danhMucDropdown" class="form-control">
-				<c:forEach var="danhMuc" items="">
-					<option value=""></option>
+				<c:forEach var="danhMuc" items="${listDanhMuc}">
+					<option value="${danhMuc.id }">${danhMuc.tenDanhMuc }</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -34,8 +34,8 @@
 		<form class="form-inline" id="searchForm" name="searchObject">
 			<div class="form-group">
 				<select class="form-control" name="danhMucId" id="danhMuc">
-					<c:forEach var="danhMuc" items="">
-						<option value=""></option>
+					<c:forEach var="danhMuc" items="${listDanhMuc }">
+						<option value="${danhMuc.id}">${danhMuc.tenDanhMuc}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -43,8 +43,8 @@
 			<div class="form-group">
 				<select class="form-control" name="hangSXId" id="hangSanXuat">
 					<option value="">Tất cả hãng sản xuất</option>
-					<c:forEach var="nhanHieu" items="">
-						<option value=""></option>
+					<c:forEach var="nhanHieu" items="${listNhanHieu }">
+						<option value="${nhanHieu.id}">${nhanHieu.tenHangSanXuat}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -103,8 +103,8 @@
 	</div>
 
 	<div class="row col-md-6">
-		<form id="potteryForm" class="potteryForm">
-			<div class="modal fade potteryModal" tabindex="-1" role="dialog"
+		<form id="lapTopForm" class="lapTopForm">
+			<div class="modal fade lapTopModal" tabindex="-1" role="dialog"
 				data-keyboard="false" data-backdrop="static">
 				<div class="modal-dialog modal-lg" role="document"
 					style="width: 60%;">
@@ -125,7 +125,7 @@
 								</div>
 								<div>
 									<input type="hidden" class="form-control" name="id"
-										id="idSanPhamPottery" readonly>
+										id="idSanPhamLapTop" readonly>
 								</div>
 								<div class="form-group col-md-7">
 									<label for="inputPassword4">Tên sản phẩm</label> <input
@@ -142,8 +142,8 @@
 								<div class="form-group col-md-4">
 									<label for="inputState">Hãng Sản Xuất</label> <select
 										name="nhaSXId" class="form-control" id="nhaSXId">
-										<c:forEach var="nhanHieu" items="">
-											<option value=""></option>
+										<c:forEach var="nhanHieu" items="${listNhanHieu }">
+											<option value="${nhanHieu.id}">${nhanHieu.tenHangSanXuat}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -232,8 +232,8 @@
 								<div class="form-group col-md-6">
 									<label for="inputState">Hãng Sản Xuất</label> <select
 										name="nhaSXId" id="nhaSXIdKhac" class="form-control">
-										<c:forEach var="nhanHieu" items="">
-											<option value="">
+										<c:forEach var="nhanHieu" items="${listNhanHieu }">
+											<option value="${nhanHieu.id }">${nhanHieu.tenHangSanXuat}
 											</option>
 										</c:forEach>
 									</select>
@@ -241,8 +241,8 @@
 								<div class="form-group col-md-6">
 									 <label for="inputState">Danh mục</label> 
 									<select name="danhMucId" id="idDanhMucKhac" class="form-control" >
-										<c:forEach var="danhMuc" items="">
-											<option value=""></option>
+										<c:forEach var="danhMuc" items="${listDanhMuc }">
+											<option value="${danhMuc.id}">${danhMuc.tenDanhMuc}</option>
 										</c:forEach>
 									</select>
 									

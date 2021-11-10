@@ -9,8 +9,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>pottery-shop</name>
-	<description>a simple pottery shop online with spring boot</description>
+	<name>laptop-shop</name>
+	<description>a simple laptop shop online with spring boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

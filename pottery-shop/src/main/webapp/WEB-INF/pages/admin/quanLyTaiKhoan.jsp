@@ -22,8 +22,8 @@
 		<div class="form-group form-inline">
 			<label for="sel1"><strong>Lọc tài khoản:</strong> </label> <select
 				id="vaiTro" class="form-control">
-				<c:forEach var="vaiTro" items="">
-				
+				<c:forEach var="vaiTro" items="${listVaiTro}">
+					<option value="${vaiTro.tenVaiTro }">${vaiTro.tenVaiTro }</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -84,11 +84,11 @@
 
 								<div class="form-group">
 									<label for="name">Chọn vai trò:</label>
-									<c:forEach var="vaiTro" items="">
+									<c:forEach var="vaiTro" items="${listVaiTro}">
 										<label class="radio-inline"> 
 										<input type="radio"
-											name="tenVaiTro" value="" checked="checked">
-											
+											name="tenVaiTro" value="${vaiTro.tenVaiTro}" checked="checked">
+											${vaiTro.tenVaiTro}
 										</label>
 									</c:forEach>
 								</div>
@@ -125,6 +125,6 @@
 	<jsp:include page="template/footer.jsp"></jsp:include>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
-	
+	<script src="<c:url value='/js/taiKhoanAjax.js'/>"></script>
 </body>
 </html>

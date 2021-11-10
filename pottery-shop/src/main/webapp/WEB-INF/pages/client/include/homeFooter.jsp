@@ -15,8 +15,8 @@
 				</div>
 			  	<div class="col_1_of_4 span_1_of_4">
 					<h3>Địa điểm cửa hàng</h3>
-					<p> 205 - trần đăng ninh</p>
-					<p> tòa nhà b4- làng quốc tê</p>
+					<p> 1000 Giải Phóng-Hai Bà Trưng-Hà Nội</p>
+					<p> 1000 Giải Phóng-Hai Bà Trưng-Hà Nội</p>
 				</div> 
 				<div class="col_1_of_4 span_1_of_4 footer-lastgrid">
 					<h3>Follow Us:</h3>
@@ -32,7 +32,7 @@
 		<div class="clear"> </div>
 		<div class="wrap">
 		<div class="copy-right">
-			<p>&copy; 2021 - potteryshop  </p>
+			<p>&copy; 2018 Laptop Store. All Rights Reserved | Design by Group 14- HUST </p>
 		</div>
 		</div>
 		</div>
