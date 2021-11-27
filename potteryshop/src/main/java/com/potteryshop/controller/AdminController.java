@@ -63,7 +63,7 @@ public class AdminController {
 	public String adminPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
 		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
-		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Chờ duyệt"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
 		model.addAttribute("listCongViec", listCongViec);

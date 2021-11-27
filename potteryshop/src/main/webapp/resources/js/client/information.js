@@ -9,16 +9,16 @@
 			 	var confirmation = confirm("Bạn đã nhận được đơn hàng này ?"+donHangId); 
 			console.log(donHangId);
 				 if(confirmation){	 
-		    	    ajaxPostHuyDon(donHangId);
+		    	    ajaxPostNhanHang(donHangId);
 				} 
 		    });
 
-function ajaxPostHuyDon(donHangId) { 
+function ajaxPostNhanHang(donHangId) { 
 		    	 $.ajax({
 		     		async:false,
 		 			type : "POST",
 		 			contentType : "application/json",
-		 			url : "http://localhost:8080/potteryshop/api/don-hang/buySuccess?donHangId=" +donHangId ,
+ 			url : "http://localhost:8080/potteryshop/api/don-hang/update?donHangId=" +donHangId +"&ghiChu="+"",
 					success : function(response) {
 						alert("Cám ơn bạn đã mua hàng");
 						location.reload();

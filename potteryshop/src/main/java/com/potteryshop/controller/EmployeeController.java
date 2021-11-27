@@ -36,7 +36,7 @@ public class EmployeeController {
 	@Autowired
 	private DonHangService donHangService;
 	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser(Model model) {
+	public NguoiDung loggedInUser(boolean model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
 		return user;
@@ -45,13 +45,22 @@ public class EmployeeController {
 	
 	@GetMapping(value= {"", "/don-hang"})
 	public String employeePage(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+          System.out.println(loggedInUser(false));
+		
+		if(loggedInUser(false)!=null && loggedInUser(false).getIsBlocked()) {
+			
+			return "client/blockedPage";
+		}
+		else {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
-		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
-		model.addAttribute("employee", user);
+			NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+			user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+			model.addAttribute("employee", user);
 
-		return "employee/quanLyDonHang";
+			return "employee/quanLyDonHang";
+		}
+		
 	}
 	
 	@GetMapping("/profile")
@@ -76,7 +85,7 @@ public class EmployeeController {
 	@GetMapping("/san-pham")
 	public String quanLySanPhamPage(Model model) {
 		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
-		model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
+model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		return "employee/quanLySanPham";
 	}
 	@GetMapping("/danh-muc")

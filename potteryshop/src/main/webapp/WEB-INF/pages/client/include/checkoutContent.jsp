@@ -166,15 +166,15 @@
 					</div>
 				</c:if>
 				<c:if test="${pageContext.request.userPrincipal.name == null}">
-	<h1 style="font-size: 45px; color: red; text-align: center;font-family:cursive;">Vui lòng đăng nhập để thanh toán</h1>
+	<h1 style="font-size: 40px; color: red; text-align: center;font-family:cursive;">Vui lòng đăng nhập để thanh toán</h1>
 	<img alt="" src="https://battrangfamily.com.vn/wp-content/uploads/2020/09/banner-new-5.jpg">
 	 <script type="text/javascript">	  
 	$(document).ready(function() { 
 		Swal.fire({
 			  icon: 'warning',
-			  title: 'VUI LÒNG ĐĂNG NHẬP VÀ VÀO LẠI GIỎ HÀNG',
-			  text: 'Ấn ok để hủy bỏ ',
-			  footer: '<a href="http://localhost:8080/potteryshop/login">Click vào để đăng nhập</a>'
+			  title: 'VUI LÒNG ĐĂNG NHẬP VÀ QUAY LẠI GIỎ HÀNG',
+			  text: 'NHẤN OK ĐỂ HỦY',
+			  footer: '<a href="http://localhost:8080/potteryshop/login">ĐĂNG NHẬP</a>'
 			})
 	  });
 	</script> 

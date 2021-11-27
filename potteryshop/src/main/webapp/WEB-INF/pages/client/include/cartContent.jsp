@@ -79,7 +79,7 @@ html
 </tr>
 </c:forEach>
 <c:if test="${fn:length(cartNew)>0 }">
-<td colspan="7">THÊM VÀO TRƯỚC KHI ĐĂNG NHẬP</td>
+<td colspan="7" style="color: #ff7272"><b>THÊM VÀO TRƯỚC KHI ĐĂNG NHẬP</b></td>
 <tr>
 		<td>STT</td>
 		<td>Ảnh</td>
@@ -100,7 +100,7 @@ html
 		<td><img src="/potteryshop/img/${sanpham.id}.png" style="width: 150px" class="cart-img"></td>
 		<td style="text-align: center; mergin-top: -52px;">
 		<!-- <h1>THÊM VÀO TRƯỚC KHI ĐĂNG NHẬP</h1>	 -->
-			<p class="cart_ten"><a href="<c:url value="/sp?id=${sanpham.id}" />"><h1>NEW </h1>${sanpham.tenSanPham} </a></p>
+			<p class="cart_ten"><a href="<c:url value="/sp?id=${sanpham.id}" />">${sanpham.tenSanPham} </a></p>
 			<p class="cart_masanpham">Mã sản phẩm : <span>${sanpham.id}</span></p>
 			<p class="">Bảo hành : ${sanpham.thongTinBaoHanh}</p>
 		</td>

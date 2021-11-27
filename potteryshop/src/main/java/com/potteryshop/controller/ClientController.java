@@ -74,7 +74,7 @@ public class ClientController {
 		return (NguoiDung) request.getSession().getAttribute("loggedInUser");
 	}
 
-	@GetMapping
+	@GetMapping("/*")
 	public String clientPage(Model model) {
 		System.out.println(loggedInUser(false));
 		

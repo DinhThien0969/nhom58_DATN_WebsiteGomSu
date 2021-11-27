@@ -27,10 +27,9 @@
 
 			<select class="form-control" id="trangThai">
 			    <option value="Đang chờ xác nhận khách mua">Đang chờ xác nhận khách mua</option>
-				<option value="Đang chờ giao">Đang chờ giao</option>
+				<option value="Đang chờ giao" selected>Đang chờ giao</option>
 				<option value="Đang giao">Đang giao</option>
 				<option value="Chờ khách xác nhận">Chờ khách xác nhận</option> 	
-				<option value="Chờ duyệt">Chờ duyệt</option>
 				<option value="Hoàn thành">Hoàn thành</option>
 				<option value="Đã bị hủy">Đã bị hủy</option>
 				<!-- <option value="">Tất cả</option> -->

@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="<c:url value='/js/client/homeAjax.js'/>"></script>
 <!--start-image-slider---->
+
 <div class="wrap">
+
 	<div class="image-slider">
 		<!-- Slideshow 1 -->
 		<ul class="rslides" id="slider1">
@@ -37,6 +39,7 @@
 				</div>
 			</div>
 		</div>
+		<img alt="" src="https://www.xuonggombattrang.vn/landing-page/v2/images/line2.png" style="width: 1380px">
 
 		<div class="content-grids" >
 			<div style="font-size: 25px";><b style="color: #ff7272">Danh sách sản phẩm mới nhất</b></div>
