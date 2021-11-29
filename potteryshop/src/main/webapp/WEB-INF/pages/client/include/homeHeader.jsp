@@ -100,9 +100,16 @@ a {
 						</li>
 						<li><a href="<%=request.getContextPath()%>/account">Tài
 								khoản</a></li>
-						<li style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart" ><span>Giỏ
-									hàng&nbsp;&nbsp;: </span></a><span
-							class="glyphicon glyphicon-shopping-cart"></span></li>
+						<li id="here" style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
+									hàng&nbsp;&nbsp;&nbsp; </span></a><span
+							class="glyphicon glyphicon-shopping-cart" style="
+    color: brown;
+    font-size: 20px;
+">
+							<c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if>
+							
+							
+							</span></li>
 						<li><a href="<%=request.getContextPath()%>/logout"> Đăng
 								xuất</a></li>
 					</ul>
@@ -114,9 +121,12 @@ a {
 								kí</a></li>
 						<li><a href="<%=request.getContextPath()%>/login">Đăng
 								nhập</a></li>
-						<li style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
-									hàng&nbsp;&nbsp;&nbsp;</span></a><span
-							class="glyphicon glyphicon-shopping-cart"></span></li>
+						<li id="here" style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
+									hàng&nbsp;&nbsp;&nbsp; </span></a><span
+							class="glyphicon glyphicon-shopping-cart" style="
+    color: brown;
+    font-size: 20px;
+"><c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if></span></li>
 
 					</ul>
 				</c:if>
@@ -135,20 +145,20 @@ a {
 			<!----start-top-nav---->
 			<div class="top-nav">
 			
-				<ul>
-					<li><a href="<%=request.getContextPath()%>/">Trang chủ</a></li>
+				<ul >
+					<li><a style="text-decoration: none"  href="<%=request.getContextPath()%>/">Trang chủ</a></li>
 
-					<li class="dropdown"><a class="dropdown-toggle"
+					<li class="dropdown"><a style="text-decoration: none" class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Cửa hàng <span class="caret"></span></a>
 						<ul class="dropdown-menu" style="background: #286090"
 							id="danhmuc2">
 						</ul></li>
-					<li><a href="<%=request.getContextPath()%>/shipping">Vận
+					<li><a style="text-decoration: none" href="<%=request.getContextPath()%>/shipping">Vận
 							chuyển</a></li>
-					<li><a href="<%=request.getContextPath()%>/guarantee">Chính
+					<li><a style="text-decoration: none" href="<%=request.getContextPath()%>/guarantee">Chính
 							sách đổi trả hàng</a></li>
 
-					<li><a href="<%=request.getContextPath()%>/contact">Liên
+					<li><a style="text-decoration: none" href="<%=request.getContextPath()%>/contact">Liên
 							hệ</a></li>
 					<li>
 						<div class=" animated bounce" style="width: 350%; color: #fff;font-family:sans-serif;" >

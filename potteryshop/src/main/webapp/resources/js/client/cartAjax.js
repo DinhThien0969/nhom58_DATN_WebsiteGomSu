@@ -24,6 +24,7 @@ function deleteFromCart(id)
 		type: "GET",		
 		url: "http://localhost:8080/potteryshop/api/gio-hang/deleteFromCart?id="+id,
 		success: function(result){
+		$("#here").load(window.location.href + " #here" );
 		    var element = document.getElementById("item"+id);
 			element.parentNode.removeChild(element);
 			calculateOrder();
@@ -41,6 +42,7 @@ function deleteFromCartNew(id)
 		type: "GET",		
 		url: "http://localhost:8080/potteryshop/api/gio-hang/deleteFromCartNew?id="+id,
 		success: function(result){
+		$("#here").load(window.location.href + " #here" );
 		    var element = document.getElementById("itemNew"+id);
 			element.parentNode.removeChild(element);
 			calculateOrderNew();

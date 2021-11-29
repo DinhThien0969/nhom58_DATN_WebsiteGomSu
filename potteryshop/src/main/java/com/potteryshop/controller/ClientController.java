@@ -3,10 +3,13 @@ package com.potteryshop.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,12 +31,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.potteryshop.dto.SearchSanPhamObject;
+import com.potteryshop.entities.ChiMucGioHang;
 import com.potteryshop.entities.DanhMuc;
+import com.potteryshop.entities.GioHang;
 import com.potteryshop.entities.LienHe;
 import com.potteryshop.entities.NguoiDung;
 import com.potteryshop.entities.ResponseObject;
 import com.potteryshop.entities.SanPham;
+import com.potteryshop.service.ChiMucGioHangService;
 import com.potteryshop.service.DanhMucService;
+import com.potteryshop.service.GioHangService;
 import com.potteryshop.service.LienHeService;
 import com.potteryshop.service.NguoiDungService;
 import com.potteryshop.service.SanPhamService;
@@ -54,7 +61,10 @@ public class ClientController {
 	
 	@Autowired
 	private LienHeService lienHeService;
-
+	@Autowired
+	private ChiMucGioHangService chiMucGioHangService;
+	@Autowired
+	private GioHangService gioHangService;
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser(boolean isBlocked) {
 		
@@ -75,7 +85,66 @@ public class ClientController {
 	}
 
 	@GetMapping("/*")
-	public String clientPage(Model model) {
+	public String clientPage(HttpServletRequest res,Model model) {
+		NguoiDung currentUser = getSessionUser(res);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<Long,String> quanity = new HashMap<Long,String>();
+		Map<Long,String> quanityNew = new HashMap<Long,String>();
+
+		List<SanPham> listspNew = new ArrayList<SanPham>();
+		List<SanPham> listspOld = new ArrayList<SanPham>();
+		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		{
+			
+			Cookie cl[] = res.getCookies();	
+			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
+			for(int i=0; i< cl.length; i++)
+			{
+				if(cl[i].getName().matches("[0-9]+"))
+				{
+					idList.add(Long.parseLong(cl[i].getName()));
+					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+				}
+				
+			}
+			listspOld = sanPhamService.getAllSanPhamByList(idList);}
+		
+			
+		}else     //Lay tu database
+		{
+			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
+			if(g != null)
+			{
+				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
+				
+				Cookie cl[] = res.getCookies();
+Set<Long> idList = new HashSet<Long>();
+				for(int i=0; i< cl.length; i++)
+				{
+					if(cl[i].getName().matches("[0-9]+"))
+					{
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+					}				
+				}
+				listspNew = sanPhamService.getAllSanPhamByList(idList);
+				
+				for(ChiMucGioHang c: listchimuc)
+				{
+					listspOld.add(c.getSanPham());
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+				}
+			}
+		}
+		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
+		model.addAttribute("cartOld",listspOld);
+		
+		model.addAttribute("cartNew",listspNew);
+		model.addAttribute("quanityNew",quanityNew);
+		model.addAttribute("quanity",quanity);
+		
+		
+		
 		System.out.println(loggedInUser(false));
 		
 		if(loggedInUser(false)!=null && loggedInUser(false).getIsBlocked()) {
@@ -107,7 +176,7 @@ public class ClientController {
 	}
 
 	@GetMapping("/store")
-	public String storePage(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "") String range,@RequestParam(defaultValue = "") String brand,@RequestParam(defaultValue = "") String manufactor,@RequestParam(defaultValue = "") String thietke,@RequestParam(defaultValue = "") String mausac,@RequestParam(defaultValue = "") String kichthuoc,Model model) {		
+	public String storePage(HttpServletRequest res,@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "") String range,@RequestParam(defaultValue = "") String brand,@RequestParam(defaultValue = "") String manufactor,@RequestParam(defaultValue = "") String thietke,@RequestParam(defaultValue = "") String mausac,@RequestParam(defaultValue = "") String kichthuoc,Model model) {		
 		SearchSanPhamObject obj = new SearchSanPhamObject();
 		obj.setBrand(brand);
 		obj.setDonGia(range);
@@ -170,6 +239,65 @@ public class ClientController {
 		}
 		model.addAttribute("hangsx",hangsx);
 		model.addAttribute("pinSet",pinSet);
+		
+		
+		
+		
+		NguoiDung currentUser = getSessionUser(res);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<Long,String> quanity = new HashMap<Long,String>();
+		Map<Long,String> quanityNew = new HashMap<Long,String>();
+
+		List<SanPham> listspNew = new ArrayList<SanPham>();
+		List<SanPham> listspOld = new ArrayList<SanPham>();
+		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		{
+			Cookie cl[] = res.getCookies();		
+			Set<Long> idList = new HashSet<Long>();
+			for(int i=0; i< cl.length; i++)
+			{
+				if(cl[i].getName().matches("[0-9]+"))
+				{
+					idList.add(Long.parseLong(cl[i].getName()));
+					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+				}
+				
+			}
+			listspOld = sanPhamService.getAllSanPhamByList(idList);
+			
+		}else     //Lay tu database
+		{
+			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
+			if(g != null)
+			{
+				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
+				
+				Cookie cl[] = res.getCookies();
+Set<Long> idList = new HashSet<Long>();
+				for(int i=0; i< cl.length; i++)
+				{
+					if(cl[i].getName().matches("[0-9]+"))
+					{
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+					}				
+				}
+				listspNew = sanPhamService.getAllSanPhamByList(idList);
+				
+				for(ChiMucGioHang c: listchimuc)
+				{
+					listspOld.add(c.getSanPham());
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+				}
+			}
+		}
+		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
+		model.addAttribute("cartOld",listspOld);
+		
+		model.addAttribute("cartNew",listspNew);
+		model.addAttribute("quanityNew",quanityNew);
+		model.addAttribute("quanity",quanity);
+		
 		return "client/store";
 	}
 

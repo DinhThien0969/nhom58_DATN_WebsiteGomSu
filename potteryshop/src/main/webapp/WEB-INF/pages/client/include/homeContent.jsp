@@ -47,8 +47,8 @@
 		</div>
 	</div>
 	<div class="content-sidebar">
-		<div style="font-size: 25px"><b style="color: #ff7272">Danh mục</b></div>
-		<ul id="danhmuc">
+		<div style="font-size: 23px"><b style="color: #ff7272">Danh mục</b></div>
+		<ul id="danhmuc" style="list-style: none;">
 
 		</ul>
 	</div>

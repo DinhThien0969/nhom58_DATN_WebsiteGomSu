@@ -95,7 +95,7 @@ public class DonHangEmployeeApi {
 		String ghiChu = capNhatDonHangEmployee.getGhiChuEmployee();
 
 		if (!ghiChu.equals("")) {
-			donHang.setGhiChu("Ghi chú employee: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
+			donHang.setGhiChu("Ghi chú employee xác nhận khách: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
 		}
 		donHangService.save(donHang);
 
@@ -129,11 +129,45 @@ public class DonHangEmployeeApi {
 		String ghiChu = capNhatDonHangEmployee.getGhiChuEmployee();
 
 		if (!ghiChu.equals("")) {
-			donHang.setGhiChu("Ghi chú employee: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
+			donHang.setGhiChu("Ghi chú employee giao hàng: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
 		}
 		donHangService.save(donHang);
 
 	}
+	@PostMapping("/cancelConfirm") public void
+	  huyDonHangEmployee(@RequestBody CapNhatDonHangEmployee capNhatDonHangEmployee) {
+			DonHang donHang = donHangService.findById(capNhatDonHangEmployee.getIdDonHang());
+
+			for (ChiTietDonHang chiTiet : donHang.getDanhSachChiTiet()) {
+				for (CapNhatDonHangEmployee.CapNhatChiTietDon chiTietCapNhat : capNhatDonHangEmployee
+						.getDanhSachCapNhatChiTietDon()) {
+					if (chiTiet.getId() == chiTietCapNhat.getIdChiTiet()) {
+						chiTiet.setSoLuongNhanHang(chiTietCapNhat.getSoLuongNhanHang());
+					}
+				}
+			}
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			try {
+
+				String dateStr = format.format(new Date());
+				Date date = format.parse(dateStr);
+				donHang.setNgayNhanHang(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			donHang.setTrangThaiDonHang("Đã bị hủy");
+
+			String ghiChu = capNhatDonHangEmployee.getGhiChuEmployee();
+
+			if (!ghiChu.equals("")) {
+				donHang.setGhiChu("Ghi chú employee xác nhận khách: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
+			}
+			System.out.println("GHI CHU :"+ghiChu);
+			donHangService.save(donHang);
+
+		}
 	
 	
 }

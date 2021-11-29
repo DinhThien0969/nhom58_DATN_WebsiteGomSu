@@ -112,9 +112,9 @@
 							<input class="donHangId hidden" type="text" value="${donHang.id}"/>                        
 							<button class="btn btn-primary btnDaNhanHang">Đã nhận hàng thành công</button>
                             </c:if>
-                            <hr>
+                            <!-- <hr> -->
                             <input class="baoCaoId hidden" type="text" value="${donHang.id}"/>
-                              <button type="button" class="btn btn-danger btnSuCo" >Báo cáo sự cố</button>                  
+                              <!-- <button type="button" class="btn btn-danger btnSuCo" >Báo cáo sự cố</button>    -->               
 							</td>
 						</tr>
 					</c:forEach>

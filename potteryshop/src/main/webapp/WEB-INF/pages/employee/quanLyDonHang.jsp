@@ -218,7 +218,7 @@
 										<hr />
 										<div class="row p-5">
 											<div class="col-md-12">
-												<table class="table chiTietTable"
+												<table class="table chiTietTablexacNhanKhach"
 													style="text-align: center;">
 													<thead>
 														<tr>
@@ -363,7 +363,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-12">
-										<table class="table chiTietCapNhatTable"
+										<table class="table chiTietCapNhatTablexacNhanKhach"
 											style="text-align: center;">
 											<thead>
 												<tr>
@@ -374,14 +374,14 @@
 														giá</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Số
 														lượng đặt</th>
-													<th class="border-0 text-uppercase small font-weight-bold">Số
-														lượng nhận</th>
+													 <!-- <th class="border-0 text-uppercase small font-weight-bold">Số
+														lượng khách yêu cầu</th>  -->
 												</tr>
 											</thead>
 											<tbody>
 											</tbody>
 										</table>
-										<h4 id="tongTienCapNhat"
+										<h4 id="tongTienCapNhat1"
 											style="float: right; font-weight: bold;padding-right: 50px"></h4>
 									</div>
 
@@ -395,7 +395,7 @@
 
                                     <h5 id="ghiChu" style="font-weight: bold; padding-top: 10px">Ghi
 											chú</h5>
-										<textarea rows="3" cols="117" id="ghiChuEmployee"></textarea>
+										<textarea rows="3" cols="117" id="ghiChuEmployeeXacNhan"></textarea>
 									</div>
 								</div>
 								<div class="modal-footer">

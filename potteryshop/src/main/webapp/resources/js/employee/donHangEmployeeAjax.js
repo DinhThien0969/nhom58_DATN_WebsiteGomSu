@@ -36,7 +36,7 @@ var idDonhang;
 					                  '<td width="0%">'+'<input type="hidden" class="donHangId" value=' + donHang.id + '>'+ '</td>'+
 					                  '<td><button class="btn btn-primary btnChiTiet" >Chi Tiết</button>';
 					     if(donHang.trangThaiDonHang == "Đang giao"){
-					    	 donHangRow += ' &nbsp;<button class="btn btn-warning btnCapNhat" >Khách nhận hàng chưa ??</button> </td>';
+					    	 donHangRow += ' &nbsp;<button class="btn btn-warning btnCapNhat" >Xác nhận khách nhận hàng</button> </td>';
 					     }
 					     if(donHang.trangThaiDonHang == "Đang chờ xác nhận khách mua"){
 					    	 donHangRow += ' &nbsp;<button class="btn btn-warning btnXacNhanKhachMua" >Xác nhận khách mua</button> </td>';
@@ -69,8 +69,7 @@ var idDonhang;
 			}
 		});
 	};
-		
-	$(document).on('click', '#btnDuyetDonHang', function (event) {
+$(document).on('click', '#btnDuyetDonHang', function (event) {
 		event.preventDefault();
 		resetData();
 	});	
@@ -148,7 +147,7 @@ var idDonhang;
 			}
 			
 			if(donHang.ngayNhanHang != null){
-				$("#ngayNhanHang").text("Ngày nhận: "+ donHang.ngayNhanHang);
+$("#ngayNhanHang").text("Ngày nhận: "+ donHang.ngayNhanHang);
 			}
 			
 			if(donHang.ghiChu != null){
@@ -160,10 +159,10 @@ var idDonhang;
 			}
 			
 			if(donHang.employee != null){
-				$("#employee").text("Employee: "+ donHang.employee.hoTen);
+				$("#employee").text("Employee Xác Nhận: "+ donHang.employee.hoTen);
 			}
 			
-			var check = donHang.trangThaiDonHang == "Hoàn thành" || donHang.trangThaiDonHang == "Chờ duyệt" ;
+			var check = donHang.trangThaiDonHang == "Hoàn thành" ;
 			if(check){
 				$('.chiTietTable').find('thead tr').append('<th id="soLuongNhanTag" class="border-0 text-uppercase small font-weight-bold"> SỐ LƯỢNG NHẬN </th>');
 			}
@@ -175,14 +174,14 @@ var idDonhang;
 				var chiTietRow = '<tr>' +
 				'<td>' + stt + '</td>' +
                 '<td>' + chiTiet.sanPham.tenSanPham + '</td>' +
-                '<td>' + chiTiet.sanPham.donGia + '</td>'+
+                '<td>' + chiTiet.donGia + '</td>'+
                 '<td>' + chiTiet.soLuongDat+ '</td>';
 				
                 if(check){
 				    chiTietRow += '<td>' + chiTiet.soLuongNhanHang + '</td>';
-				    sum += chiTiet.sanPham.donGia * chiTiet.soLuongNhanHang;
+				    sum += chiTiet.donGia * chiTiet.soLuongNhanHang;
 			    } else {
-                    sum += chiTiet.sanPham.donGia * chiTiet.soLuongDat;
+                    sum += chiTiet.donGia * chiTiet.soLuongDat;
 			    }
 				
 				 $('.chiTietTable tbody').append(chiTietRow);
@@ -206,11 +205,11 @@ var idDonhang;
 	
    $('#chiTietModal,#xacNhanKhachMuaModal').on('hidden.bs.modal', function(e) {
 		e.preventDefault();
-		$("#chiTietForm p").text(""); // reset text thẻ p		
+		$("#chiTietFormxacNhanKhach p").text(""); // reset text thẻ p		
 		$("#xacNhanKhachMuaForm h4").text(""); // reset text thẻ p
-		$('.chiTietTable tbody tr').remove();
-    	$('.chiTietTable #soLuongNhanTag').remove();	
-		$('.chiTietCapNhatTable tbody tr').remove();
+		$('.chiTietTablexacNhanKhach tbody tr').remove();
+    	$('.chiTietTablexacNhanKhach #soLuongNhanTag').remove();	
+		$('.chiTietCapNhatTablexacNhanKhach tbody tr').remove();
 	});
 	
 	//
@@ -224,8 +223,18 @@ var idDonhang;
 		    });
           $("#tongTienCapNhat").text("Tổng : "+ sum);
 
-	});	
-	
+	});		
+	$(document).on('change', '.soLuongNhanYeuCau', function (event) {
+		  var table = $(".chiTietCapNhatTable tbody");
+		  sum  = 0;
+     	  table.find('tr').each(function (i) {
+		      donGia = $(this).find("td:eq(2)").text();
+              soLuongCapNhat = $(this).find("td:eq(4) input[type='number']").val();
+		      sum += donGia * soLuongCapNhat;
+		    });
+          $("#tongTienCapNhat").text("Tổng : "+ sum);
+
+	});		
     $(document).on('click', '#btnXacNhan', function (event) {
     	event.preventDefault();
     	ajaxPostCapNhatTrangThaiDon();
@@ -244,7 +253,7 @@ var idDonhang;
 				var chiTietRow = '<tr>' +
 				'<td>' + stt + '</td>' +
                 '<td>' + chiTiet.sanPham.tenSanPham + '</td>' +
-                '<td>' + chiTiet.sanPham.donGia + '</td>'+
+                '<td>' + chiTiet.donGia + '</td>'+
                 '<td>' + chiTiet.soLuongDat + '</td>'+
                 '<td><input type="number" class="soLuongNhan" style="width: 40px; text-align: center;" value ="'+chiTiet.soLuongDat+'" min="0" max="'+chiTiet.soLuongDat+'" ></td>'+
                 '<td><input type="hidden" value="'+chiTiet.id+'" ></td>'
@@ -253,13 +262,14 @@ var idDonhang;
 	    	  });		
 			var sum = 0;
 			$.each(donHang.danhSachChiTiet, function(i, chiTiet){
-				sum += chiTiet.sanPham.donGia * chiTiet.soLuongDat;
+				sum += chiTiet.donGia * chiTiet.soLuongDat;
 			});
 			$("#tongTienCapNhat").text("Tổng : "+ sum);
 		});
 		$("#capNhatTrangThaiModal").modal();
 	});
-	// post request cập nhật trạng thái đơn employee
+	
+	// post request cập nhật đã giao cho khách
 	function ajaxPostCapNhatTrangThaiDon() { 
    	  
    	     var listChiTietCapNhat = [] ;
@@ -285,6 +295,7 @@ var idDonhang;
 			data : JSON.stringify(data),
             // dataType : 'json',
 			success : function(response) {
+			console.log(data);
 				$("#capNhatTrangThaiModal").modal('hide');
 				alert("Cập nhật giao đơn hàng thành công");
 			},
@@ -318,7 +329,7 @@ var idDonhang;
     	{ajaxPostChoGiaoHang();
     	
     	}
-    	else{ ajaxPostHuyDon(idDonhang);
+    	else{ ajaxPostHuyDon();
     	   	
     	}
    			resetData();
@@ -329,7 +340,7 @@ var idDonhang;
      // event khi click vào xác nhận khách mua
 	$(document).on('click', '.btnXacNhanKhachMua', function (event){
 		event.preventDefault();
-		var donHangId = $(this).parent().prev().children().val();
+var donHangId = $(this).parent().prev().children().val();
 		idDonhang = $(this).parent().prev().children().val()
 		$("#donHangId").val(donHangId);
 		var href = "http://localhost:8080/potteryshop/api/employee/don-hang/"+donHangId;
@@ -342,25 +353,24 @@ var idDonhang;
 				'<td>' + stt + '</td>' +
                 '<td>' + chiTiet.sanPham.tenSanPham + '</td>' +
                 '<td>' + chiTiet.sanPham.donGia + '</td>'+
-                 '<td>' + chiTiet.sanPham.donGia + '</td>'+
                 '<td>' + chiTiet.soLuongDat + '</td>'+                
-                '<td><input type="number" class="soLuongNhan" style="width: 40px; text-align: center;" value ="'+chiTiet.soLuongDat+'" min="0" max="'+chiTiet.soLuongDat+'" ></td>'+
-                '<td><input type="hidden" value="'+chiTiet.id+'" ></td>'
-				 $('.chiTietCapNhatTable tbody').append(chiTietRow);
+              /*  '<td><input type="number" class="soLuongNhanYeuCau" style="width: 40px; text-align: center;" value ="'+chiTiet.soLuongDat+'" min="0" max="'+chiTiet.soLuongDat+'" ></td>'+
+              */ '<td><input type="hidden" value="'+chiTiet.id+'" ></td>'
+				 $('.chiTietCapNhatTablexacNhanKhach tbody').append(chiTietRow);
                 stt++;
 	    	  });		
 			var sum = 0;
 			$.each(donHang.danhSachChiTiet, function(i, chiTiet){
 				sum += chiTiet.sanPham.donGia * chiTiet.soLuongDat;
 			});
-			$("#tongTienCapNhat").text("Tổng : "+ sum);
+			$("#tongTienCapNhat1").text("Tổng : "+ sum);
 		});
 		$("#xacNhanKhachMuaModal").modal();
 	});
-	// post request cập nhật trạng thái đơn employee
+	// post request cập nhật trạng thái giao hàng
 	function ajaxPostChoGiaoHang() {   	  
    	     var listChiTietCapNhat = [] ;
-		 var table = $(".chiTietCapNhatTable tbody");
+		 var table = $(".chiTietCapNhatTablexacNhanKhach tbody");
      	 table.find('tr').each(function (i) {
 		      var chiTietCapNhat = { idChiTiet : $(this).find("td:eq(5) input[type='hidden']").val(),
 		    		                  soLuongNhanHang: $(this).find("td:eq(4) input[type='number']").val() };
@@ -368,7 +378,7 @@ var idDonhang;
 		 });
 		     	 
     	 var data = { idDonHang : $("#donHangId").val(),
-    			      ghiChuEmployee: $("#ghiChuEmployee").val(), 
+    			      ghiChuEmployee: $("#ghiChuEmployeeXacNhan").val(), 
     			      danhSachCapNhatChiTietDon: listChiTietCapNhat } ;
 //    	 console.log(data);
     	 $.ajax({
@@ -393,20 +403,35 @@ var idDonhang;
 	
     
 	// post request xác nhận hủy đơn hàng
-	function ajaxPostHuyDon(donHangId) { 
+	function ajaxPostHuyDon() { 
+    	 var listChiTietCapNhat = [] ;
+		 var table = $(".chiTietCapNhatTablexacNhanKhach tbody");
+     	 table.find('tr').each(function (i) {
+		      var chiTietCapNhat = { idChiTiet : $(this).find("td:eq(5) input[type='hidden']").val(),
+		    		                  soLuongNhanHang: $(this).find("td:eq(4) input[type='number']").val() };
+		      listChiTietCapNhat.push(chiTietCapNhat);
+		 });
+
+var data = { idDonHang : $("#donHangId").val(),
+    			      ghiChuEmployee: $("#ghiChuEmployeeXacNhan").val(), 
+    			      danhSachCapNhatChiTietDon: listChiTietCapNhat } ;
+//    	 console.log(data);
     	 $.ajax({
      		async:false,
  			type : "POST",
  			contentType : "application/json",
- 			url : "http://localhost:8080/potteryshop/api/don-hang/cancel?donHangId="+donHangId,
+ 			url : "http://localhost:8080/potteryshop/api/employee/don-hang/cancelConfirm",
+ 			enctype: 'multipart/form-data',
+ 	        
+			data : JSON.stringify(data),
+            // dataType : 'json',
 			success : function(response) {
 				$("#xacNhanKhachMuaModal").modal('hide');
 				alert("Hủy đơn hàng thành công");
-				
 			},
 			error : function(e) {
 				alert("Error!")
-console.log("ERROR: ", e);
+				console.log("ERROR: ", e);
 			}
 		}); 
     }	
