@@ -128,4 +128,10 @@ public class DonHangServiceImpl implements DonHangService {
 		return donHangRepo.countByTrangThaiDonHang(trangThaiDonHang);
 	}
 
+	@Override
+	public List<DonHang> fillAll() {
+		
+		return donHangRepo.findAll();
+	}
+
 }

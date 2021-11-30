@@ -29,4 +29,5 @@ public interface DonHangService {
 	List<DonHang> getDonHangByNguoiDung(NguoiDung currentUser);
 	
 	int countByTrangThaiDonHang(String trangThaiDonHang);
+	 List<DonHang> fillAll();
 }

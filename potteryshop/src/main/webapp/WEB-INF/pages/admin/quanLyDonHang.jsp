@@ -56,6 +56,7 @@
 		</form>
 
 		<hr />
+		<a href="admin/export/execl" style="color: red;font-size: 15px">Export to Excel</a>
 		<table class="table table-hover donHangTable"
 			style="text-align: center">
 			<thead>
