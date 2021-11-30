@@ -13,6 +13,7 @@
 			<li><img src="Frontend/img/slidegom2.jpg" alt=""></li>
 			<li><img src="Frontend/img/slidegom3.jpg" alt=""></li>
 		</ul>
+		
 		<!-- Slideshow 2 -->
 	</div>
 	<!--End-image-slider---->
