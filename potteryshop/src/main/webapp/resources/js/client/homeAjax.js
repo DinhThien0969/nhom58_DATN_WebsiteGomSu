@@ -35,7 +35,7 @@ $(document).ready(function(){
 							content = '<div class="grid_1_of_4 images_1_of_4 products-info"><a href="sp?id='+sanpham.id+'">' +
 									'<img style="width: 300px; height: 238px" src="/potteryshop/img/'+sanpham.id+'.png">' +
 									'<h3 style="font-weight: bold;">'+sanpham.tenSanPham+'</h3></a>' +
-									'<h3>'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
+									'<h3 style="color: #941313;font-weight: bold">'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
 									'<button style="background-color: #4d9d45;" onClick="addToCart('+sanpham.id+')" class="btn btn-warning"><span class= "glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng</button>'+
 									'<h3></h3>'+
 									'</div>';
@@ -43,7 +43,7 @@ $(document).ready(function(){
 							content = content+'<div class="grid_1_of_4 images_1_of_4 products-info"><a href="sp?id='+sanpham.id+'">' +
 									'<img style="width: 300px; height: 238px" src="/potteryshop/img/'+sanpham.id+'.png">' +
 									'<h3 style="font-weight: bold;">'+sanpham.tenSanPham+'</h3><a/>' +
-									'<h3>'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
+									'<h3 style="color: #941313;font-weight: bold">'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
 									'<button style="background-color: #4d9d45;" onClick="addToCart('+sanpham.id+')" class="btn btn-warning"><span class= "glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng</button>'+
 									'<h3></h3>'+
 									'</div>';
@@ -61,7 +61,7 @@ $(document).ready(function(){
 							content = '<div class="grid_1_of_4 images_1_of_4 products-info"><a href="sp?id='+sanpham.id+'">' +
 									'<img style="width: 300px; height: 238px" src="/potteryshop/img/'+sanpham.id+'.png">' +
 									'<h3 style="font-weight: bold;">'+sanpham.tenSanPham+'</h3>></a>' +
-									'<h3>'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
+									'<h3 style="color: #941313;font-weight: bold">'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
 									'<button style="background-color: #4d9d45;" onClick="addToCart('+sanpham.id+')" class="btn btn-warning"><span class= "glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng</button>'+
 									'<h3></h3>'+
 									'</div>';
@@ -72,7 +72,7 @@ $(document).ready(function(){
 							content = content+'<div class="grid_1_of_4 images_1_of_4 products-info"><a href="sp?id='+sanpham.id+'">' +
 									'<img style="width: 300px; height: 238px" src="/potteryshop/img/'+sanpham.id+'.png">' +
 									'<h3 style="font-weight: bold;">'+sanpham.tenSanPham+'</h3></a>' +
-									'<h3>'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
+									'<h3 style="color: #941313;font-weight: bold">'+accounting.formatMoney(sanpham.donGia)+' VND</h3>'+
 									'<button style="background-color: #4d9d45;"  onClick="addToCart('+sanpham.id+')" class="btn btn-warning"><span class= "glyphicon glyphicon-shopping-cart pull-center"></span> Giỏ hàng</button>'+
 									'<h3></h3>'+
 									'</div>';

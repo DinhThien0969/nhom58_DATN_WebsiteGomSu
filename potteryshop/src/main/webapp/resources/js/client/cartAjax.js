@@ -1,6 +1,6 @@
 calculateOrder()
 function changeQuanity(id,value,price)
-	{
+	{if(value==20){alert("Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng");}
 		$.ajax({
 			type: "GET",		
 			url: "http://localhost:8080/potteryshop/api/gio-hang/changSanPhamQuanity?id="+id+"&value="+value,
@@ -104,7 +104,8 @@ function calculateOrder()
 	var element = document.getElementsByClassName("total");
 	var res = 0;
 	for (i = 0; i < element.length; i++) {
-		res = res + parseNumber(element[i].textContent);
+
+res = res + parseNumber(element[i].textContent);
 	}
 	var element2 = document.getElementById("ordertotal");
 	resConvert = accounting.formatMoney(res);

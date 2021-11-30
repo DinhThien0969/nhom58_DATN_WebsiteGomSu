@@ -162,7 +162,64 @@ Set<Long> idList = new HashSet<Long>();
 	}
 	
 	@GetMapping("/contact")
-	public String contactPage() {
+	public String contactPage(HttpServletRequest res,Model model) {
+		NguoiDung currentUser = getSessionUser(res);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<Long,String> quanity = new HashMap<Long,String>();
+		Map<Long,String> quanityNew = new HashMap<Long,String>();
+
+		List<SanPham> listspNew = new ArrayList<SanPham>();
+		List<SanPham> listspOld = new ArrayList<SanPham>();
+		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		{
+			
+			Cookie cl[] = res.getCookies();	
+			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
+			for(int i=0; i< cl.length; i++)
+			{
+				if(cl[i].getName().matches("[0-9]+"))
+				{
+					idList.add(Long.parseLong(cl[i].getName()));
+					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+				}
+				
+			}
+			listspOld = sanPhamService.getAllSanPhamByList(idList);}
+		
+			
+		}else     //Lay tu database
+		{
+			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
+			if(g != null)
+			{
+				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
+				
+				Cookie cl[] = res.getCookies();
+Set<Long> idList = new HashSet<Long>();
+				for(int i=0; i< cl.length; i++)
+				{
+					if(cl[i].getName().matches("[0-9]+"))
+					{
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+					}				
+				}
+				listspNew = sanPhamService.getAllSanPhamByList(idList);
+				
+				for(ChiMucGioHang c: listchimuc)
+				{
+					listspOld.add(c.getSanPham());
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+				}
+			}
+		}
+		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
+		model.addAttribute("cartOld",listspOld);
+		
+		model.addAttribute("cartNew",listspNew);
+		model.addAttribute("quanityNew",quanityNew);
+		model.addAttribute("quanity",quanity);
+
 		return "client/contact";
 	}
 	
@@ -302,7 +359,64 @@ Set<Long> idList = new HashSet<Long>();
 	}
 
 	@GetMapping("/sp")
-	public String detailspPage(@RequestParam int id, Model model) {
+	public String detailspPage(@RequestParam int id,HttpServletRequest res, Model model) {
+		NguoiDung currentUser = getSessionUser(res);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<Long,String> quanity = new HashMap<Long,String>();
+		Map<Long,String> quanityNew = new HashMap<Long,String>();
+
+		List<SanPham> listspNew = new ArrayList<SanPham>();
+		List<SanPham> listspOld = new ArrayList<SanPham>();
+		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		{
+			
+			Cookie cl[] = res.getCookies();	
+			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
+			for(int i=0; i< cl.length; i++)
+			{
+				if(cl[i].getName().matches("[0-9]+"))
+				{
+					idList.add(Long.parseLong(cl[i].getName()));
+					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+				}
+				
+			}
+			listspOld = sanPhamService.getAllSanPhamByList(idList);}
+		
+			
+		}else     //Lay tu database
+		{
+			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
+			if(g != null)
+			{
+				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
+				
+				Cookie cl[] = res.getCookies();
+Set<Long> idList = new HashSet<Long>();
+				for(int i=0; i< cl.length; i++)
+				{
+					if(cl[i].getName().matches("[0-9]+"))
+					{
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+					}				
+				}
+				listspNew = sanPhamService.getAllSanPhamByList(idList);
+				
+				for(ChiMucGioHang c: listchimuc)
+				{
+					listspOld.add(c.getSanPham());
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+				}
+			}
+		}
+		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
+		model.addAttribute("cartOld",listspOld);
+		
+		model.addAttribute("cartNew",listspNew);
+		model.addAttribute("quanityNew",quanityNew);
+		model.addAttribute("quanity",quanity);
+
 		SanPham sp = sanPhamService.getSanPhamById(id);
 		model.addAttribute("sp", sp);
 		return "client/detailsp";
@@ -318,13 +432,125 @@ Set<Long> idList = new HashSet<Long>();
 	}
 
 	@GetMapping("/shipping")
-	public String shippingPage(Model model) {
+	public String shippingPage(HttpServletRequest res, Model model) {
+		NguoiDung currentUser = getSessionUser(res);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<Long,String> quanity = new HashMap<Long,String>();
+		Map<Long,String> quanityNew = new HashMap<Long,String>();
+
+		List<SanPham> listspNew = new ArrayList<SanPham>();
+		List<SanPham> listspOld = new ArrayList<SanPham>();
+		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		{
+			
+			Cookie cl[] = res.getCookies();	
+			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
+			for(int i=0; i< cl.length; i++)
+			{
+				if(cl[i].getName().matches("[0-9]+"))
+				{
+					idList.add(Long.parseLong(cl[i].getName()));
+					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+				}
+				
+			}
+			listspOld = sanPhamService.getAllSanPhamByList(idList);}
+		
+			
+		}else     //Lay tu database
+		{
+			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
+			if(g != null)
+			{
+				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
+				
+				Cookie cl[] = res.getCookies();
+Set<Long> idList = new HashSet<Long>();
+				for(int i=0; i< cl.length; i++)
+				{
+					if(cl[i].getName().matches("[0-9]+"))
+					{
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+					}				
+				}
+				listspNew = sanPhamService.getAllSanPhamByList(idList);
+				
+				for(ChiMucGioHang c: listchimuc)
+				{
+					listspOld.add(c.getSanPham());
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+				}
+			}
+		}
+		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
+		model.addAttribute("cartOld",listspOld);
+		
+		model.addAttribute("cartNew",listspNew);
+		model.addAttribute("quanityNew",quanityNew);
+		model.addAttribute("quanity",quanity);
 
 		return "client/shipping";
 	}
 
 	@GetMapping("/guarantee")
-	public String guaranteePage(Model model) {
+	public String guaranteePage(HttpServletRequest res, Model model) {
+		NguoiDung currentUser = getSessionUser(res);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<Long,String> quanity = new HashMap<Long,String>();
+		Map<Long,String> quanityNew = new HashMap<Long,String>();
+
+		List<SanPham> listspNew = new ArrayList<SanPham>();
+		List<SanPham> listspOld = new ArrayList<SanPham>();
+		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		{
+			
+			Cookie cl[] = res.getCookies();	
+			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
+			for(int i=0; i< cl.length; i++)
+			{
+				if(cl[i].getName().matches("[0-9]+"))
+				{
+					idList.add(Long.parseLong(cl[i].getName()));
+					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+				}
+				
+			}
+			listspOld = sanPhamService.getAllSanPhamByList(idList);}
+		
+			
+		}else     //Lay tu database
+		{
+			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
+			if(g != null)
+			{
+				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
+				
+				Cookie cl[] = res.getCookies();
+Set<Long> idList = new HashSet<Long>();
+				for(int i=0; i< cl.length; i++)
+				{
+					if(cl[i].getName().matches("[0-9]+"))
+					{
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+					}				
+				}
+				listspNew = sanPhamService.getAllSanPhamByList(idList);
+				
+				for(ChiMucGioHang c: listchimuc)
+				{
+					listspOld.add(c.getSanPham());
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+				}
+			}
+		}
+		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
+		model.addAttribute("cartOld",listspOld);
+		
+		model.addAttribute("cartNew",listspNew);
+		model.addAttribute("quanityNew",quanityNew);
+		model.addAttribute("quanity",quanity);
 
 		return "client/guarantee";
 	}

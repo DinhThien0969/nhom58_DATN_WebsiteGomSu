@@ -68,7 +68,7 @@ html
 		</td>
 		<td class="covertPriceProduct">${sanpham.donGia}</td>
 		<td>
-			<input class="input_num_cart" type="number" value="${quanity[sanpham.id]}" min="1" onChange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})">
+			<input onKeyDown="return false" class="input_num_cart" type="number" value="${quanity[sanpham.id]}" min="1"  max="20" onChange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})">
 		</td>
 		<td><b><span class="total" id="item${sanpham.id}_total" name="total_price">${sanpham.donGia*quanity[sanpham.id]}</span> VND</b></td>
 		<td class="cart-img">
@@ -89,8 +89,7 @@ html
 		<td>Tổng</td>
 		<td>Xóa</td>
 </tr>
-</c:if> 
- 
+</c:if>
 <c:forEach var="sanpham" items="${cartNew}" varStatus="loop">		
 <tr class="cart_line" id="itemNew${sanpham.id}">
 
@@ -110,7 +109,7 @@ html
     <h1>You're not logged in!</h1>>
 </c:if>
 
-    <input class="input_num_cart" type="number" value="${quanityNew[sanpham.id]}" min="1" onChange="changeQuanityNew(${sanpham.id},this.value,${sanpham.donGia})">
+    <input onKeyDown="return false" class="input_num_cart" type="number" value="${quanityNew[sanpham.id]}" min="1" max="20" onChange="changeQuanityNew(${sanpham.id},this.value,${sanpham.donGia})">
 
     
 		</td>

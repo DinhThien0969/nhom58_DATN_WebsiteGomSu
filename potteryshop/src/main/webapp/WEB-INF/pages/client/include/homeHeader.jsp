@@ -101,15 +101,9 @@ a {
 						<li><a href="<%=request.getContextPath()%>/account">Tài
 								khoản</a></li>
 						<li id="here" style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
-									hàng&nbsp;&nbsp;&nbsp; </span></a><span
-							class="glyphicon glyphicon-shopping-cart" style="
-    color: brown;
-    font-size: 20px;
-">
-							<c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if>
-							
-							
-							</span></li>
+									hàng: </span><span class="glyphicon glyphicon-shopping-cart"></span></a>
+									<span  style="font-size: 15px;font-weight: bold;color: red;"><c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if>
+									</span></li>
 						<li><a href="<%=request.getContextPath()%>/logout"> Đăng
 								xuất</a></li>
 					</ul>
@@ -122,11 +116,10 @@ a {
 						<li><a href="<%=request.getContextPath()%>/login">Đăng
 								nhập</a></li>
 						<li id="here" style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
-									hàng&nbsp;&nbsp;&nbsp; </span></a><span
-							class="glyphicon glyphicon-shopping-cart" style="
-    color: brown;
-    font-size: 20px;
-"><c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if></span></li>
+									hàng: </span><span class="glyphicon glyphicon-shopping-cart"></span></a>
+									<span  style="font-size: 15px;font-weight: bold;color: red"><c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if>
+									</span>
+									</li>
 
 					</ul>
 				</c:if>
@@ -232,6 +225,7 @@ a {
 								<div class="ms-3">
 								<ul>
 								<li style="color: #fff"><span class="glyphicon glyphicon-time">&nbsp;</span></li>
+								<!-- class="glyphicon glyphicon-bell" -->
 								<li><p><div id="digital-clock" ></div></p></li>
 								</ul>
 									

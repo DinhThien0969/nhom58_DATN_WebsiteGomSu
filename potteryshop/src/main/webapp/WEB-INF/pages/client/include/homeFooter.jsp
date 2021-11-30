@@ -10,6 +10,7 @@
 				<b style="color: #ff7272">THÔNG TIN CHUNG</b>
 				<p>Giới thiệu về cửa hàng</p>
 				<p>Cách lựa chọn gốm chất lượng</p>
+				<p style="color: ">Số điện thoại: 0977606703</p>
 			</div>
 			<div class="col_1_of_4 span_1_of_4" style="list-style: inside;">
 				<b style="color: #ff7272">HỖ TRỢ KHÁCH HÀNG</b>
@@ -35,7 +36,7 @@
 						width="250" height="150" style="border: 0;" allowfullscreen=""
 						loading="lazy"></iframe>
 				</p>
-				<p style="color: white;"> Cửa hàng Thành Phát</p>
+				<p style="color: white;"> Cửa hàng Thành Phát(0977606703)</p>
 				
 				<p style="color: white;"> Số nhà 102 - 310 Nghi Tàm</p>
 			</div>

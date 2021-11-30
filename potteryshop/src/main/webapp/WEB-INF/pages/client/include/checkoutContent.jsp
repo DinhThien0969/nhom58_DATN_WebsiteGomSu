@@ -168,7 +168,7 @@
 				<c:if test="${pageContext.request.userPrincipal.name == null}">
 	<h1 style="font-size: 40px; color: red; text-align: center;font-family:cursive;">Vui lòng đăng nhập để thanh toán</h1>
 	<img alt="" src="https://battrangfamily.com.vn/wp-content/uploads/2020/09/banner-new-5.jpg">
-	 <script type="text/javascript">	  
+	 <script type="text/javascript"  >	  
 	$(document).ready(function() { 
 		Swal.fire({
 			  icon: 'warning',

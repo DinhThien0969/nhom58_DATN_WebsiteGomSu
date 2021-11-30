@@ -79,7 +79,7 @@ public class CheckOutController {
 			for (int i = 0; i < cl.length; i++) {
 				if (cl[i].getName().matches("[0-9]+")) {
 					idList.add(Long.parseLong(cl[i].getName()));
-					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 				}
 			}
 			listsp = sanPhamService.getAllSanPhamByList(idList);
@@ -162,6 +162,8 @@ public class CheckOutController {
 				ChiTietDonHang detailDH = new ChiTietDonHang();
 				detailDH.setSanPham(sp);
 				detailDH.setSoLuongDat(Integer.parseInt(quanity.get(sp.getId())));
+System.out.println("11111"+Integer.parseInt(quanityNew.get(sp.getId())));
+
 				detailDH.setDonGia(Integer.parseInt(quanity.get(sp.getId())) * sp.getDonGia());
 				detailDH.setDonHang(d);
 				listDetailDH.add(detailDH);
@@ -179,7 +181,15 @@ public class CheckOutController {
 			for (SanPham sp : listspNew) {
 				ChiTietDonHang detailDH = new ChiTietDonHang();
 				detailDH.setSanPham(sp);
-				detailDH.setSoLuongDat(Integer.parseInt(quanityNew.get(sp.getId())));
+				
+				if(sp.getSoLuong()-Integer.parseInt(quanityNew.get(sp.getId()))>0)
+				{
+					detailDH.setSoLuongDat(Integer.parseInt(quanityNew.get(sp.getId())));
+					sp.setSoLuong(sp.getSoLuong()-Integer.parseInt(quanityNew.get(sp.getId())));}
+				else {
+					sp.setSoLuong(0);
+					detailDH.setSoLuongDat(sp.getSoLuong()-Integer.parseInt(quanityNew.get(sp.getId())));
+				}
 				detailDH.setDonGia(Integer.parseInt(quanityNew.get(sp.getId())) * sp.getDonGia());
 				detailDH.setDonHang(d);
 				listDetailDH.add(detailDH);
@@ -190,27 +200,31 @@ public class CheckOutController {
 				ChiTietDonHang detailDH = new ChiTietDonHang();
 				detailDH.setSanPham(c.getSanPham());
 				detailDH.setDonGia(c.getSo_luong() * c.getSanPham().getDonGia());
-				detailDH.setSoLuongDat(c.getSo_luong());
+				
+				
+
+				if(c.getSanPham().getSoLuong()-c.getSo_luong()>0) 
+				{detailDH.setSoLuongDat(c.getSo_luong());				
+				c.getSanPham().setSoLuong(c.getSanPham().getSoLuong()-c.getSo_luong());
+				}else {
+					c.getSanPham().setSoLuong(0);
+					detailDH.setSoLuongDat(c.getSanPham().getSoLuong()-c.getSo_luong());
+				}
 				detailDH.setDonHang(d);
 				listDetailDH.add(detailDH);
 
 				listsp.add(c.getSanPham());
-//				listspNew.add(c.getSanPham());
-//				quanityNew.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
-
 				quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 			}
 		}
 
 		chiTietDonHangService.save(listDetailDH);
-
 		cleanUpAfterCheckOut(req, response);
 		model.addAttribute("donhang", donhang);
 		model.addAttribute("cart", listsp);
 		model.addAttribute("quanity", quanity);
 		model.addAttribute("cartNew", listspNew);
 		model.addAttribute("quanityNew", quanityNew);
-
 		return "client/thankYou";
 	}
 
@@ -225,7 +239,7 @@ public class CheckOutController {
 				if (clientCookies[i].getName().matches("[0-9]+")) {
 					clientCookies[i].setMaxAge(0);
 					clientCookies[i].setPath("/potteryshop");
-					response.addCookie(clientCookies[i]);
+response.addCookie(clientCookies[i]);
 				}
 			}
 		} else // Su dung database de luu

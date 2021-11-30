@@ -51,9 +51,9 @@
 			</div>
 		</form>
 		<hr>
-		<button class="btn btn-primary" type="button" type="submit" onClick="window.location.reload()">Refresh Button</button>
+		<button style="background-color: 	#A52A2A" class="btn btn-primary" type="button" type="submit" onClick="window.location.reload()">Làm mới</button>
 		
-<h4>Nhấn Refresh Button thường xuyên để cập nhật đơn hàng mới</h1>
+<h4>Nhấn "Làm mới" thường xuyên để cập nhật đơn hàng</h1>
 
 		<hr />
 		<table class="table table-hover donHangTable"

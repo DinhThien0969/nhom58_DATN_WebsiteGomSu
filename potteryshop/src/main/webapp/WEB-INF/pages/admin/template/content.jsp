@@ -94,18 +94,16 @@ a {
         </script>
        <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
                             <div class="ms-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
-  <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
-  <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-</svg><h2 class="text-uppercase fw-weight-bold mb-0"><script language="javascript">document.write(day_name);</script></h2>
+                            <img alt="" src="Frontend/img/lich.png"">
+                                <h2 class="text-uppercase fw-weight-bold mb-0"><script language="javascript">document.write(day_name);</script></h2>
                                 <p class="text-gray fst-italic mb-0">  <div id="digital-clock"></div></p>
                             </div>
                         </div>
       
     
       
-	<h1 class="page-header">Danh sách công việc</h1>
-	<p style="font-size: 30px">Bạn có:<p>
+	<h2 class="page-header">Danh sách công việc</h2>
+	<p style="font-size: 26px">Bạn có:<p>
 	<ul class="list-group">
 	
   <%-- <c:if test = "${listCongViec.soDonhangChoDuyet > 0}">  
@@ -123,21 +121,17 @@ a {
     
     <c:if test = "${listCongViec.soDonHangMoi > 0}">
     <li class="list-group-item d-flex justify-content-between align-items-center">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
-  <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
-</svg>
+           <img alt="" src="Frontend/img/donhang.png" style="margin-right: 10px;">
            <a href='<c:url value="/admin/don-hang" />'
-            style="color: red;font-size: 20px;font-family: 'auto';">Đơn hàng chờ giao</a>
-      <span style="font-size: 17px;font-family: 'auto';" class="badge bg-primary rounded-pill">${listCongViec.soDonHangMoi}</span>
+            style="color: #286090;font-size: 20px;font-family: 'auto';"><b>Đơn hàng chờ giao</b></a>
+      <span style="font-size: 20px;font-family: 'auto';background-color: #DC143C" class="badge bg-primary rounded-pill">${listCongViec.soDonHangMoi}</span>
      </li>  
     </c:if>
     <c:if test = "${listCongViec.soLienHeMoi > 0}">
    <li class="list-group-item d-flex justify-content-between align-items-center">
-   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-</svg>
-     <p style="font-size: 30px;font-size: 20px;font-family: 'auto';"><a href='<c:url value="/admin/lien-he" />' style="color: red">liên hệ mới</a><p>
-     <span style="font-size: 17px;font-family: 'auto';" class="badge bg-primary rounded-pill" class="badge bg-primary rounded-pill"> 
+     <img alt="" src="Frontend/img/lienhe.png" style="margin-right: 10px;">
+     <a href='<c:url value="/admin/lien-he" />' style="font-size: 20px;font-family: 'auto';color: #286090"> <b> Liên hệ mới</b></a>
+     <span style="font-size: 20px;font-family: 'auto';background-color: #00BFFF "  class="badge bg-primary rounded-pill"> 
      ${listCongViec.soLienHeMoi}</span>
     </li>
     </c:if>

@@ -55,7 +55,7 @@
 </div>
 <div class="clear"></div>
 </div>
-<div style="background: #575757 !important; margin-top: 20px; padding: 10px;display: flex;text-align: center!important;text-align: center  ">
+<div style="background: #286090 !important; margin-top: 20px; padding: 10px;display: flex;text-align: center!important;text-align: center  ">
 	<div style="width: 400px";>
 		<img style="height: 40px;" class="img1 uk-responsive-width" uk-img=""
 			data-src="/logos/icon-giao-hang-nhanh.png"
