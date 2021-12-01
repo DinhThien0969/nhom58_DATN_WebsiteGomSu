@@ -137,6 +137,7 @@ Set<Long> idList = new HashSet<Long>();
 		model.addAttribute("quanity",quanity);
 		
 		model.addAttribute("user", currentUser);
+		System.out.println(currentUser);
 		List<DonHang> list = Lists.reverse(donHangService.getDonHangByNguoiDung(currentUser));
 		model.addAttribute("list",list);
 		return "client/account";

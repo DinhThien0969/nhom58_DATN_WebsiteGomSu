@@ -119,4 +119,14 @@ public class DonHangApi {
 			dh.setTrangThaiDonHang("Đang có sự cố");
 			donHangService.save(dh);
 			}
+	@GetMapping("/report/doanh-thu-theo-san-pham/{thang}")
+	public List<Object> revenueByProduct(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4DoanhThuSanPhamTheoThang(thang);
+	}
+	
+	@GetMapping("/report/so-luong-theo-san-pham/{thang}")
+	public List<Object> quantityByProduct(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4SoLuongSanPhamTheoThang(thang);
+	}
+
 }

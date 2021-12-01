@@ -65,6 +65,11 @@ public class EmployeeController {
 	
 	@GetMapping("/profile")
 	public String profilePage(Model model, HttpServletRequest request) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
 		model.addAttribute("user", getSessionUser(request));
 		System.out.println(getSessionUser(request).toString());
 		return "employee/profile";
@@ -84,12 +89,22 @@ public class EmployeeController {
 	}
 	@GetMapping("/san-pham")
 	public String quanLySanPhamPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
 		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
 model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		return "employee/quanLySanPham";
 	}
 	@GetMapping("/danh-muc")
-	public String quanLyDanhMucPage() {
+	public String quanLyDanhMucPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
 		return "employee/quanLyDanhMuc";
 	}
 

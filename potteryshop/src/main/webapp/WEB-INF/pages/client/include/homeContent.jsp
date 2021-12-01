@@ -4,18 +4,19 @@
 <script src="<c:url value='/js/client/homeAjax.js'/>"></script>
 <!--start-image-slider---->
 
-<div class="wrap">
+<div class="wrap ">
 
 	<div class="image-slider">
-		<!-- Slideshow 1 -->
-		<ul class="rslides" id="slider1">
-			<li><img src="Frontend/img/slidegom1.jpg" alt=""></li>
-			<li><img src="Frontend/img/slidegom2.jpg" alt=""></li>
-			<li><img src="Frontend/img/slidegom3.jpg" alt=""></li>
-		</ul>
-		
-		<!-- Slideshow 2 -->
-	</div>
+]		
+			<li ><img style="    display: block;
+    height: 500px;
+    float: left;
+    border: 0;
+    width: 100%;" src="Frontend/img/slidegom1.jpg" alt=""></li>
+			
+			
+				
+]	</div>
 	<!--End-image-slider---->
 </div>
 <div class="clear"></div>

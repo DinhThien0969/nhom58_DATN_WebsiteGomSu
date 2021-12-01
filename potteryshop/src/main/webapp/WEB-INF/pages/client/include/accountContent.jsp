@@ -149,7 +149,7 @@
 						<label style="line-height: 2">Họ tên khách hàng*:</label><br>
 						<label id="nameWarning" style="color: red"></label> <input
 							class="form-control" id="name" name="name" type="text"
-							value=${user.getHoTen()}>
+							value="${user.getHoTen()}">
 					</div>
 					<div class="form-group ">
 						<label style="line-height: 2">Số điệnt thoại*:</label><br> <label
@@ -162,8 +162,7 @@
 							id="addressWarning" style="color: red"></label>
 						<textarea rows="3" cols="1" class="form-control" id="address">${user.getDiaChi()}</textarea>
 					</div>
-
-				</div>
+               </div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Hủy</button>

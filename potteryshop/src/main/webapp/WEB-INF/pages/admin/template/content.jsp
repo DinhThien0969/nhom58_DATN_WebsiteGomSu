@@ -91,6 +91,17 @@ a {
             case 6:
                 day_name = "Thứ bảy";
             }
+            setInterval(function (){
+           	 $("#here").load(window.location.href + " #here" );
+           	 $("#soLienHeMoi").load(window.location.href + " #soLienHeMoi" );
+       	     $("#donHangMoi").load(window.location.href + " #donHangMoi" );
+           	 if(parseInt(document.getElementById("list").innerHTML)<parseInt(document.getElementById("listCurrent").innerHTML))
+           	 {
+           		 alert("Bạn có thông báo mới!!");
+           		 $("#here1").load(window.location.href + " #here1" );	 
+           	 }
+           		
+           	}, 10000);
         </script>
        <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
                             <div class="ms-3">
@@ -120,17 +131,28 @@ a {
     
     
     <c:if test = "${listCongViec.soDonHangMoi > 0}">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
+    <li class="list-group-item d-flex justify-content-between align-items-center" id="donHangMoi">
            <img alt="" src="Frontend/img/donhang.png" style="margin-right: 10px;">
-           <a href='<c:url value="/admin/don-hang" />'
+           <a  href='<c:url value="/admin/don-hang" />'
             style="color: #286090;font-size: 20px;font-family: 'auto';"><b>Đơn hàng chờ giao</b></a>
       <span style="font-size: 20px;font-family: 'auto';background-color: #DC143C" class="badge bg-primary rounded-pill">${listCongViec.soDonHangMoi}</span>
      </li>  
     </c:if>
+    <!-- <c:if test = "${listCongViec.soDonHangMoi > 0}">
+    <li  id="donHangMoi" class="list-group-item d-flex justify-content-between align-items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
+  <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
+</svg>
+           <a href='<c:url value="/admin/don-hang" />'
+            style="color: red;font-size: 20px;font-family: 'auto';">Đơn hàng chờ giao</a>
+      <span style="font-size: 17px;font-family: 'auto';" class="badge bg-primary rounded-pill">${listCongViec.soDonHangMoi}</span>
+     </li>  
+    </c:if> -->
+    
     <c:if test = "${listCongViec.soLienHeMoi > 0}">
-   <li class="list-group-item d-flex justify-content-between align-items-center">
+   <li class="list-group-item d-flex justify-content-between align-items-center" id="lienHeMoi" >
      <img alt="" src="Frontend/img/lienhe.png" style="margin-right: 10px;">
-     <a href='<c:url value="/admin/lien-he" />' style="font-size: 20px;font-family: 'auto';color: #286090"> <b> Liên hệ mới</b></a>
+     <a  href='<c:url value="/admin/lien-he" />' style="font-size: 20px;font-family: 'auto';color: #286090"> <b> Liên hệ mới</b></a>
      <span style="font-size: 20px;font-family: 'auto';background-color: #00BFFF "  class="badge bg-primary rounded-pill"> 
      ${listCongViec.soLienHeMoi}</span>
     </li>

@@ -34,6 +34,18 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
+        <li hidden id="here1">
+                 <p hidden id="list">${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi}</p>
+        </li>       
+          <li>
+            <a id="here" style="color:#9d9d9d;" href="<c:url value='/admin'/>"><span  class="glyphicon glyphicon-bell"> 
+            <c:if test ="${listCongViec.soDonHangMoi > 0 || listCongViec.soLienHeMoi > 0}">
+             (${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi})
+              <p hidden id="listCurrent">${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi}</p>
+            </c:if>
+               </span> Thông báo  
+               </a>
+          </li>
           <li>
             <a href="<c:url value='/admin/profile' />">
               <span class="glyphicon glyphicon-user">&nbsp;</span>Xin chào: ${loggedInUser.hoTen }</a>

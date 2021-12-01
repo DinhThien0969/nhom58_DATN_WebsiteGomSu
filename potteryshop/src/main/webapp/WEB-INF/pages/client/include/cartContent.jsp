@@ -16,7 +16,7 @@ html
 
 <script type="text/javascript">	  
 
-	$(document).ready(function() { 
+$(document).ready(function() { 
 		
 		 $(".table-convert-price .covertPriceProduct ").each(function() {
 			  var value = accounting.formatMoney($(this).text())+ ' VND';
@@ -56,9 +56,12 @@ html
 		<td>Xóa</td>
 </tr>
 
-<c:forEach var="sanpham" items="${cartOld}" varStatus="loop">			
+<c:forEach var="sanpham" items="${cartOld}" varStatus="loop">
+		
 <tr class="cart_line" id="item${sanpham.id}">
 		<div>
+		<c:set var="idOld" value="${sanpham.id}" />
+		
 		<td>${loop.index+1}</td>
 		<td><img src="/potteryshop/img/${sanpham.id}.png" style="width: 150px" class="cart-img"></td>
 		<td style="text-align: center; mergin-top: -52px;">
@@ -68,7 +71,19 @@ html
 		</td>
 		<td class="covertPriceProduct">${sanpham.donGia}</td>
 		<td>
-			<input onKeyDown="return false" class="input_num_cart" type="number" value="${quanity[sanpham.id]}" min="1"  max="20" onChange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})">
+		<c:if test="${fn:length(cartNew)>0 }">
+		<c:forEach var="sanpham1" items="${cartNew}" varStatus="loop">		
+        <c:if test="${ sanpham.id eq sanpham1.id}">
+        <c:set var="quanityCookie" value="${quanityNew[sanpham1.id]}" />
+        <input id="quanityCookie"  value="${quanityNew[sanpham1.id]}" hidden ></input>
+        </c:if>
+        </c:forEach>
+		<input id="inputQuanity" <c:if test="${quanity[sanpham.id]+quanityCookie>=20}"><c:out value="disabled='disabled'"/></c:if>  onKeyDown="return false" class="input_num_cart" type="number" value="${quanity[sanpham.id]}" min="1"  max="20" onChange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})">
+		</c:if>
+		<c:if test="${fn:length(cartNew)==0 }">
+				<input  onKeyDown="return false" class="input_num_cart" type="number" value="${quanity[sanpham.id]}" min="1"  max="20" onChange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})">
+		
+		</c:if>
 		</td>
 		<td><b><span class="total" id="item${sanpham.id}_total" name="total_price">${sanpham.donGia*quanity[sanpham.id]}</span> VND</b></td>
 		<td class="cart-img">
@@ -78,6 +93,9 @@ html
 	
 </tr>
 </c:forEach>
+<input type="button" value="HOANG" <c:if test="${fn:length(cartNew)>0 }"><c:out value="disabled='disabled'"/></c:if>>
+
+
 <c:if test="${fn:length(cartNew)>0 }">
 <td colspan="7" style="color: #ff7272"><b>THÊM VÀO TRƯỚC KHI ĐĂNG NHẬP</b></td>
 <tr>
@@ -98,7 +116,6 @@ html
 		
 		<td><img src="/potteryshop/img/${sanpham.id}.png" style="width: 150px" class="cart-img"></td>
 		<td style="text-align: center; mergin-top: -52px;">
-		<!-- <h1>THÊM VÀO TRƯỚC KHI ĐĂNG NHẬP</h1>	 -->
 			<p class="cart_ten"><a href="<c:url value="/sp?id=${sanpham.id}" />">${sanpham.tenSanPham} </a></p>
 			<p class="cart_masanpham">Mã sản phẩm : <span>${sanpham.id}</span></p>
 			<p class="">Bảo hành : ${sanpham.thongTinBaoHanh}</p>
@@ -108,11 +125,8 @@ html
 		<c:if test="${empty loggedInUser}">
     <h1>You're not logged in!</h1>>
 </c:if>
-
-    <input onKeyDown="return false" class="input_num_cart" type="number" value="${quanityNew[sanpham.id]}" min="1" max="20" onChange="changeQuanityNew(${sanpham.id},this.value,${sanpham.donGia})">
-
-    
-		</td>
+    <input <c:if test="${sanpham.id eq idOld}"><c:out value="disabled='disabled'"/></c:if> onKeyDown="return false" class="input_num_cart" type="number" value="${quanityNew[sanpham.id]}" min="1" max="20" onChange="changeQuanityNew(${sanpham.id},this.value,${sanpham.donGia})" >
+</td>
 		<td><b><span class="totalNew" id="itemNew${sanpham.id}_totalNew" name="total_price">${sanpham.donGia*quanityNew[sanpham.id]} </span> VND</b></td>
 		<td class="cart-img">
 			<a class="btn btn-danger" onClick="deleteFromCartNew(${sanpham.id})"><span class="glyphicon glyphicon-trash"></span></a>

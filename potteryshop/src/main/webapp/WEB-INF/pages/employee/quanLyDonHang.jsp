@@ -51,7 +51,7 @@
 			</div>
 		</form>
 		<hr>
-		<button style="background-color: 	#A52A2A" class="btn btn-primary" type="button" type="submit" onClick="window.location.reload()">Làm mới</button>
+		<button style="background-color: 		#008000" class="btn btn-primary" type="button" type="submit" onClick="window.location.reload()">Làm mới</button>
 		
 <h4>Nhấn "Làm mới" thường xuyên để cập nhật đơn hàng</h1>
 

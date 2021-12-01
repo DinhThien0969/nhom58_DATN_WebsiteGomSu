@@ -81,7 +81,11 @@ $(document).on('click', '#btnDuyetDonHang', function (event) {
 		var page = $(this).text();	
     	$('.donHangTable tbody tr').remove();
     	$('.pagination li').remove();
-    	ajaxGet(page,"http://localhost:8080/potteryshop/api/employee/don-hang/all" + '?page=' + page);	
+    	if(document.getElementById("trangThai").options[document.getElementById("trangThai").selectedIndex].text=="Đang chờ xác nhận khách mua")
+        {ajaxGet(page,"http://localhost:8080/potteryshop/api/employee/don-hang/listConfirmGuest" + '?page=' + page);}
+        else{ajaxGet(page,"http://localhost:8080/potteryshop/api/employee/don-hang/all" + '?page=' + page);}
+        ;
+
 	});
 	
     // event khi click vào nhấn phím vào ô tìm kiếm đơn hàng theo id

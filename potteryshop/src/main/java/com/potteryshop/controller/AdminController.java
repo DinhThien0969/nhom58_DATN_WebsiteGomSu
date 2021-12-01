@@ -79,22 +79,46 @@ public class AdminController {
 	}
 
 	@GetMapping("/danh-muc")
-	public String quanLyDanhMucPage() {
+	public String quanLyDanhMucPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyDanhMuc";
 	}
 
 	@GetMapping("/nhan-hieu")
-	public String quanLyNhanHieuPage() {
+	public String quanLyNhanHieuPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyNhanHieu";
 	}
 
 	@GetMapping("/lien-he")
-	public String quanLyLienHePage() {
+	public String quanLyLienHePage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyLienHe";
 	}
 	
 	@GetMapping("/san-pham")
 	public String quanLySanPhamPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
 		model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		return "admin/quanLySanPham";
@@ -102,6 +126,12 @@ public class AdminController {
 
 	@GetMapping("/profile")
 	public String profilePage(Model model, HttpServletRequest request) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		model.addAttribute("user", getSessionUser(request));
 		return "admin/profile";
 	}
@@ -126,17 +156,35 @@ public class AdminController {
 			employee.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", employee));
 		}
 		model.addAttribute("allEmployee", employees);
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyDonHang";
 	}
 
 	@GetMapping("/tai-khoan")
 	public String quanLyTaiKhoanPage(Model model) {
 	    model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
+	    ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyTaiKhoan";
 	}
 	
 	@GetMapping("/thong-ke")
 	public String thongKePage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/thongKe";
 	}
 	
@@ -156,6 +204,15 @@ public class AdminController {
 	       donhangPDFexporter exporter = new donhangPDFexporter(listdonhang);
 	       exporter.export(response);
 	}
+	@GetMapping("/thong-ke/doanh-thu-sp-theo-thang")
+	public String thongKeDoanhThuSpTheoThangPage(Model model) {
+		return "admin/thongKe";
+	}
 	
+	@GetMapping("/thong-ke/so-luong-sp-theo-thang")
+	public String thongKeSoLuongSpTheoThangPage(Model model) {
+		return "admin/thongKe2";
+	}
+
 
 }

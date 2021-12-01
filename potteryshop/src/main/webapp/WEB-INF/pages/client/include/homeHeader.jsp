@@ -28,7 +28,14 @@
 
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(window).scroll(function(){
+	  var sticky = $('.sticky'),
+	      scroll = $(window).scrollTop();
 
+	  if (scroll >= 100) sticky.addClass('fixed');
+	  else sticky.removeClass('fixed');
+	});</script>
 
 <style>/* ==========================================
     FOR DEMO PURPOSE
@@ -58,13 +65,18 @@ label {
 a {
 	text-decoration: none;
 }
+.fixed {
+    position: fixed;
+    top:0; left:0;
+    width: 100%; }
 </style>
 
 
 </head>
 <body>
 <img alt="" src="https://www.xuonggombattrang.vn/landing-page/about/images/bg_line.png">
-	<div class="wrap">
+<div class="sticky" style="
+    background: aliceblue;"><div class="wrap">
 	
 		<!----start-Header---->
 		<div class="header">
@@ -238,6 +250,7 @@ a {
 			<div class="clear"></div>
 		</div>
 		
+	</div>
 	</div>
 	
 	<!----End-top-nav---->
