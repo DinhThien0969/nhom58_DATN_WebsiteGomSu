@@ -59,7 +59,7 @@ setInterval(function (){
 <p hidden id="list">${fn:length(employee.listDonHang)}</p>
 </li>
         <li>
-            <a id="here" style="color:#9d9d9d;" href="<c:url value='/employee'/>"><span  class="glyphicon glyphicon-bell"> 
+            <a id="here" style="color:#FFD700;" href="<c:url value='/employee'/>"><span  class="glyphicon glyphicon-bell"> 
             <c:if test ="${fn:length(employee.listDonHang)>0}">
              <p hidden id="listCurrent">${fn:length(employee.listDonHang)}</p>
              (${fn:length(employee.listDonHang)})

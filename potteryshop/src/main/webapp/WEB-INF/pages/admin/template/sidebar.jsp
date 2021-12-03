@@ -50,10 +50,15 @@
               <span class="glyphicon glyphicon-envelope">&nbsp;</span>Quản lý Liên Hệ</a>
           </li>
           
-          <li class="side-bar main-menu">
-            <a href="<c:url value='/admin/thong-ke' />">
-              <span class="glyphicon glyphicon-signal">&nbsp;</span>Thống kê</a>
-          </li>
+          <li class="dropdown">
+  <button class="dropbtn" style="width: 220px;
+    background-color: initial;margin-left: -48px;"><span class="glyphicon glyphicon-signal">&nbsp;</span>Thống Kê</button>
+  <div class="dropdown-content" style=" width: 214px">
+  <a href="<c:url value='/admin/thong-ke/doanh-thu-sp-theo-thang' />">Doanh thu sản phẩm </a>
+  <a href="<c:url value='/admin/thong-ke/so-luong-sp-theo-thang' />">Số lượng sản phẩm </a>
+  </div>
+</li>
+
           
           <li class="side-bar">
             <a href="<c:url value='/admin/profile' />">

@@ -112,26 +112,16 @@ a {
                         </div>
       
     
-      
+     
 	<h2 class="page-header">Danh sách công việc</h2>
 	<p style="font-size: 26px">Bạn có:<p>
 	<ul class="list-group">
 	
-  <%-- <c:if test = "${listCongViec.soDonhangChoDuyet > 0}">  
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-</svg>  
-          <a href='<c:url value="/admin/don-hang" />' 
-           style="color: red;font-size: 20px;font-family: 'auto';">Đơn hàng hoàn thành</a>
-         <span style="font-size: 17px;font-family: 'auto';" class="badge bg-primary rounded-pill" class="badge bg-primary rounded-pill">${listCongViec.soDonhangChoDuyet}</span>  
-       </li>    
-    </c:if>  --%>
+ 
     
     
-    <c:if test = "${listCongViec.soDonHangMoi > 0}">
-    <li class="list-group-item d-flex justify-content-between align-items-center" id="donHangMoi">
+    <c:if test = "${listCongViec.soDonHangMoi > 0}" >
+    <li class="list-group-item d-flex justify-content-between align-items-center" id="donHangMoi" >
            <img alt="" src="Frontend/img/donhang.png" style="margin-right: 10px;">
            <a  href='<c:url value="/admin/don-hang" />'
             style="color: #286090;font-size: 20px;font-family: 'auto';"><b>Đơn hàng chờ giao</b></a>
@@ -150,7 +140,7 @@ a {
     </c:if> -->
     
     <c:if test = "${listCongViec.soLienHeMoi > 0}">
-   <li class="list-group-item d-flex justify-content-between align-items-center" id="lienHeMoi" >
+   <li class="list-group-item d-flex justify-content-between align-items-center" id="lienHeMoi"  >
      <img alt="" src="Frontend/img/lienhe.png" style="margin-right: 10px;">
      <a  href='<c:url value="/admin/lien-he" />' style="font-size: 20px;font-family: 'auto';color: #286090"> <b> Liên hệ mới</b></a>
      <span style="font-size: 20px;font-family: 'auto';background-color: #00BFFF "  class="badge bg-primary rounded-pill"> 

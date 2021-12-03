@@ -1,14 +1,6 @@
 calculateOrder()
 function changeQuanity(id,value,price)
 	{ 
-	if(parseNumber( document.getElementById('quanityCookie').value)>0){
-	if((parseNumber( document.getElementById('quanityCookie').value)+parseNumber( value)) ==20)
-	{alert("Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng");
-	  document.getElementById("inputQuanity").disabled = true; 
-	}
-	}
-	
-	
 	if(value==20){alert("Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng");}
 		$.ajax({
 			type: "GET",		
@@ -97,7 +89,8 @@ function changeQuanityNew(id,value,price)
 			url: "http://localhost:8080/potteryshop/api/gio-hang/changSanPhamQuanityNew?id="+id+"&value="+value,
 			success: function(result){
 				calculatePriceNew(id,value,price);
-				calculateOrderNew();
+
+calculateOrderNew();
 				console.log("sucessNew"+id,value,price);
 				allCalculateOrder();	
 			},

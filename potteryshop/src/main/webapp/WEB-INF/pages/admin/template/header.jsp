@@ -38,7 +38,7 @@
                  <p hidden id="list">${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi}</p>
         </li>       
           <li>
-            <a id="here" style="color:#9d9d9d;" href="<c:url value='/admin'/>"><span  class="glyphicon glyphicon-bell"> 
+            <a id="here" style="color:#FFD700;" href="<c:url value='/admin'/>"><span  class="glyphicon glyphicon-bell"> 
             <c:if test ="${listCongViec.soDonHangMoi > 0 || listCongViec.soLienHeMoi > 0}">
              (${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi})
               <p hidden id="listCurrent">${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi}</p>

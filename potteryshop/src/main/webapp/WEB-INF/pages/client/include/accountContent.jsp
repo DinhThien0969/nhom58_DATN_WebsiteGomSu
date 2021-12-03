@@ -162,7 +162,8 @@
 							id="addressWarning" style="color: red"></label>
 						<textarea rows="3" cols="1" class="form-control" id="address">${user.getDiaChi()}</textarea>
 					</div>
-               </div>
+
+				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Hủy</button>

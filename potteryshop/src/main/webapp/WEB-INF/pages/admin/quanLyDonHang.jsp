@@ -56,7 +56,7 @@
 		</form>
 
 		<hr />
-		<a href="admin/export/execl" style="color: red;font-size: 15px">Export to Excel</a>
+		<a href="admin/export/execl" style="text-decoration: none;color: 	#FFFFFF;font-size: 18px;border: 2px solid #008000;border-radius: 5px; background-color: #008000">Xuất excel</a>
 		<table class="table table-hover donHangTable"
 			style="text-align: center">
 			<thead>

@@ -76,7 +76,7 @@ a {
 <body>
 <img alt="" src="https://www.xuonggombattrang.vn/landing-page/about/images/bg_line.png">
 <div class="sticky" style="
-    background: aliceblue;"><div class="wrap">
+    background: aliceblue "><div class="wrap">
 	
 		<!----start-Header---->
 		<div class="header">
@@ -106,7 +106,7 @@ a {
 							<a href="<%=request.getContextPath()%>/admin" style="color: #ff7272;font-size: 15px" >Trang admin</a>
 						</sec:authorize>
 						<sec:authorize access="hasRole('EMPLOYEE')">
-							<a href="<%=request.getContextPath()%>/employee" style="color: #ff7272;font-size: 15px" >Trang
+<a href="<%=request.getContextPath()%>/employee" style="color: #ff7272;font-size: 15px" >Trang
 								employee</a>
 						</sec:authorize>
 						</li>
@@ -186,7 +186,7 @@ a {
 										hour = '0' + hour;
 									}
 									if (minute.toString().length == 1) {
-										minute = '0' + minute;
+minute = '0' + minute;
 									}
 									if (second.toString().length == 1) {
 										second = '0' + second;

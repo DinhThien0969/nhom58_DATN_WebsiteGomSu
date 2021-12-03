@@ -22,15 +22,15 @@
 	});
 </script>
 
-<body>
+<body >
 
-	<div class="container">
+	<div class="container" style="width: 1420px">
 		<form method="POST" action="<%=request.getContextPath()%>/thankyou">
 			<div class="row">
 				<br>
 				<br>
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<div class="col-md-3">
+					<div class="col-md-3" style="width: 23%">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Thông tin khách hàng</b>
@@ -53,7 +53,7 @@
 						<br>
 					</div>
 
-					<div class="col-md-3">
+					<div class="col-md-3" style="width: 23%">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Bạn mua đơn hàng này cho ai ?</b>
@@ -92,7 +92,7 @@
 						<br> <input type="hidden" id="tongGiaTri" name="tongGiaTri">
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 54%">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Giỏ hàng</b>

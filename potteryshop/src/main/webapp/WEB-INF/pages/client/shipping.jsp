@@ -7,12 +7,13 @@
         <title>Pottery Shop </title>
     </head>
     <body> 
-           <jsp:include page="include/homeHeader.jsp"></jsp:include>
+    <div >
+           <div style="position: relative;z-index: 1"><jsp:include page="include/homeHeader.jsp"></jsp:include></div>
 
-           <jsp:include page="include/shippingContent.jsp"></jsp:include>
+           <div ><jsp:include page="include/shippingContent.jsp"></jsp:include></div>
            
-           <jsp:include page="include/homeFooter.jsp"></jsp:include>
-
+          <div> <jsp:include page="include/homeFooter.jsp"></jsp:include></div>
+</div>
     </body>
 </html>
 
