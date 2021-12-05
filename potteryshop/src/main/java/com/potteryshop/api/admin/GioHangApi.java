@@ -40,7 +40,6 @@ public class GioHangApi  {
 	@Autowired
 	private ChiMucGioHangService chiMucGioHangService;
 	int quanityCookie;
-
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -55,13 +54,25 @@ public class GioHangApi  {
 	public ResponseObject addToCart(@RequestParam String id,HttpServletRequest request,HttpServletResponse response) {
 		ResponseObject ro = new ResponseObject();
 		SanPham sp = sanPhamService.getSanPhamById(Long.parseLong(id));
-		if(sp.getSoLuong() == 0)
+		if(sp.getSoLuong() == 0 )
 		{
 			ro.setStatus("false");
 			return ro;
 		}
 		NguoiDung currentUser = getSessionUser(request);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();	
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		Cookie cl[] = request.getCookies();
+		if(cl!=null) {
+		for (int i = 0; i < cl.length; i++) {
+				if (cl[i].getName().equals(id)) {
+					quanityCookie = Integer.parseInt(cl[i].getValue());
+            }
+		
+		}
+		}
+		
+		
 		if(auth == null || auth.getPrincipal() == "anonymousUser" )    //Su dung cookie de luu
 		{
 			Cookie clientCookies[] = request.getCookies();
@@ -69,15 +80,15 @@ public class GioHangApi  {
 			for(int i=0;i<clientCookies.length;i++)
 			{
 				if(clientCookies[i].getName().equals(id))     //Neu san pham da co trong cookie tang so luong them 1
-				{				
-					if(Integer.parseInt(clientCookies[i].getValue())+1>=20) {
-						ro.setStatus("max");
-					}else {
-						clientCookies[i].setValue(
-					    Integer.toString(Integer.parseInt(clientCookies[i].getValue())+1));
-						ro.setStatus("success");
+				{if(Integer.parseInt(clientCookies[i].getValue())+1>20)
+					{ro.setStatus("max");
 					}
+					else 
+					{
+					clientCookies[i].setValue(Integer.toString(Integer.parseInt(clientCookies[i].getValue())+1));
 					
+					ro.setStatus("success");
+					}
 					
 					clientCookies[i].setPath("/potteryshop");
 					clientCookies[i].setMaxAge(60*60*24*7);
@@ -93,10 +104,7 @@ public class GioHangApi  {
 				c.setMaxAge(60*60*24*7);
 				response.addCookie(c);
 			}
-		}else {  
-			
-			
-			//Su dung database de luu
+		}else {     //Su dung database de luu
 			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
 			if(g==null)
 			{
@@ -115,16 +123,25 @@ public class GioHangApi  {
 				c.setSanPham(sp);
 				c.setSo_luong(1);
 			}else       //Neu san pham da co trong database tang so luong them 1
-			{
-				
-				if(c.getSo_luong()+1>=20) {
-					ro.setStatus("max");
-				}else {
-					c.setSo_luong(c.getSo_luong()+1);
-					ro.setStatus("success");
+			{if(quanityCookie >=20 ) 
+			{ro.setStatus("max");}
+			else if(quanityCookie==0){
+				if(c.getSo_luong()+1>20)
+				{ro.setStatus("max");}
+				else 
+				{	System.out.println(quanityCookie);
+				c.setSo_luong(c.getSo_luong()+1);
+				ro.setStatus("success");
 				}
-				
-				
+			}else { System.out.println(quanityCookie+c.getSo_luong()); 
+				if(quanityCookie+c.getSo_luong()>19)
+				{ro.setStatus("max");}
+				else 
+				{ /* System.out.println(count); */
+				c.setSo_luong(c.getSo_luong()+1);
+				ro.setStatus("success");
+				}
+			};
 			}
 			c = chiMucGioHangService.saveChiMucGiohang(c);
 		}
@@ -157,7 +174,7 @@ public class GioHangApi  {
 			SanPham sp = sanPhamService.getSanPhamById(Long.parseLong(id));
 			ChiMucGioHang c = chiMucGioHangService.getChiMucGioHangBySanPhamAndGioHang(sp,g);
 			c.setSo_luong(Integer.parseInt(value));
-			c = chiMucGioHangService.saveChiMucGiohang(c);
+c = chiMucGioHangService.saveChiMucGiohang(c);
 		}
 		ro.setStatus("success");
 		return ro;
@@ -244,7 +261,7 @@ public class GioHangApi  {
 			}
 		}else //Su dung database de luu
 		{
-          Cookie clientCookies[] = request.getCookies();
+Cookie clientCookies[] = request.getCookies();
 			
 			for(int i=0;i<clientCookies.length;i++)
 			{
@@ -252,8 +269,7 @@ public class GioHangApi  {
 				{						
 					clientCookies[i].setMaxAge(0);
 					clientCookies[i].setPath("/potteryshop");
-					response.addCookie(clientCookies[i]);
-					
+					response.addCookie(clientCookies[i]);					
 				}
 			}
 			

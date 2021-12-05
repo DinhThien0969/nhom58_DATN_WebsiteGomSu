@@ -9,6 +9,14 @@
 </head>
 
 <script type="text/javascript">
+function muaHo() {
+	
+	 document.getElementById("hoTenNguoiNhanHang").value = "";
+	 document.getElementById("soDienThoaiNguoiNhanHang").value = "";
+	 document.getElementById("diaChiNguoiNhanHang").value = "";
+
+	  };
+	  	  
 	$(document).ready(function() {
 		$(".mytable .donGia .check").each(function() {
 			var value = accounting.formatMoney($(this).text()) + ' VND';
@@ -20,79 +28,79 @@
 			$(this).html(value);
 		});
 	});
+	
+	
+	function choToi() {
+		
+		document.getElementById("hoTenNguoiNhanHang").value = document.getElementById("hotenAcc").value;
+		 document.getElementById("soDienThoaiNguoiNhanHang").value = document.getElementById("soDienThoaiAcc").value;
+		 document.getElementById("diaChiNguoiNhanHang").value = document.getElementById("diaChiAcc").value;
+		  };
 </script>
 
-<body >
+<body>
 
-	<div class="container" style="width: 1420px">
+	<div class="container">
 		<form method="POST" action="<%=request.getContextPath()%>/thankyou">
 			<div class="row">
 				<br>
 				<br>
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<div class="col-md-3" style="width: 23%">
+					<div class="col-md-3">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Thông tin khách hàng</b>
 						</p>
 
 						<p style="line-height: 2;">Họ tên Quý khách</p>
-						<input size="27" value="${user.hoTen}" disabled>
+						<input id="hotenAcc" size="27" value="${user.hoTen}" disabled>
 
 						<p style="line-height: 2;">Địa chỉ Email</p>
-						<input size="27" value="${user.email}" disabled>
+						<input  size="27" value="${user.email}" disabled>
 
 						<p style="line-height: 2;">Số điện thoại</p>
-						<input size="27" value="${user.soDienThoai}" disabled>
+						<input id="soDienThoaiAcc" size="27" value="${user.soDienThoai}" disabled>
 
 						<p style="line-height: 2;">Địa chỉ(số nhà, đường, tỉnh thành)
 						</p>
-						<textarea rows="5" cols="29" disabled>${user.diaChi}</textarea>
+						<textarea id="diaChiAcc" rows="5" cols="29" disabled>${user.diaChi}</textarea>
 
 						<br>
 						<br>
 					</div>
 
-					<div class="col-md-3" style="width: 23%">
-						<br>
+					<div class="col-md-3">
+						<br>	
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Bạn mua đơn hàng này cho ai ?</b>
 							<p class="border-p" style="line-height: 1.5;">
-							<label><input checked type="radio" value="Cho tôi" name="buy">Cho tôi</label>
-                            <label><input type="radio" value="Mua hộ" name="buy">Mua hộ</label>
+							<span onclick="choToi();"><input checked type="radio" value="Cho tôi" name="buy"></span>Cho tôi
+                            <span onclick="muaHo();"><input type="radio" value="Mua hộ" name="buy"></span>Mua hộ
 							<br>
 							<form id="myForm">
 							
 							<b>Thông tin nhận hàng</b>
-		
+
 						</p>
 
 						<p style="line-height: 2;">Họ tên người nhận hàng *</p>
-						<input size="27" value="${user.hoTen}" name="hoTenNguoiNhan" required >
+						
+						<input id="hoTenNguoiNhanHang" size="27" value="${user.hoTen}" name="hoTenNguoiNhan" required >
 
 						<p style="line-height: 2;">Số điện thoại *</p>
-						<input size="27" value="${user.soDienThoai}" name="sdtNhanHang" required>
+<input id="soDienThoaiNguoiNhanHang" size="27" value="${user.soDienThoai}" name="sdtNhanHang" required>
 
 
 						<p style="line-height: 2;">Địa chỉ(số nhà, đường, tỉnh thành)
 							*</p>
-						<textarea rows="5" cols="29" name="diaChiNhan" required>${user.diaChi}</textarea>
-</form>
-<script>
+						<textarea id="diaChiNguoiNhanHang" rows="5" cols="29" name="diaChiNhan" required>${user.diaChi}</textarea>
+                     </form>
 
-	
-	$(document).ready(function() {
-	    $('input:radio').change(function() {
-	     
-	       document.getElementById("myForm").reset();
-	    });
-	});
-</script>
 						<br>
 						<br> <input type="hidden" id="tongGiaTri" name="tongGiaTri">
 					</div>
 
-					<div class="col-md-6" style="width: 54%">
+					<div class="col-md-6">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Giỏ hàng</b>
@@ -172,7 +180,7 @@
 	$(document).ready(function() { 
 		Swal.fire({
 			  icon: 'warning',
-			  title: 'VUI LÒNG ĐĂNG NHẬP VÀ QUAY LẠI GIỎ HÀNG',
+title: 'VUI LÒNG ĐĂNG NHẬP VÀ QUAY LẠI GIỎ HÀNG',
 			  text: 'NHẤN OK ĐỂ HỦY',
 			  footer: '<a href="http://localhost:8080/potteryshop/login">ĐĂNG NHẬP</a>'
 			})

@@ -29,7 +29,7 @@
 <body>
 
 	<!----start-Header---->
-	<jsp:include page="include/homeHeader.jsp"></jsp:include>
+	<div style="position: relative;z-index: 1"><jsp:include page="include/homeHeader.jsp"></jsp:include></div>
 	<!----End-Header---->
 
 	<div class="container">
