@@ -22,18 +22,14 @@
 
 	<div class="col-md-9 animated bounce">
 		<h3 class="page-header form-inline">Quản lý Đơn hàng</h3>
-		<a href="users/export/pdf">Export to PDF</a>
-          
-		
 
 		<form class="form-inline" id="searchForm" name="searchObject">
 
 			<select class="form-control" id="trangThai">
-				<option value="Đang chờ xác nhận khách mua">Đang chờ xác
-					nhận khách mua</option>
-				<option value="Đang chờ giao">Đang chờ giao</option>
+			    <option value="Đang chờ xác nhận khách mua">Đang chờ xác nhận khách mua</option>
+				<option value="Đang chờ giao" selected>Đang chờ giao</option>
 				<option value="Đang giao">Đang giao</option>
-				<option value="Chờ duyệt">Chờ duyệt</option>
+				<option value="Chờ khách xác nhận">Chờ khách xác nhận</option> 	
 				<option value="Hoàn thành">Hoàn thành</option>
 				<option value="Đã bị hủy">Đã bị hủy</option>
 				<!-- <option value="">Tất cả</option> -->
@@ -60,6 +56,7 @@
 		</form>
 
 		<hr />
+		<a href="admin/export/execl" style="text-decoration: none;color:#FFFFFF;font-size: 18px;border: 2px solid #008000;border-radius: 5px; background-color: #008000">Xuất excel</a>
 		<table class="table table-hover donHangTable"
 			style="text-align: center">
 			<thead>
@@ -98,8 +95,7 @@
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-12">
-									<div class="card"
-										style="padding-left: 40px; padding-right: 40px">
+									<div class="card" style="padding-left: 40px;padding-right: 40px">
 
 										<div class="row pb-5 p-5">
 											<div class="col-md-6">
@@ -174,6 +170,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Đóng</button>
+								
 						</div>
 					</div>
 				</div>
@@ -232,8 +229,7 @@
 					<div class="modal-dialog " role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Xác nhận
-									hoàn thành đơn</h5>
+								<h5 class="modal-title" id="exampleModalLabel">Xác nhận hoàn thành đơn</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -245,12 +241,13 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-12">
-										<table class="table chiTietTable" style="text-align: center;">
+										<table class="table chiTietTable"
+											style="text-align: center;">
 											<thead>
 												<tr>
 													<th class="border-0 text-uppercase small font-weight-bold">STT</th>
-													<th class="border-0 text-uppercase small font-weight-bold">Tên
-														sản phẩm</th>
+													<th class="border-0 text-uppercase small font-weight-bold">Tên 
+													    sản phẩm</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Đơn
 														giá</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Số
@@ -262,12 +259,11 @@
 											<tbody>
 											</tbody>
 										</table>
-										<h4 id="tongTienXacNhan"
-											style="float: right; font-weight: bold; padding-right: 50px">abc</h4>
+										<h4 id="tongTienXacNhan" style="float: right; font-weight: bold;padding-right: 50px">abc</h4>
 									</div>
 
 									<div>
-
+									
 										<h5 id="ghiChu" style="font-weight: bold; padding-top: 10px">Ghi
 											chú</h5>
 										<textarea rows="3" cols="75" id="ghiChuAdmin"></textarea>

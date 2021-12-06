@@ -2,12 +2,15 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="Frontend/css/stylele.css">
 <div class="footer">
+<img alt="" src="https://www.xuonggombattrang.vn/landing-page/about/images/bg_line.png">
 	<div class="wrap">
 		<div class="section group">
+		
 			<div class="col_1_of_4 span_1_of_4">
 				<b style="color: #ff7272">THÔNG TIN CHUNG</b>
 				<p>Giới thiệu về cửa hàng</p>
 				<p>Cách lựa chọn gốm chất lượng</p>
+				<p style="color: ">Số điện thoại: 0977606703</p>
 			</div>
 			<div class="col_1_of_4 span_1_of_4" style="list-style: inside;">
 				<b style="color: #ff7272">HỖ TRỢ KHÁCH HÀNG</b>
@@ -33,19 +36,19 @@
 						width="250" height="150" style="border: 0;" allowfullscreen=""
 						loading="lazy"></iframe>
 				</p>
-				<p style="color: white;"> Cửa hàng Thành Phát</p>
+				<p style="color: white;"> Cửa hàng Thành Phát(0977606703)</p>
 				
 				<p style="color: white;"> Số nhà 102 - 310 Nghi Tàm</p>
 			</div>
 			<div class="col_1_of_4 span_1_of_4 footer-lastgrid">
-				<b style="color: #ff7272">FOLLOW US:</b>
+				<b style="color: #ff7272">TƯ VẤN:</b>
 				<ul>
-					<li><a href="#"><img src="Frontend/img/twitter.png"
-							title="https://chat.zalo.me/" />Twitter</a></li>
+					<li><a href="#"><img src="Frontend/img/gmail.png"
+							title="https://chat.zalo.me/" />Gmail</a></li>
 					<li><a href="#"><img src="Frontend/img/facebook.png"
 							title="https://www.facebook.com/" />Facebook</a></li>
-					<li><a href="#"><img src="Frontend/img/rss.png"
-							title="Rss" />Rss</a></li>
+					<li><a href="#"><img src="Frontend/img/zalo.png"
+							title="Rss" />Zalo</a></li>
 				</ul>
 			</div>
 		</div>
@@ -57,6 +60,7 @@
 			<b>&copy; 2021. FPTpolytechnich | Design by nhóm 58 Gốm Sứ </b>
 		</div>
 	</div>
+	
 </div>
 </body>
 </html>

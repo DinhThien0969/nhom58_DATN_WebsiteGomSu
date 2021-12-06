@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -29,7 +29,7 @@
 <body>
 
 	<!----start-Header---->
-	<jsp:include page="include/homeHeader.jsp"></jsp:include>
+	<div style="position: relative;z-index: 1"><jsp:include page="include/homeHeader.jsp"></jsp:include></div>
 	<!----End-Header---->
 
 	<div class="container">
@@ -37,6 +37,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<br>
+				<c:if test="${fn:length(cartNew)+fn:length(cart)>0 }">
 				<p>
 					<b>QUÝ KHÁCH ĐÃ ĐẶT HÀNG THÀNH CÔNG</b>
 				</p>
@@ -102,7 +103,7 @@
 
 							<td class="donGia">
 
-								<div class="check " style="display: inline-block;">${sanpham.donGia}</div>
+<div class="check " style="display: inline-block;">${sanpham.donGia}</div>
 								<div style="display: inline-block;">x
 									${quanityNew[sanpham.id]}</div>
 							</td>
@@ -128,6 +129,20 @@
 					sử dụng dịch vụ, sản phẩm của chúng tôi</p>
 				<br> <a href="<%=request.getContextPath()%>/">Nhấn vào đây
 					để tiếp tục mua sắm</a>
+				</c:if>
+				<c:if test="${fn:length(cartNew)+fn:length(cart)<=0 }">
+				<script type="text/javascript"  >	  
+	                   $(document).ready(function() { 
+		             Swal.fire({
+			  icon: 'error',
+              title: 'VUI LÒNG QUAY LẠI TRANG CHỦ ĐỂ MUA HÀNG',
+			  text: 'NHẤN OK ĐỂ HỦY',
+			  footer: '<a href="http://localhost:8080/potteryshop/">TIẾP TỤC MUA HÀNG</a>'
+			})
+	  });
+	</script> 
+				</c:if>
+				
 			</div>
 			<div class="col-md-1"></div>
 
@@ -141,6 +156,7 @@
 	<!----start-Footder---->
 	<jsp:include page="include/homeFooter.jsp"></jsp:include>
 	<!----End-Footder---->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="<c:url value='/js/client/checkoutAjax.js'/>"></script>
 </body>
 </html>

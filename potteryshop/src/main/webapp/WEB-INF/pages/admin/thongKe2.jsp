@@ -33,7 +33,7 @@
 			<option value=12> Tháng 12 </option>
 		</select>
 		<canvas id="myChart" width="600px" height="400px"></canvas>
-		<h4 style="text-align: center; padding-right: 10%">Biểu đồ tổng giá trị đơn hàng hoàn thành theo tháng</h4>
+		<h4 style="text-align: center; padding-right: 10%">Biểu đồ số lượng đơn hàng hoàn thành theo tháng</h4>
 
 	</div>
 
@@ -44,8 +44,9 @@
 
 
 	var month = new Date().getMonth()+1;
-	var myBarChart ;
 	$("#month").val(month).change();
+	var myBarChart ;
+	
 	
 	$(document).on('change','#month',function(){
 		var select = document.getElementById('month');
@@ -67,11 +68,11 @@
 			type : "GET",
 			data : data,
 			contentType : "application/json",
-			url : "http://localhost:8080/potteryshop/api/don-hang/report/doanh-thu-theo-san-pham/"+month,
+			url : "http://localhost:8080/potteryshop/api/don-hang/report/so-luong-theo-san-pham/"+month,
 			success : function(data) {
 				for (var i = 0; i < data.length; i++) {
 					label.push(data[i][3]);
-					dataForDataSets.push(data[i][4]/1000000);
+					dataForDataSets.push(data[i][5]);
 				}
 			},
 			error : function(e) {
@@ -84,7 +85,7 @@
 		data = {
 			labels : label,
 			datasets : [ {
-				label : "Tổng giá trị ( Triệu đồng)",
+				label : "Tổng tổng số lượng ( Triệu đồng)",
 				backgroundColor : "#0000ff",
 				borderColor : "#0000ff",
 				borderWidth : 2,

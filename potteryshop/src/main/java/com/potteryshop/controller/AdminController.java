@@ -3,8 +3,6 @@ package com.potteryshop.controller;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.service.Service;
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,15 +26,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.lowagie.text.DocumentException;
 import com.potteryshop.dto.ListCongViecDTO;
-import com.potteryshop.entities.ChiTietDonHang;
 import com.potteryshop.entities.DonHang;
 import com.potteryshop.entities.NguoiDung;
 import com.potteryshop.entities.VaiTro;
 import com.potteryshop.entities.donhangPDFexporter;
-import com.potteryshop.repository.DonHangRepository;
-import com.potteryshop.service.ChiTietDonHangService;
 import com.potteryshop.service.DanhMucService;
 import com.potteryshop.service.DonHangService;
 import com.potteryshop.service.HangSanXuatService;
@@ -66,10 +60,6 @@ public class AdminController {
 
 	@Autowired
 	private DonHangService donHangService;
-	@Autowired
-	private ChiTietDonHangService chitietdonhangService;
-	@Autowired
-	private DonHangRepository donHangRepo;
 
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser() {
@@ -81,7 +71,7 @@ public class AdminController {
 	public String adminPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
 		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
-		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Chờ duyệt"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
 		model.addAttribute("listCongViec", listCongViec);
@@ -89,22 +79,46 @@ public class AdminController {
 	}
 
 	@GetMapping("/danh-muc")
-	public String quanLyDanhMucPage() {
+	public String quanLyDanhMucPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyDanhMuc";
 	}
 
 	@GetMapping("/nhan-hieu")
-	public String quanLyNhanHieuPage() {
+	public String quanLyNhanHieuPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyNhanHieu";
 	}
 
 	@GetMapping("/lien-he")
-	public String quanLyLienHePage() {
+	public String quanLyLienHePage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyLienHe";
 	}
 	
 	@GetMapping("/san-pham")
 	public String quanLySanPhamPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
 		model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		return "admin/quanLySanPham";
@@ -112,6 +126,12 @@ public class AdminController {
 
 	@GetMapping("/profile")
 	public String profilePage(Model model, HttpServletRequest request) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		model.addAttribute("user", getSessionUser(request));
 		return "admin/profile";
 	}
@@ -136,35 +156,63 @@ public class AdminController {
 			employee.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", employee));
 		}
 		model.addAttribute("allEmployee", employees);
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyDonHang";
 	}
 
 	@GetMapping("/tai-khoan")
 	public String quanLyTaiKhoanPage(Model model) {
 	    model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
+	    ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/quanLyTaiKhoan";
 	}
 	
 	@GetMapping("/thong-ke")
 	public String thongKePage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/thongKe";
 	}
 	
 	public NguoiDung getSessionUser(HttpServletRequest request) {
 		return (NguoiDung) request.getSession().getAttribute("loggedInUser");
 	}
-	@GetMapping("users/export/pdf")
+	@GetMapping("admin/export/execl")
 	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
-		response.setContentType("application/pdf");
+		response.setContentType("application/octet-stream");
 		
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
 		 String headerKey = "Content-Disposition";
-		 String headerValue = "attachment; filename=donhang_" + currentDateTime + ".pdf";
+		 String headerValue = "attachment; filename=donhang_" + currentDateTime + ".xlsx";
 	        response.setHeader(headerKey, headerValue);
 	      List<DonHang> listdonhang = donHangService.fillAll();
 	       donhangPDFexporter exporter = new donhangPDFexporter(listdonhang);
 	       exporter.export(response);
 	}
+	@GetMapping("/thong-ke/doanh-thu-sp-theo-thang")
+	public String thongKeDoanhThuSpTheoThangPage(Model model) {
+		return "admin/thongKe";
+	}
+	
+	@GetMapping("/thong-ke/so-luong-sp-theo-thang")
+	public String thongKeSoLuongSpTheoThangPage(Model model) {
+		return "admin/thongKe2";
+	}
+
 
 }

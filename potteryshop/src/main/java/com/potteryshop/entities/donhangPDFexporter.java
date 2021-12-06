@@ -1,100 +1,163 @@
 package com.potteryshop.entities;
 
-import java.awt.Color;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
-import com.potteryshop.api.admin.DonHangApi;
 
 public class donhangPDFexporter {
-
-	private static List<DonHang> donhang;
+	private XSSFWorkbook workbook;
+	private XSSFSheet sheet;
+	private List<DonHang> donhang;
 
 	public donhangPDFexporter(List<DonHang> donhang) {
-	super();
+		super();
 		this.donhang = donhang;
+		workbook = new XSSFWorkbook();
+		sheet = workbook.createSheet("ThongKeDonHang");
+
 	}
 
+	private void writeHeaderRow() {
+		XSSFFont font = workbook.createFont();
+		CellStyle style = workbook.createCellStyle();
+		font.setFontHeight(14);
+		style.setFont(font);
+		font.setBold(true);
+		org.apache.poi.ss.usermodel.Row row = sheet.createRow(0);
 
-	private static void writeTableHeader(PdfPTable table) {
-		PdfPCell cell = new PdfPCell();
-		cell.setBackgroundColor(Color.ORANGE);
-		cell.setPadding(5);
+		Cell cell = row.createCell(0);
+		cell.setCellValue("DonHang ID");
+		cell.setCellStyle(style);
 
-		Font font = FontFactory.getFont(FontFactory.HELVETICA);
-		font.setColor(Color.red);
-		cell.setPhrase(new Phrase("ID", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Nguoi_nhan", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Dia_Chi_Nhan", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Ngay_Dat_Hang", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Ngay_Giao_Hang", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Ngay_Nhan_Hang", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Trang_Thai_Don_Hang", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("SĐT_Nhan_Hang", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Ma_Nguoi_Dat", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Tong_gia_Tri", font));
-		table.addCell(cell);
+		cell = row.createCell(1);
+		cell.setCellValue("Nguoi_nhan");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(2);
+		cell.setCellValue("Dia_Chi_Nhan");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(3);
+		cell.setCellValue("Ngay_Dat_Hang");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(4);
+		cell.setCellValue("Ngay_Giao_Hang");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(5);
+		cell.setCellValue("Ngay_Nhan_Hang");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(6);
+		cell.setCellValue("Trang_Thai_Don_Hang");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(7);
+		cell.setCellValue("SĐT_Nhan_Hang");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(8);
+		cell.setCellValue("Ho_Ten_Nguoi_Dat");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(9);
+		cell.setCellValue("Dia_Chi_Nguoi_Dat");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(10);
+		cell.setCellValue("So_Dien_Thoai_Nguoi_Dat");
+		cell.setCellStyle(style);
+
+		cell = row.createCell(11);
+		cell.setCellValue("Tong_gia_Tri");
+		cell.setCellStyle(style);
+
 	}
 
-	private static void writeTableData(PdfPTable table) {
+	private void writeDataRow() {
+		int rowCount = 1;
 
-		
-		for(DonHang chitietdonhang : donhang) {
-			table.addCell(String.valueOf(chitietdonhang.getId()));
-			table.addCell(chitietdonhang.getHoTenNguoiNhan());	
-			table.addCell(String.valueOf(chitietdonhang.getDiaChiNhan()));
-			table.addCell(String.valueOf(chitietdonhang.getNgayDatHang()));
-			table.addCell(String.valueOf(chitietdonhang.getNgayGiaoHang()));
-			table.addCell(String.valueOf(chitietdonhang.getNgayNhanHang()));
-			table.addCell(String.valueOf(chitietdonhang.getTrangThaiDonHang()));
-			table.addCell(chitietdonhang.getSdtNhanHang());
-			table.addCell(String.valueOf(chitietdonhang.getNguoiDat().getHoTen()));
-			table.addCell(String.valueOf(chitietdonhang.getTongGiaTri()));
-			
-		
-			
-			
-			
+		for (DonHang chitietdonhang : donhang) {
+
+			org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowCount++);
+
+			Cell cell = row.createCell(0);
+			cell.setCellValue(chitietdonhang.getId());
+			sheet.autoSizeColumn(0);
+
+			cell = row.createCell(1);
+			cell.setCellValue(chitietdonhang.getHoTenNguoiNhan());
+			sheet.autoSizeColumn(1);
+
+			cell = row.createCell(2);
+			cell.setCellValue(chitietdonhang.getDiaChiNhan());
+			sheet.autoSizeColumn(2);
+			cell = row.createCell(3);
+			cell.setCellValue(chitietdonhang.getNgayDatHang().toString());
+			sheet.autoSizeColumn(3);
+
+			if (chitietdonhang.getNgayGiaoHang() == null) {
+				cell = row.createCell(4);
+				cell.setCellValue(" ");
+				sheet.autoSizeColumn(4);
+			} else {
+				cell = row.createCell(4);
+				cell.setCellValue(chitietdonhang.getNgayGiaoHang().toString());
+				sheet.autoSizeColumn(4);
+			}
+			if (chitietdonhang.getNgayNhanHang() == null) {
+				cell = row.createCell(5);
+				cell.setCellValue("");
+				sheet.autoSizeColumn(5);
+			} else {
+				cell = row.createCell(5);
+				cell.setCellValue(chitietdonhang.getNgayNhanHang().toString());
+				sheet.autoSizeColumn(5);
+			}
+			cell = row.createCell(6);
+			cell.setCellValue(chitietdonhang.getTrangThaiDonHang());
+			sheet.autoSizeColumn(6);
+
+			cell = row.createCell(7);
+			cell.setCellValue(chitietdonhang.getSdtNhanHang());
+			sheet.autoSizeColumn(7);
+
+			cell = row.createCell(8);
+			cell.setCellValue(chitietdonhang.getNguoiDat().getHoTen());
+			sheet.autoSizeColumn(8);
+
+			cell = row.createCell(9);
+			cell.setCellValue(chitietdonhang.getNguoiDat().getDiaChi());
+			sheet.autoSizeColumn(9);
+
+			cell = row.createCell(10);
+			cell.setCellValue(chitietdonhang.getNguoiDat().getSoDienThoai());
+			sheet.autoSizeColumn(10);
+
+			cell = row.createCell(11);
+			cell.setCellValue(chitietdonhang.getTongGiaTri());
+			sheet.autoSizeColumn(11);
+
 		}
+
 	}
 
-	public static void export(HttpServletResponse response) throws DocumentException, IOException {
-		Document document = new Document(PageSize.A3);
-		PdfWriter.getInstance(document, response.getOutputStream());
-		document.open();
+	public void export(HttpServletResponse response) throws IOException {
+		writeDataRow();
+		writeHeaderRow();
 
-		document.add(new Paragraph("List Chi Tiet Don Hang"));
+		ServletOutputStream outputStream = response.getOutputStream();
+		workbook.write(outputStream);
+		workbook.close();
+		outputStream.close();
 
-		PdfPTable table = new PdfPTable(10);
-		table.setWidthPercentage(100);
-		table.setSpacingBefore(15);
-	         
-
-		writeTableHeader(table);
-		writeTableData(table);
-		document.add(table);
-		document.close();
 	}
 }

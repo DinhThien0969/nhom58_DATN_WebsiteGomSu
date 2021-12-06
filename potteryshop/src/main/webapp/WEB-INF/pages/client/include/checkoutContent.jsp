@@ -9,6 +9,14 @@
 </head>
 
 <script type="text/javascript">
+function muaHo() {
+	
+	 document.getElementById("hoTenNguoiNhanHang").value = "";
+	 document.getElementById("soDienThoaiNguoiNhanHang").value = "";
+	 document.getElementById("diaChiNguoiNhanHang").value = "";
+
+	  };
+	  	  
 	$(document).ready(function() {
 		$(".mytable .donGia .check").each(function() {
 			var value = accounting.formatMoney($(this).text()) + ' VND';
@@ -20,66 +28,79 @@
 			$(this).html(value);
 		});
 	});
+	
+	
+	function choToi() {
+		
+		document.getElementById("hoTenNguoiNhanHang").value = document.getElementById("hotenAcc").value;
+		 document.getElementById("soDienThoaiNguoiNhanHang").value = document.getElementById("soDienThoaiAcc").value;
+		 document.getElementById("diaChiNguoiNhanHang").value = document.getElementById("diaChiAcc").value;
+		  };
 </script>
 
 <body>
 
-	<div class="container">
+	<div class="container" style="width: 1300px">
 		<form method="POST" action="<%=request.getContextPath()%>/thankyou">
 			<div class="row">
-				<br> <br>
+				<br>
+				<br>
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<div class="col-md-3">
+					<div class="col-md-3" style="width: 23%">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Thông tin khách hàng</b>
 						</p>
 
 						<p style="line-height: 2;">Họ tên Quý khách</p>
-						<input size="27" value="${user.hoTen}" disabled>
+						<input id="hotenAcc" size="27" value="${user.hoTen}" disabled>
 
 						<p style="line-height: 2;">Địa chỉ Email</p>
-						<input size="27" value="${user.email}" disabled>
+						<input  size="27" value="${user.email}" disabled>
 
 						<p style="line-height: 2;">Số điện thoại</p>
-						<input size="27" value="${user.soDienThoai}" disabled>
+						<input id="soDienThoaiAcc" size="27" value="${user.soDienThoai}" disabled>
 
 						<p style="line-height: 2;">Địa chỉ(số nhà, đường, tỉnh thành)
 						</p>
-						<textarea rows="5" cols="29" disabled>${user.diaChi}</textarea>
+						<textarea id="diaChiAcc" rows="5" cols="29" disabled>${user.diaChi}</textarea>
 
-						<br> <br>
+						<br>
+						<br>
 					</div>
 
-					<div class="col-md-3">
-						<br>
+					<div class="col-md-3" style="width: 23%">
+						<br>	
 						<p class="border-p" style="line-height: 1.5;">
+							<b>Bạn mua đơn hàng này cho ai ?</b>
+							<p class="border-p" style="line-height: 1.5;">
+							<span onclick="choToi();"><input checked type="radio" value="Cho tôi" name="buy"></span>Cho tôi
+                            <span onclick="muaHo();"><input type="radio" value="Mua hộ" name="buy"></span>Mua hộ
+							<br>
+							<form id="myForm">
+							
 							<b>Thông tin nhận hàng</b>
+
 						</p>
 
 						<p style="line-height: 2;">Họ tên người nhận hàng *</p>
-						<input size="27" name="hoTenNguoiNhan" required>
+						
+						<input id="hoTenNguoiNhanHang" size="27" value="${user.hoTen}" name="hoTenNguoiNhan" required >
 
 						<p style="line-height: 2;">Số điện thoại *</p>
-						<input size="27" name="sdtNhanHang" required>
+<input id="soDienThoaiNguoiNhanHang" size="27" value="${user.soDienThoai}" name="sdtNhanHang" required>
 
 
 						<p style="line-height: 2;">Địa chỉ(số nhà, đường, tỉnh thành)
 							*</p>
-						<textarea rows="5" cols="29" name="diaChiNhan" required></textarea>
-						<div>
-							<select class="group">
-								<option>Thanh Toán Bằng</option>
-								<option>Paypal</option>
-								<option>Thanh toán khi nhận hàng</option>
-							</select> <a href="paypal">button</a>
-						</div>
+						<textarea id="diaChiNguoiNhanHang" rows="5" cols="29" name="diaChiNhan" required>${user.diaChi}</textarea>
+                     </form>
 
-						<br> <br> <input type="hidden" id="tongGiaTri"
-							name="tongGiaTri">
+						<br>
+						<br> <input type="hidden" id="tongGiaTri" name="tongGiaTri">
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 54%">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Giỏ hàng</b>
@@ -147,35 +168,30 @@
 						<button class="btn btn-danger pull-center" type="submit"
 							id="submit">Gửi đơn hàng</button>
 
-						<br> <br>
+						<br>
+						<br>
 
 					</div>
 				</c:if>
 				<c:if test="${pageContext.request.userPrincipal.name == null}">
-					<h1
-						style="font-size: 45px; color: red; text-align: center; font-family: cursive;">Vui
-						lòng đăng nhập để thanh toán</h1>
-					<img alt=""
-						src="https://battrangfamily.com.vn/wp-content/uploads/2020/09/banner-new-5.jpg">
-					<script type="text/javascript">
-						$(document)
-								.ready(
-										function() {
-											Swal
-													.fire({
-														icon : 'warning',
-														title : 'VUI LÒNG ĐĂNG NHẬP VÀ VÀO LẠI GIỎ HÀNG',
-														text : 'Ấn ok để hủy bỏ ',
-														footer : '<a href="http://localhost:8080/potteryshop/login">Click vào để đăng nhập</a>'
-													})
-										});
-					</script>
-				</c:if>
-			</div>
-		</form>
+	<h1 style="font-size: 40px; color: red; text-align: center;font-family:cursive;">Vui lòng đăng nhập để thanh toán</h1>
+	<img alt="" src="http://quanggom.vn/wp-content/uploads/2018/04/banner2a.jpg">
+	 <script type="text/javascript"  >	  
+	$(document).ready(function() { 
+		Swal.fire({
+			  icon: 'warning',
+title: 'VUI LÒNG ĐĂNG NHẬP VÀ QUAY LẠI GIỎ HÀNG',
+			  text: 'NHẤN OK ĐỂ HỦY',
+			  footer: '<a href="http://localhost:8080/potteryshop/login">ĐĂNG NHẬP</a>'
+			})
+	  });
+	</script> 
+	</c:if>
 	</div>
+	</form>
+</div>
 
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="<c:url value='/js/client/checkoutAjax.js'/>"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<c:url value='/js/client/checkoutAjax.js'/>" ></script>	
 </body>
 </html>

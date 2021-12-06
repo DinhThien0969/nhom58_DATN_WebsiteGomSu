@@ -2,12 +2,12 @@ package com.potteryshop.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.potteryshop.entities.QDonHang;
@@ -131,9 +131,28 @@ public class DonHangServiceImpl implements DonHangService {
 
 	@Override
 	public List<DonHang> fillAll() {
-		// TODO Auto-generated method stub
+		
 		return donHangRepo.findAll();
 	}
-	
+	//
+	@Override
+	public List<Object> top4DoanhThuSanPhamTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4DoanhThuSanPhamTheoThang(thang);
+	}
+
+	@Override
+	public List<Object> top4SoLuongSanPhamTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4SoLuongSanPhamTheoThang(thang);
+	}
 
 }

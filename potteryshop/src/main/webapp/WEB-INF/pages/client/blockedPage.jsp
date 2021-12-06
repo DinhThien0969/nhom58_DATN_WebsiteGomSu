@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Laptop Shop - Đăng nhập</title>
+<title>Pottery shop - Đăng nhập</title>
 <link rel="stylesheet" href="Frontend/css/login.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,15 +15,25 @@
 
 </head>
 
-<body>
+<body >
 	
-	<form action="logout">
-<h1>Tài Khoản của bạn đã bị khóa</h1>
-	<button class="btn btn-primary" type="submit">Quay Lại Với Tư Cách là khách</button>		
-
+	<form action="logout" align="center" >
+    <h1 >Tài Khoản của bạn đã bị khóa</h1>
+	<button class="btn btn-primary" type="submit">Quay lại với tư cách là khách</button>		
+    <script type="text/javascript">	  
+	$(document).ready(function() { 
+		Swal.fire({
+			  icon: 'error',
+			  title: 'TÀI KHOẢN BẠN ĐÃ BỊ KHÓA',
+			  text: 'NHẤN OK ĐỂ HỦY',
+			  footer: '<a href="http://localhost:8080/potteryshop/login">QUAY LẠI ĐĂNG NHẬP</a>'
+			})
+	  });
+	</script> 
+	
 </form>
 	
 
-	
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

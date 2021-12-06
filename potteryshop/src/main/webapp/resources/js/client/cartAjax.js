@@ -1,6 +1,7 @@
 calculateOrder()
 function changeQuanity(id,value,price)
-	{
+	{ 
+	if(value==20){alert("Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng");}
 		$.ajax({
 			type: "GET",		
 			url: "http://localhost:8080/potteryshop/api/gio-hang/changSanPhamQuanity?id="+id+"&value="+value,
@@ -17,6 +18,7 @@ function changeQuanity(id,value,price)
 			}
 		});
 	}
+	
 
 function deleteFromCart(id)
 {
@@ -24,6 +26,7 @@ function deleteFromCart(id)
 		type: "GET",		
 		url: "http://localhost:8080/potteryshop/api/gio-hang/deleteFromCart?id="+id,
 		success: function(result){
+		$("#here").load(window.location.href + " #here" );
 		    var element = document.getElementById("item"+id);
 			element.parentNode.removeChild(element);
 			calculateOrder();
@@ -41,6 +44,7 @@ function deleteFromCartNew(id)
 		type: "GET",		
 		url: "http://localhost:8080/potteryshop/api/gio-hang/deleteFromCartNew?id="+id,
 		success: function(result){
+		$("#here").load(window.location.href + " #here" );
 		    var element = document.getElementById("itemNew"+id);
 			element.parentNode.removeChild(element);
 			calculateOrderNew();
@@ -81,6 +85,12 @@ function parseNumber(strg) {
 
 function changeQuanityNew(id,value,price)
 	{
+	
+	
+	if(value==20){alert("Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng");}
+	
+	
+	
 		$.ajax({
 			type: "GET",		
 			url: "http://localhost:8080/potteryshop/api/gio-hang/changSanPhamQuanityNew?id="+id+"&value="+value,
@@ -97,12 +107,14 @@ function changeQuanityNew(id,value,price)
 		});
 	}
 
+
 function calculateOrder()
 {
 	var element = document.getElementsByClassName("total");
 	var res = 0;
 	for (i = 0; i < element.length; i++) {
-		res = res + parseNumber(element[i].textContent);
+
+res = res + parseNumber(element[i].textContent);
 	}
 	var element2 = document.getElementById("ordertotal");
 	resConvert = accounting.formatMoney(res);
@@ -141,16 +153,10 @@ for (i = 0; i < elementNew.length; i++) {
 var element2New = document.getElementById("ordertotalNew");
 resConvertNew = accounting.formatMoney(resNew);
 element2New.innerHTML = resConvertNew;
-	      
-			 var totalAllOrder = document.getElementById("myElementJS");	       
+	      var totalAllOrder = document.getElementById("myElementJS");	       
 	      totalAllOrderConvert = accounting.formatMoney(parseNumber(resConvert)+ parseNumber(resConvertNew));
 	      totalAllOrder.innerHTML = totalAllOrderConvert;
 	       
-			
-			
-				console.log("Old" , parseNumber(resConvert));
-			console.log("New" , parseNumber(resConvertNew));
-			
-			
-			}
+		  console.log("Old" , parseNumber(resConvert));
+		  console.log("New" , parseNumber(resConvertNew));}
 $('myElementJS').innerHTML = allCalculateOrder();

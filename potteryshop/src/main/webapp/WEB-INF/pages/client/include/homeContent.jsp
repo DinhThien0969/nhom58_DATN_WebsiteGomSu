@@ -3,14 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="<c:url value='/js/client/homeAjax.js'/>"></script>
 <!--start-image-slider---->
+
 <div class="wrap">
+
 	<div class="image-slider">
-		<!-- Slideshow 1 -->
-		<ul class="rslides" id="slider1">
+		<!-- Slideshow 1 --><ul style="list-style: none;">
+		<li ><img style="    display: block;
+    height: 500px;
+    float: left;
+    border: 0;
+    width: 100%;" src="Frontend/img/slidegom1.jpg" alt=""></li>
+    
+    </ul>
+		<!--  <ul class="rslides" id="slider1">
 			<li><img src="Frontend/img/slidegom1.jpg" alt=""></li>
 			<li><img src="Frontend/img/slidegom2.jpg" alt=""></li>
 			<li><img src="Frontend/img/slidegom3.jpg" alt=""></li>
-		</ul>
+		</ul>  -->
 		<!-- Slideshow 2 -->
 	</div>
 	<!--End-image-slider---->
@@ -37,6 +46,7 @@
 				</div>
 			</div>
 		</div>
+		<img alt="" src="https://www.xuonggombattrang.vn/landing-page/v2/images/line2.png" style="width: 1380px">
 
 		<div class="content-grids" >
 			<div style="font-size: 25px";><b style="color: #ff7272">Danh sách sản phẩm mới nhất</b></div>
@@ -44,15 +54,15 @@
 		</div>
 	</div>
 	<div class="content-sidebar">
-		<div style="font-size: 25px"><b style="color: #ff7272">Danh mục</b></div>
-		<ul id="danhmuc">
+		<div style="font-size: 23px"><b style="color: #ff7272">Danh mục</b></div>
+		<ul id="danhmuc" style="list-style: none;">
 
 		</ul>
 	</div>
 </div>
 <div class="clear"></div>
 </div>
-<div style="background: #575757 !important; margin-top: 20px; padding: 10px;display: flex;text-align: center!important;text-align: center  ">
+<div style="background: #286090 !important; margin-top: 20px; padding: 10px;display: flex;text-align: center!important;text-align: center;  ">
 	<div style="width: 400px";>
 		<img style="height: 40px;" class="img1 uk-responsive-width" uk-img=""
 			data-src="/logos/icon-giao-hang-nhanh.png"
@@ -60,7 +70,7 @@
 			src="https://www.xuonggombattrang.vn/logos/icon-giao-hang-nhanh.png">
 		<br>
 		<div style="font-size: 0.8rem !important; color: #fff;">
-			<strong>Giao hàng nhanh chóng</strong>
+			<strong style="font-size: 16px">Giao hàng nhanh chóng</strong>
 		</div>
 	</div>
 	<div style="width: 400px";>
@@ -69,7 +79,7 @@
 			src="https://www.xuonggombattrang.vn/logos/icon-bao-hanh-tron-doi.png">
 		<br>
 		<div class="" style="font-size: 0.8rem !important; color: #fff;">
-			<strong>Bảo hành trọn đời</strong>
+			<strong style="font-size: 16px">Bảo hành trọn đời</strong>
 		</div>
 	</div>
 	<div style="width: 400px";>
@@ -79,7 +89,7 @@
 		<br>
 		<div class="title_2 uk-text-uppercase"
 			style="font-size: 0.8rem !important; color: #fff;">
-			<strong>Tư vấn 24/7</strong>
+			<strong style="font-size: 16px">Tư vấn 24/7</strong>
 		</div>
 	</div>
 	<div style="width: 400px";>
@@ -88,7 +98,7 @@
 			src="https://www.xuonggombattrang.vn/logos/icon-cam-ket.png"> <br>
 		<div class="title_2 uk-text-uppercase"
 			style="font-size: 0.8rem !important; color: #fff;">
-			<strong>Cam kết gốm chính hãng</strong>
+			<strong style="font-size: 16px">Cam kết gốm chính hãng</strong>
 		</div>
 	</div>
 </div>
@@ -135,7 +145,7 @@
 
 		<h2 class="section-heading">TOUR DATES</h2>
 		<p class="section-sub-heading">Remember to book your ticjets!</p>
-		<p>Gốm là một trong những phát minh quan trọng của tổ tiên ta từ
+		<p class="about-text">Gốm là một trong những phát minh quan trọng của tổ tiên ta từ
 			ngàn đời nay, đồ gốm đã gắn bó mật thiết với cuộc sống của nhân dân
 			ta. Với trí sáng tạo và đôi bàn tay khéo léo của người thợ gốm, gốm
 			cổ Việt Nam đã trở thành một loại hình nghệ thuật mang tính dân gian

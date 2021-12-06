@@ -167,7 +167,7 @@ $(document).on('click', '.btnPhanCong', function (event){
 			}
 			
 			if(donHang.employee != null){
-$("#employee").html("<strong>Employee</strong>: "+ donHang.employee.hoTen);
+$("#employee").html("<strong>Employee giao hàng</strong>: "+ donHang.employee.hoTen);
 			}
 			 
 			var check = donHang.trangThaiDonHang == "Hoàn thành" || donHang.trangThaiDonHang == "Chờ duyệt" ;

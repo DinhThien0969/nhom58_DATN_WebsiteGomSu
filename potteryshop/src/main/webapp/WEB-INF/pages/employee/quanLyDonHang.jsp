@@ -17,6 +17,7 @@
 </style>
 </head>
 <body>
+
 	<jsp:include page="template/header.jsp"></jsp:include>
 	<jsp:include page="template/sidebar.jsp"></jsp:include>
 
@@ -27,7 +28,6 @@
 			<select class="form-control" id="trangThai">		
 			    <option value="Đang chờ xác nhận khách mua">Đang chờ xác nhận khách mua</option>
 				<option value="Đang giao">Được phân công</option>
-				<option value="Chờ duyệt">Chờ duyệt</option>
 				<option value="Hoàn thành">Hoàn thành</option>
 			</select>
 
@@ -51,9 +51,9 @@
 			</div>
 		</form>
 		<hr>
-		<button class="btn btn-primary" type="button" type="submit" onClick="window.location.reload()">Refresh Button</button>
+		<button style="background-color: 		#008000" class="btn btn-primary" type="button" type="submit" onClick="window.location.reload()">Làm mới</button>
 		
-<h4>Nhấn Refresh Button thường xuyên để cập nhật đơn hàng mới</h1>
+<h4>Nhấn "Làm mới" thường xuyên để cập nhật đơn hàng</h1>
 
 		<hr />
 		<table class="table table-hover donHangTable"
@@ -168,10 +168,11 @@
 								</div>
 							</div>
 						</div>
-						<a href="employee/export/pdf">Export to PDF</a>
 						<div class="modal-footer">
+						<a href="employee/export/pdf">Export to PDF</a>
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Đóng</button>
+								
 						</div>
 					</div>
 				</div>
@@ -219,7 +220,7 @@
 										<hr />
 										<div class="row p-5">
 											<div class="col-md-12">
-												<table class="table chiTietTable"
+												<table class="table chiTietTablexacNhanKhach"
 													style="text-align: center;">
 													<thead>
 														<tr>
@@ -269,6 +270,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Đóng</button>
+								
 						</div>
 					</div>
 				</div>
@@ -364,7 +366,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-12">
-										<table class="table chiTietCapNhatTable"
+										<table class="table chiTietCapNhatTablexacNhanKhach"
 											style="text-align: center;">
 											<thead>
 												<tr>
@@ -375,27 +377,34 @@
 														giá</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Số
 														lượng đặt</th>
-													<th class="border-0 text-uppercase small font-weight-bold">Số
-														lượng nhận</th>
+													 <!-- <th class="border-0 text-uppercase small font-weight-bold">Số
+														lượng khách yêu cầu</th>  -->
 												</tr>
 											</thead>
 											<tbody>
 											</tbody>
 										</table>
-										<h4 id="tongTienCapNhat"
+										<h4 id="tongTienCapNhat1"
 											style="float: right; font-weight: bold;padding-right: 50px"></h4>
 									</div>
 
 									<div>
-										<h5 id="ghiChu" style="font-weight: bold; padding-top: 10px">Ghi
+									<h4>Cập nhật trạng thái</h4>
+								
+
+        <label><input checked type="radio" value="Chờ giao hàng" name="status">Chờ giao hàng</label>
+        <label><input type="radio" value="Hủy đơn hàng" name="status">Hủy đơn hàng</label>
+
+
+                                    <h5 id="ghiChu" style="font-weight: bold; padding-top: 10px">Ghi
 											chú</h5>
-										<textarea rows="3" cols="117" id="ghiChuEmployee"></textarea>
+										<textarea rows="3" cols="117" id="ghiChuEmployeeXacNhan"></textarea>
 									</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Hủy</button>
-									<input class="btn btn-primary" id="btnXacNhanKhachMua" type="button"
+									<input class="btn btn-primary" id="btnXacNhanTrangThai" type="button"
 										value="Xác nhận" />
 								</div>
 							</div>

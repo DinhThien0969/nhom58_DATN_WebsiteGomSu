@@ -28,39 +28,59 @@
 
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(window).scroll(function(){
+	  var sticky = $('.sticky'),
+	      scroll = $(window).scrollTop();
 
+	  if (scroll >= 100) sticky.addClass('fixed');
+	  else sticky.removeClass('fixed');
+	});</script>
 
+<style>/* ==========================================
+    FOR DEMO PURPOSE
+  ========================================== */
+.holder {
+	background: #f0efe9;
+	min-height: 100vh;
+}
 
-<script>
-	$(function() {
+.rounded {
+	border-radius: 1rem !important;
+}
 
-		// Slideshow 1
-		$("#slider1").responsiveSlides({
-			maxwidth : 1600,
-			speed : 600
-		});
-	});
-	function Dong_ho() {
-		var gio = document.getElementById("gio");
-		var phut = document.getElementById("phut");
-		var giay = document.getElementById("giay");
-		var Gio_hien_tai = new Date().getHours();
-		var Phut_hien_tai = new Date().getMinutes();
-		var Giay_hien_tai = new Date().getSeconds();
-		gio.innerHTML = Gio_hien_tai;
-		phut.innerHTML = Phut_hien_tai;
-		giay.innerHTML = Giay_hien_tai;
-	}
-	var Dem_gio = setInterval(Dong_ho, 1000);
-</script>
+.text-gray {
+	color: #aaa;
+}
+
+input:checked+label {
+	text-decoration: line-through;
+	color: #adb5bd;
+}
+
+label {
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+}
+.fixed {
+    position: fixed;
+    top:0; left:0;
+    width: 100%; }
+</style>
+
 
 </head>
 <body>
-
-
-	<div class="wrap">
+<img alt="" src="https://www.xuonggombattrang.vn/landing-page/about/images/bg_line.png">
+<div class="sticky" style="
+    background: aliceblue "><div class="wrap">
+	
 		<!----start-Header---->
 		<div class="header">
+		
 			<!----start-logo---->
 			<div class="logo">
 				<a href="<%=request.getContextPath()%>/"><img
@@ -83,18 +103,19 @@
 						<li>Xin chào: ${loggedInUser.hoTen}</li>
                         <li >
 						<sec:authorize access="hasRole('ADMIN')">
-							<a href="<%=request.getContextPath()%>/admin" style="color: red;font-size: 15px" >Trang admin</a>
+							<a href="<%=request.getContextPath()%>/admin" style="color: #ff7272;font-size: 15px" >Trang admin</a>
 						</sec:authorize>
 						<sec:authorize access="hasRole('EMPLOYEE')">
-							<a href="<%=request.getContextPath()%>/employee" style="color: red;font-size: 15px" >Trang
+<a href="<%=request.getContextPath()%>/employee" style="color: #ff7272;font-size: 15px" >Trang
 								employee</a>
 						</sec:authorize>
 						</li>
 						<li><a href="<%=request.getContextPath()%>/account">Tài
 								khoản</a></li>
-						<li><a href="<%=request.getContextPath()%>/cart"><span>Giỏ
-									hàng&nbsp;&nbsp;: </span></a><span
-							class="glyphicon glyphicon-shopping-cart"></span></li>
+						<li id="here" style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
+									hàng: </span><span class="glyphicon glyphicon-shopping-cart"></span></a>
+									<span  style="font-size: 15px;font-weight: bold;color: red;"><c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if>
+									</span></li>
 						<li><a href="<%=request.getContextPath()%>/logout"> Đăng
 								xuất</a></li>
 					</ul>
@@ -106,9 +127,11 @@
 								kí</a></li>
 						<li><a href="<%=request.getContextPath()%>/login">Đăng
 								nhập</a></li>
-						<li><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
-									hàng&nbsp;&nbsp;&nbsp;</span></a><span
-							class="glyphicon glyphicon-shopping-cart"></span></li>
+						<li id="here" style="color: #4d9d45"><a href="<%=request.getContextPath()%>/cart"> <span>Giỏ
+									hàng: </span><span class="glyphicon glyphicon-shopping-cart"></span></a>
+									<span  style="font-size: 15px;font-weight: bold;color: red"><c:if  test = "${checkEmpty >0}" >(${checkEmpty})</c:if>
+									</span>
+									</li>
 
 					</ul>
 				</c:if>
@@ -117,50 +140,119 @@
 			<div class="clear"></div>
 		</div>
 	</div>
+	
 	<div class="clear"></div>
+	
 	<div class="top-header">
+
 		<div class="wrap">
 
 			<!----start-top-nav---->
 			<div class="top-nav">
-				<ul>
-					<li><a href="<%=request.getContextPath()%>/">Trang chủ</a></li>
+			
+				<ul >
+					<li><a style="text-decoration: none"  href="<%=request.getContextPath()%>/">Trang chủ</a></li>
 
-					<li class="dropdown"><a class="dropdown-toggle"
+					<li class="dropdown"><a style="text-decoration: none" class="dropdown-toggle"
 						data-toggle="dropdown" href="#">Cửa hàng <span class="caret"></span></a>
 						<ul class="dropdown-menu" style="background: #286090"
 							id="danhmuc2">
 						</ul></li>
-					<li><a href="<%=request.getContextPath()%>/shipping">Vận
+					<li><a style="text-decoration: none" href="<%=request.getContextPath()%>/shipping">Vận
 							chuyển</a></li>
-					<li><a href="<%=request.getContextPath()%>/guarantee">Chính
+					<li><a style="text-decoration: none" href="<%=request.getContextPath()%>/guarantee">Chính
 							sách đổi trả hàng</a></li>
 
-					<li><a href="<%=request.getContextPath()%>/contact">Liên
+					<li><a style="text-decoration: none" href="<%=request.getContextPath()%>/contact">Liên
 							hệ</a></li>
 					<li>
-						<div id="dong_ho" style="margin-left: 400px">
+						<div class=" animated bounce" style="width: 350%; color: #fff;font-family:sans-serif;" >
+							<script language="javascript">
+								function getDateTime() {
+									var now = new Date();
+									var year = now.getFullYear();
+									var month = now.getMonth() + 1;
+									var day = now.getDate();
+									var hour = now.getHours();
+									var minute = now.getMinutes();
+									var second = now.getSeconds();
+									if (month.toString().length == 1) {
+										month = '0' + month;
+									}
+									if (day.toString().length == 1) {
+										day = '0' + day;
+									}
+									if (hour.toString().length == 1) {
+										hour = '0' + hour;
+									}
+									if (minute.toString().length == 1) {
+minute = '0' + minute;
+									}
+									if (second.toString().length == 1) {
+										second = '0' + second;
+									}
+									var dateTime = year + '/' + month + '/'
+											+ day + ' ' + hour + ':' + minute
+											+ ':' + second;
+									return dateTime;
+								}
 
-							<div id="thoi_gian" 
-								class="glyphicon glyphicon-bell">
-								<div>
-									<span>:</span><span id="gio">00 </span>
-								</div>
-								<div>
-									<span>:</span><span id="phut">00</span>
-								</div>
-								<div>
-									<span id="giay">00</span>
+								setInterval(
+										function() {
+											currentTime = getDateTime();
+											document
+													.getElementById("digital-clock").innerHTML = currentTime;
+										}, 1000);
+
+								var date = new Date();
+
+								var current_day = date.getDay();
+
+								var day_name = '';
+
+								switch (current_day) {
+								case 0:
+									day_name = "Chủ nhật";
+									break;
+								case 1:
+									day_name = "Thứ hai";
+									break;
+								case 2:
+									day_name = "Thứ ba";
+									break;
+								case 3:
+									day_name = "Thứ tư";
+									break;
+								case 4:
+									day_name = "Thứ năm";
+									break;
+								case 5:
+									day_name = "Thứ sáu";
+									break;
+								case 6:
+									day_name = "Thứ bảy";
+								}
+							</script>
+							<div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+								<div class="ms-3">
+								<ul>
+								<li style="color: #fff"><span class="glyphicon glyphicon-time">&nbsp;</span></li>
+								<!-- class="glyphicon glyphicon-bell" -->
+								<li><p><div id="digital-clock" ></div></p></li>
+								</ul>
+									
+									
 								</div>
 							</div>
-						</div>
-
 					</li>
 				</ul>
 			</div>
 			<div class="clear"></div>
 		</div>
+		
 	</div>
+	</div>
+	
 	<!----End-top-nav---->
 	<!----End-Header---->
 

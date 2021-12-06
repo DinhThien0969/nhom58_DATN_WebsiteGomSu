@@ -1,7 +1,16 @@
 package com.potteryshop.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.io.IOException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,11 +22,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.potteryshop.dto.ListCongViecDTO;
+import com.potteryshop.entities.DonHang;
 import com.potteryshop.entities.NguoiDung;
+import com.potteryshop.entities.donhangPDFexporter;
+import com.potteryshop.entities.xuatDonHang;
 import com.potteryshop.service.DanhMucService;
 import com.potteryshop.service.DonHangService;
 import com.potteryshop.service.HangSanXuatService;
+import com.potteryshop.service.LienHeService;
 import com.potteryshop.service.NguoiDungService;
+import com.potteryshop.service.VaiTroService;
 
 @Controller
 @RequestMapping("/employee")
@@ -33,8 +48,14 @@ public class EmployeeController {
 	@Autowired
 	private HangSanXuatService hangSXService;
 	
+	
+	@Autowired
+	private LienHeService lienHeService;
+
 	@Autowired
 	private DonHangService donHangService;
+	@Autowired
+	private VaiTroService vaiTroService;
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser(boolean model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -65,6 +86,11 @@ public class EmployeeController {
 	
 	@GetMapping("/profile")
 	public String profilePage(Model model, HttpServletRequest request) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
 		model.addAttribute("user", getSessionUser(request));
 		System.out.println(getSessionUser(request).toString());
 		return "employee/profile";
@@ -84,13 +110,47 @@ public class EmployeeController {
 	}
 	@GetMapping("/san-pham")
 	public String quanLySanPhamPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
 		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
 model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		return "employee/quanLySanPham";
 	}
 	@GetMapping("/danh-muc")
-	public String quanLyDanhMucPage() {
+	public String quanLyDanhMucPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
 		return "employee/quanLyDanhMuc";
+	}
+	@GetMapping("/tai-khoan")
+	public String quanLyTaiKhoanPage(Model model) {
+	    model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
+	    ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
+		return "employee/quanLyTaiKhoan";
+	}
+	@GetMapping("employee/export/pdf")
+	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		 String headerKey = "Content-Disposition";
+		 String headerValue = "attachment; filename=donhang_" + currentDateTime + ".pdf";
+	        response.setHeader(headerKey, headerValue);
+	      List<DonHang> listdonhang = donHangService.fillAll();
+	       xuatDonHang exporter = new xuatDonHang(listdonhang);
+	       exporter.export(response);
 	}
 
 }

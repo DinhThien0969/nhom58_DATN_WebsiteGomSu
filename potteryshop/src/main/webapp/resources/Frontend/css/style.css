@@ -189,7 +189,7 @@ body{
 	color:#286090;
 }
 .header-top-nav ul li a span{
-	color:#D70D87;
+	color:#32CD32;
 }
 /*---top-header----*/
 .top-header{
@@ -262,7 +262,7 @@ body{
 	box-shadow: 0px 3px 10px rgb(233, 233, 233);
 }
 .images_1_of_3:hover{
-	opacity:0.95;
+	
 	cursor:pointer;
 }
 .second{
@@ -467,7 +467,7 @@ body{
 /*----sidebar----*/
 .content-sidebar{
 	float:right;
-	width:19%;
+	width:17%;
 	font-family: 'Open Sans', sans-serif;
 }
 .content-sidebar h4{

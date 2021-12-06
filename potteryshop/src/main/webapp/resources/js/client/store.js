@@ -8,7 +8,7 @@ function addToCart(id)
 				{
 					window.alert("Sản phẩm đang hết hàng, quý khách vui lòng quay lại sau");	
 				}else
-				{
+				{$("#here").load(window.location.href + " #here" );
 					window.alert("Đã thêm sản phẩm vào giỏ hàng");
 				}
 			},
