@@ -32,6 +32,10 @@
             <a href="<c:url value='/employee/danh-muc' />">
               <span class="glyphicon glyphicon-tasks">&nbsp;</span>Quản lí danh mục </a>
           </li>
+          <li class="side-bar"><a
+					href="<c:url value='/employee/tai-khoan' />"> <span
+						class="glyphicon glyphicon-eye-open">&nbsp;</span>Danh sách khách hàng
+				</a></li>
            <li class="side-bar">
             <a href="<c:url value='/employee/profile' />">
               <span class="glyphicon glyphicon-user">&nbsp;</span>Thông tin cá nhân</a>

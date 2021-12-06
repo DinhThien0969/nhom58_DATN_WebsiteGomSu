@@ -143,8 +143,13 @@ $(document).on('click', '#btnDuyetDonHang', function (event) {
 			$('#hoTenNguoiNhan').text("Người nhận: "+ donHang.hoTenNguoiNhan);
 			$('#sdtNhanHang').text("SĐT: "+ donHang.sdtNhanHang);
 			$('#diaChiNhan').text("Địa chỉ: "+ donHang.diaChiNhan);
-			$('#trangThaiDonHang').text("Trạng thái đơn: "+ donHang.trangThaiDonHang);
+$('#trangThaiDonHang').text("Trạng thái đơn: "+ donHang.trangThaiDonHang);
 			$("#ngayDatHang").text("Ngày đặt: "+ donHang.ngayDatHang);
+			
+			$('#maDonHangHoaDon').text("Mã đơn hàng: "+ donHang.id);
+			$('#hoTenNguoiNhanHoaDon').text("Người nhận: "+ donHang.hoTenNguoiNhan);
+			$('#sdtNhanHangHoaDon').text("SĐT: "+ donHang.sdtNhanHang);
+			$('#diaChiNhanHoaDon').text("Địa chỉ: "+ donHang.diaChiNhan);
 			
 			if(donHang.ngayGiaoHang != null){
 				$("#ngayShipHang").text("Ngày giao: "+ donHang.ngayGiaoHang);
@@ -178,8 +183,9 @@ $("#ngayNhanHang").text("Ngày nhận: "+ donHang.ngayNhanHang);
 				var chiTietRow = '<tr>' +
 				'<td>' + stt + '</td>' +
                 '<td>' + chiTiet.sanPham.tenSanPham + '</td>' +
-                '<td>' + chiTiet.donGia + '</td>'+
-                '<td>' + chiTiet.soLuongDat+ '</td>';
+                '<td>' + formatDollar(chiTiet.donGia )+ '</td>'+
+                '<td>' + chiTiet.soLuongDat+ '</td>'+
+                '<td>' + formatDollar(chiTiet.donGia*chiTiet.soLuongDat) + '</td>';
 				
                 if(check){
 				    chiTietRow += '<td>' + chiTiet.soLuongNhanHang + '</td>';
@@ -191,11 +197,17 @@ $("#ngayNhanHang").text("Ngày nhận: "+ donHang.ngayNhanHang);
 				 $('.chiTietTable tbody').append(chiTietRow);
                 stt++;
 	    	  });		
-			$("#tongTienCapNhat").text("Tổng : "+ sum);
+			$("#tongTienCapNhat").text("Tổng : "+ formatDollar(sum));
+			$("#tongTienHoaDon").text("Tổng : "+ formatDollar(sum));
 		});
 		$("#chiTietModal").modal();
 	});
-		
+		function formatDollar(num) {
+    var p = num.toFixed(2).split(".");
+    return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+        return num + (num != "-" && i && !(i % 3) ? "," : "") + acc;
+    }, "") + "." + p[1];
+}
 	// event khi ẩn modal chi tiết
 	$('#chiTietModal, #capNhatTrangThaiModal').on('hidden.bs.modal', function(e) {
 		e.preventDefault();
@@ -209,8 +221,8 @@ $("#ngayNhanHang").text("Ngày nhận: "+ donHang.ngayNhanHang);
 	
    $('#chiTietModal,#xacNhanKhachMuaModal').on('hidden.bs.modal', function(e) {
 		e.preventDefault();
-		$("#chiTietFormxacNhanKhach p").text(""); // reset text thẻ p		
-		$("#xacNhanKhachMuaForm h4").text(""); // reset text thẻ p
+		$("#chiTietFormxacNhanKhach p").text(""); // reset text thẻ p
+$("#xacNhanKhachMuaForm h4").text(""); // reset text thẻ p
 		$('.chiTietTablexacNhanKhach tbody tr').remove();
     	$('.chiTietTablexacNhanKhach #soLuongNhanTag').remove();	
 		$('.chiTietCapNhatTablexacNhanKhach tbody tr').remove();
@@ -283,9 +295,7 @@ $("#ngayNhanHang").text("Ngày nhận: "+ donHang.ngayNhanHang);
 		    		                  soLuongNhanHang: $(this).find("td:eq(4) input[type='number']").val() };
 		      listChiTietCapNhat.push(chiTietCapNhat);
 		 });
-
-    	 
-    	 var data = { idDonHang : $("#donHangId").val(),
+var data = { idDonHang : $("#donHangId").val(),
     			      ghiChuEmployee: $("#ghiChuEmployee").val(), 
     			      danhSachCapNhatChiTietDon: listChiTietCapNhat } ;
 //    	 console.log(data);
@@ -377,7 +387,7 @@ var donHangId = $(this).parent().prev().children().val();
 		 var table = $(".chiTietCapNhatTablexacNhanKhach tbody");
      	 table.find('tr').each(function (i) {
 		      var chiTietCapNhat = { idChiTiet : $(this).find("td:eq(5) input[type='hidden']").val(),
-		    		                  soLuongNhanHang: $(this).find("td:eq(4) input[type='number']").val() };
+soLuongNhanHang: $(this).find("td:eq(4) input[type='number']").val() };
 		      listChiTietCapNhat.push(chiTietCapNhat);
 		 });
 		     	 
@@ -440,7 +450,29 @@ var data = { idDonHang : $("#donHangId").val(),
 		}); 
     }	
 	
+		$(document).on('click','#exportPDFbyId',function(){
 	
+              const element = document.getElementById("modalId");
+
+    // clone the element
+    var clonedElement = element.cloneNode(true);
+
+    // change display of cloned element 
+    $(clonedElement).css("display", "block");
+
+    // Choose the clonedElement and save the PDF for our user.
+      html2pdf(clonedElement, {
+	  margin:      10,
+	  filename:     'Poterryshop Hóa Đơn -'+document.getElementById("maDonHang").textContent+'.pdf',
+	  image:        { type: 'jpeg', quality: 0.98 },
+	  html2canvas:  { scale: 2, logging: true, dpi: 192, letterRendering: true },
+	  jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+	});
+
+    // remove cloned element
+    clonedElement.remove();
+            
+	})
 	
 	
     // reset table after post, put, filter
@@ -448,7 +480,6 @@ var data = { idDonHang : $("#donHangId").val(),
     	var page = $('li.active').children().text();
     	$('.donHangTable tbody tr').remove();
     	$('.pagination li').remove();
-  
-        if((document.getElementById("trangThai").options[document.getElementById("trangThai").selectedIndex].text=="Đang chờ xác nhận khách mua")  && (parseInt(document.getElementById("intro").innerHTML)==0))
+if((document.getElementById("trangThai").options[document.getElementById("trangThai").selectedIndex].text=="Đang chờ xác nhận khách mua")  && (parseInt(document.getElementById("intro").innerHTML)==0))
         {ajaxGet(1,"http://localhost:8080/potteryshop/api/employee/don-hang/listConfirmGuest" + '?page=1' );}else{ajaxGet(page,"http://localhost:8080/potteryshop/api/employee/don-hang/all" + '?page=' + page);}};
 });

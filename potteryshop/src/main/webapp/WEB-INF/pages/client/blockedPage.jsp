@@ -26,6 +26,7 @@
 			  icon: 'error',
 			  title: 'TÀI KHOẢN BẠN ĐÃ BỊ KHÓA',
 			  text: 'NHẤN OK ĐỂ HỦY',
+			  background: 'url(https://nhaxinhplaza.com/Images/giay-dan-tuong-phong-ngu-ma-8258-1.jpg)',
 			  footer: '<a href="http://localhost:8080/potteryshop/login">QUAY LẠI ĐĂNG NHẬP</a>'
 			})
 	  });

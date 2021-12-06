@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Quản lý nhãn hiệu</title>
+<title>Thống kê số lượng sản phẩm</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
@@ -85,7 +85,7 @@
 		data = {
 			labels : label,
 			datasets : [ {
-				label : "Tổng tổng số lượng ( Triệu đồng)",
+				label : "Tổng số lượng ",
 				backgroundColor : "#0000ff",
 				borderColor : "#0000ff",
 				borderWidth : 2,

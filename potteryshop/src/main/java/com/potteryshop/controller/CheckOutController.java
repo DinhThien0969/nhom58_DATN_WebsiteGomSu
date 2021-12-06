@@ -28,6 +28,7 @@ import com.potteryshop.entities.DonHang;
 import com.potteryshop.entities.GioHang;
 import com.potteryshop.entities.NguoiDung;
 import com.potteryshop.entities.SanPham;
+import com.potteryshop.repository.DonHangRepository;
 import com.potteryshop.service.ChiMucGioHangService;
 import com.potteryshop.service.ChiTietDonHangService;
 import com.potteryshop.service.DonHangService;
@@ -51,6 +52,8 @@ public class CheckOutController {
 	private DonHangService donHangService;
 	@Autowired
 	private ChiTietDonHangService chiTietDonHangService;
+	@Autowired
+	private DonHangRepository donHangRepo;
 
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser() {
@@ -217,14 +220,18 @@ System.out.println("11111"+Integer.parseInt(quanityNew.get(sp.getId())));
 				quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 			}
 		}
-
-		chiTietDonHangService.save(listDetailDH);
+if(listspNew.size()+listsp.size()<=0) {
+	donHangRepo.deleteById(donhang.getId());
+			
+		}else {chiTietDonHangService.save(listDetailDH);
 		cleanUpAfterCheckOut(req, response);
 		model.addAttribute("donhang", donhang);
 		model.addAttribute("cart", listsp);
 		model.addAttribute("quanity", quanity);
 		model.addAttribute("cartNew", listspNew);
-		model.addAttribute("quanityNew", quanityNew);
+		model.addAttribute("quanityNew", quanityNew);}
+		
+		
 		return "client/thankYou";
 	}
 

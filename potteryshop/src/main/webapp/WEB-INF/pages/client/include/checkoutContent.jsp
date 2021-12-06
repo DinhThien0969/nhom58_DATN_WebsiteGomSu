@@ -40,13 +40,13 @@ function muaHo() {
 
 <body>
 
-	<div class="container">
+	<div class="container" style="width: 1300px">
 		<form method="POST" action="<%=request.getContextPath()%>/thankyou">
 			<div class="row">
 				<br>
 				<br>
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<div class="col-md-3">
+					<div class="col-md-3" style="width: 23%">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Thông tin khách hàng</b>
@@ -69,7 +69,7 @@ function muaHo() {
 						<br>
 					</div>
 
-					<div class="col-md-3">
+					<div class="col-md-3" style="width: 23%">
 						<br>	
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Bạn mua đơn hàng này cho ai ?</b>
@@ -100,7 +100,7 @@ function muaHo() {
 						<br> <input type="hidden" id="tongGiaTri" name="tongGiaTri">
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 54%">
 						<br>
 						<p class="border-p" style="line-height: 1.5;">
 							<b>Giỏ hàng</b>
@@ -175,14 +175,15 @@ function muaHo() {
 				</c:if>
 				<c:if test="${pageContext.request.userPrincipal.name == null}">
 	<h1 style="font-size: 40px; color: red; text-align: center;font-family:cursive;">Vui lòng đăng nhập để thanh toán</h1>
-	<img alt="" src="https://battrangfamily.com.vn/wp-content/uploads/2020/09/banner-new-5.jpg">
+	<img alt="" src="http://quanggom.vn/wp-content/uploads/2018/04/banner2a.jpg">
 	 <script type="text/javascript"  >	  
 	$(document).ready(function() { 
 		Swal.fire({
 			  icon: 'warning',
 title: 'VUI LÒNG ĐĂNG NHẬP VÀ QUAY LẠI GIỎ HÀNG',
+background: 'url(https://nhaxinhplaza.com/Images/giay-dan-tuong-phong-ngu-ma-8258-1.jpg)',
 			  text: 'NHẤN OK ĐỂ HỦY',
-			  footer: '<a href="http://localhost:8080/potteryshop/login">ĐĂNG NHẬP</a>'
+			  footer: '<a href="http://localhost:8080/potteryshop/login" style="color: #32CD32; font-size: 20px"><b>ĐĂNG NHẬP</b></a>'
 			})
 	  });
 	</script> 

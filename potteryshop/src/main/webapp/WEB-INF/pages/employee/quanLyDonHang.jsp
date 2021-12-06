@@ -73,7 +73,7 @@
 			<tbody>
 			
 			</tbody>
-<p hidden id="intro">${fn:length(employee.listDonHang)}</p>
+    <p hidden id="intro">${fn:length(employee.listDonHang)}</p>
 
 		</table>
 
@@ -89,7 +89,7 @@
 						<div class="modal-header">
 							<p class="h4 modal-title" id="maDonHang"></p>
 							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
@@ -139,6 +139,9 @@
 <!-- 															<th
 																class="border-0 text-uppercase small font-weight-bold">Số
 																lượng nhận</th> -->
+																<th
+																class="border-0 text-uppercase small font-weight-bold">Thành 
+																tiền</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -150,7 +153,7 @@
 										<div class="d-flex flex-row-reverse bg-dark text-white p-4">
 											<div class="py-3 px-5 text-right">
 												<div class="mb-2">
-													<p id="tongTien"></p>
+													<p id="tongTienCapNhat"></p>
 												</div>
 											</div>
 										</div>
@@ -168,7 +171,88 @@
 								</div>
 							</div>
 						</div>
+						<div   class="container" id="modalId" style="
+    padding-left: 90px;
+" hidden>
+   
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-6  body-main">
+<div class="col-md-12">
+                    <div class="row">
+                    
+                        <div style="font-family:inherit; ;" class="col-md-8 text-left">
+                         
+                            <p>Gốm sứ Thành Phát</p>
+                            <p>SĐT: 0977606703</p>
+                            <p>Địa chỉ: Số nhà 102 - 310 Nghi Tàm - Tây Hồ - Hà Nội</p>
+                        </div>
+                     <div style="" class="col-md-4 text-right">
+                     
+                        <img style="width: 150px" alt="" src="${ pageContext.request.contextPath }/Frontend/img/logo6.png">
+                        </div> 
+                    </div> <br />
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2>HÓA ĐƠN BÁN HÀNG</h2>
+                            <h5 style="color: red;"><p class="h4 modal-title" id="maDonHangHoaDon"></p></h5>
+                            
+                        </div>
+                        <div class="col-md-8 text-left">
+                        <b style="font-size: 18px">Thông tin khách hàng</b>
+												
+							<p  id="hoTenNguoiNhanHoaDon"></p>
+							<p  id="diaChiNhanHoaDon"></p>
+							<p  id="sdtNhanHangHoaDon"></p>
+							</div>
+                    </div> <br />
+                    <div>
+                       <table class="table chiTietTable"
+													style="text-align: center;">
+													<thead>
+														<tr>
+															<th
+																class="border-0 text-uppercase small font-weight-bold">STT</th>
+															<th
+																class="border-0 text-uppercase small font-weight-bold">Tên
+																sản phẩm</th>
+															<th
+																class="border-0 text-uppercase small font-weight-bold">Đơn
+																giá</th>
+															<th
+																class="border-0 text-uppercase small font-weight-bold">SL</th>
+																<th
+																class="border-0 text-uppercase small font-weight-bold">Thành 
+																tiền</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+												<div class="d-flex flex-row-reverse bg-dark text-white p-4">
+											<div class="py-3 px-5 text-right">
+												<div class="mb-2">
+													<p id="tongTienHoaDon"><b>VND</b></p>
+												</div>
+											
+										</div>
+										
+                    </div>
+                    <div>
+                        <div class="col-md-12">
+                           <p class="mb-1" id="ngayDatHang"></p>
+                            <p><b>NGƯỜI MUA HÀNG</b> <b style="padding-left: 180px;">NHÂN VIÊN GIAO HÀNG</b></p>
+                            <p><b style="margin-left: 20px">(Ký rõ họ tên)</b> <b style="padding-left: 230px;">(Ký rõ họ tên)</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div>
 						<div class="modal-footer">
+						<button type="button" class="btn btn-warning"
+								 id="exportPDFbyId">Xuất file pdf</button>
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Đóng</button>
 						</div>
@@ -180,7 +264,7 @@
 <div class="row col-md-6">
 		<form class="chiTietForm">
 			<div class="modal fade" id="chiTietModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
+aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog " role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -265,6 +349,10 @@
 								</div>
 							</div>
 						</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Đóng</button>
@@ -347,7 +435,7 @@
 			<div>
 				<div class="modal fade" id="xacNhanKhachMuaModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
-					aria-hidden="true" data-backdrop="static" data-keyboard="false">
+aria-hidden="true" data-backdrop="static" data-keyboard="false">
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -432,7 +520,7 @@
 				to.datepicker("option", "minDate", getDate(this));
 			}), to = $("#toDate").datepicker({
 				dateFormat : "dd-mm-yy",
-				changeMonth : true
+changeMonth : true
 			}).on("change", function() {
 				from.datepicker("option", "maxDate", getDate(this));
 			});

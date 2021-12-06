@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.potteryshop.dto.ListCongViecDTO;
 import com.potteryshop.entities.NguoiDung;
 import com.potteryshop.service.DanhMucService;
 import com.potteryshop.service.DonHangService;
 import com.potteryshop.service.HangSanXuatService;
+import com.potteryshop.service.LienHeService;
 import com.potteryshop.service.NguoiDungService;
+import com.potteryshop.service.VaiTroService;
 
 @Controller
 @RequestMapping("/employee")
@@ -35,6 +38,10 @@ public class EmployeeController {
 	
 	@Autowired
 	private DonHangService donHangService;
+	@Autowired
+	private LienHeService lienHeService;
+    @Autowired
+	private VaiTroService vaiTroService;
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser(boolean model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -107,5 +114,17 @@ model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		model.addAttribute("employee", user);
 		return "employee/quanLyDanhMuc";
 	}
+	@GetMapping("/tai-khoan")
+	public String quanLyTaiKhoanPage(Model model) {
+	    model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
+	    ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
+		return "employee/quanLyTaiKhoan";
+	}
+
 
 }

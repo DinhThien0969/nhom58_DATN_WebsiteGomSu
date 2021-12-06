@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Quản lý nhãn hiệu</title>
+<title>Thống kê doanh thu sản phẩm</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
@@ -16,9 +16,9 @@
 	<jsp:include page="template/sidebar.jsp"></jsp:include>
 
 	<div class="col-md-9 animated bounce">
-		<h3 class="page-header">Thống kê</h3>
+		<h3 class="page-header"><b>Thống kê</b></h3>
 		
-		<select id="month">
+		<select class="form-select" id="month" style="">
 			<option value=1> Tháng 1 </option>
 			<option value=2 > Tháng 2 </option>
 			<option value=3> Tháng 3 </option>
@@ -33,7 +33,7 @@
 			<option value=12> Tháng 12 </option>
 		</select>
 		<canvas id="myChart" width="600px" height="400px"></canvas>
-		<h4 style="text-align: center; padding-right: 10%">Biểu đồ tổng giá trị đơn hàng hoàn thành theo tháng</h4>
+		<h4 style="text-align: center; padding-right: 10%; color:#D2691E"><b>Biểu đồ doanh thu sản phẩm bán chạy nhất theo tháng</b></h4>
 
 	</div>
 

@@ -38,7 +38,7 @@ public interface DonHangRepository extends JpaRepository<DonHang, Long>, Queryds
 				+ "and dh.trang_thai_don_hang = 'hoàn thành'\r\n"
 				+ "and month(dh.ngay_nhan_hang) like ? -- \r\n"
 				+ "order by doanh_thu desc\r\n"
-				+ "limit 4",nativeQuery = true)
+				+ "limit 3",nativeQuery = true)
 		public List<Object> top4DoanhThuSanPhamTheoThang(Integer thang);
 		
 		@Query(value = "select month(dh.ngay_nhan_hang) ,\r\n"
@@ -52,9 +52,9 @@ public interface DonHangRepository extends JpaRepository<DonHang, Long>, Queryds
 				+ "			where ctdh.ma_don_hang = dh.id\r\n"
 				+ "			and sp.id = ctdh.ma_san_pham\r\n"
 				+ "			and dh.trang_thai_don_hang = 'hoàn thành'\r\n"
-				+ "			-- and month(dh.ngay_nhan_hang) like 11 \r\n"
+				+ "		    and month(dh.ngay_nhan_hang) like ? \r\n"
 				+ "			order by doanh_thu desc\r\n"
-				+ "			limit 4\r\n"
+				+ "			limit 3\r\n"
 				+ "",nativeQuery = true)
 		public List<Object> top4SoLuongSanPhamTheoThang(Integer thang);
 	
