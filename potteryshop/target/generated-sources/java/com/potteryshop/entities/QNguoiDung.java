@@ -20,6 +20,8 @@ public class QNguoiDung extends EntityPathBase<NguoiDung> {
 
     public static final QNguoiDung nguoiDung = new QNguoiDung("nguoiDung");
 
+    public final DateTimePath<java.util.Date> blockTodate = createDateTime("blockTodate", java.util.Date.class);
+
     public final StringPath diaChi = createString("diaChi");
 
     public final StringPath email = createString("email");
