@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +50,11 @@ setInterval(function (){
 	 console.log("listCurrent ", parseInt(document.getElementById("listCurrent").innerHTML));
 	 if(parseInt(document.getElementById("list").innerHTML)<parseInt(document.getElementById("listCurrent").innerHTML))
 	 {
-		 alert("Bạn có đơn hàng cần giao mới!!");
+		 Swal.fire(
+     			  'Bạn có thông báo đơn hàng giao mới!!',
+     			  'Nhấn "ok" để hủy',
+     			  'warning'
+     			)
 		 $("#here1").load(window.location.href + " #here1" );	 
 	 }
 	 

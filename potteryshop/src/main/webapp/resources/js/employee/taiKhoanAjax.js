@@ -88,8 +88,7 @@ $(document).ready(function() {
         ajaxPostTaiKhoan();
         resetData();
     });
-    
-    function ajaxPostTaiKhoan() {    	
+function ajaxPostTaiKhoan() {    	
     	var data = JSON.stringify($('.taiKhoanForm').serializeJSON());
     	console.log(data);
     	
@@ -190,7 +189,8 @@ $(document).ready(function() {
 		if(confirmation){
 		  $.ajax({
 			  type : "PUT",
-			  url : "http://localhost:8080/potteryshop/api/tai-khoan/switchStatus/" + taiKhoanId,
+
+url : "http://localhost:8080/potteryshop/api/tai-khoan/switchStatus/" + taiKhoanId,
 			  success: function(resultMsg){
 				  resetData();
 			  },

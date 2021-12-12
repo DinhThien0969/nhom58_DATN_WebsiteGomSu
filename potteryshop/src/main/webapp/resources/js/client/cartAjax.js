@@ -1,7 +1,11 @@
 calculateOrder()
 function changeQuanity(id,value,price)
 	{ 
-	if(value==20){alert("Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng");}
+	if(value==20){Swal.fire(
+  'Thông báo',
+  'Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng',
+  'info'
+)}
 		$.ajax({
 			type: "GET",		
 			url: "http://localhost:8080/potteryshop/api/gio-hang/changSanPhamQuanity?id="+id+"&value="+value,
@@ -87,7 +91,11 @@ function changeQuanityNew(id,value,price)
 	{
 	
 	
-	if(value==20){alert("Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng");}
+	if(value==20){Swal.fire(
+  'Thông báo',
+  'Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng',
+  'info'
+)}
 	
 	
 	

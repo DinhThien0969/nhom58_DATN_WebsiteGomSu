@@ -1,6 +1,8 @@
 package com.potteryshop.api.admin;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ import com.potteryshop.dto.TaiKhoanDTO;
 import com.potteryshop.entities.NguoiDung;
 import com.potteryshop.entities.ResponseObject;
 import com.potteryshop.entities.VaiTro;
+import com.potteryshop.repository.NguoiDungRepository;
 import com.potteryshop.repository.VaiTroRepository;
 import com.potteryshop.service.NguoiDungService;
 import com.potteryshop.service.VaiTroService;
@@ -41,6 +44,8 @@ public class TaiKhoanApi {
 
 	@Autowired
 	private VaiTroService vaiTroService;
+	@Autowired
+	private NguoiDungRepository nguoiDungRepository;
 
 	@GetMapping("/all")
 	public Page<NguoiDung> getNguoiDungByVaiTro(@RequestParam("tenVaiTro") String tenVaiTro,
@@ -111,5 +116,32 @@ public class TaiKhoanApi {
 	public VaiTro upRoleToAdmin(@PathVariable long id) {
 		vaitroRepo.updateRoleToAdminByEmployeeId((long)id);
 		return null;
+	}
+	
+	
+	@PutMapping("/unblockAccountFor1Minute/{id}")
+	public NguoiDung blockAccountFor3Days(@PathVariable long id) {
+		Date date = new Date();
+		NguoiDung user = nguoiDungService.findById(id);
+			if(date.after(user.getBlockTodate()) && user.getIsBlocked()) {
+				user.setIsBlocked(false);
+			}
+			nguoiDungRepository.save(user);
+		return user;
+	}
+	
+	@PutMapping("/setBlockToDate/{id}")
+	public NguoiDung setBlockToDate(@PathVariable long id) {
+		Calendar date = Calendar.getInstance();
+		System.out.println("Current Date and TIme : " + date.getTime());
+		long timeInSecs = date.getTimeInMillis();
+		Date afterAdding1Mins = new Date(timeInSecs + (1 * 60 * 1000));
+		System.out.println("Khóa tài khoản đến : " + afterAdding1Mins);
+		NguoiDung user = nguoiDungService.findById(id);
+		System.out.println(user.getPassword());
+		user.setBlockTodate(afterAdding1Mins);
+		user.setIsBlocked(true);
+		nguoiDungRepository.save(user);
+		return user;
 	}
 }

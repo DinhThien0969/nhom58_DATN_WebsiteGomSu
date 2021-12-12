@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Quản lý nhãn hiệu</title>
+<title>Thống kê số lượng sản phẩm</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
@@ -16,7 +16,7 @@
 	<jsp:include page="template/sidebar.jsp"></jsp:include>
 
 	<div class="col-md-9 animated bounce">
-		<h3 class="page-header">Thống kê</h3>
+		<h3 class="page-header"><b>Thống kê</b></h3>
 		
 		<select id="month">
 			<option value=1> Tháng 1 </option>
@@ -33,7 +33,7 @@
 			<option value=12> Tháng 12 </option>
 		</select>
 		<canvas id="myChart" width="600px" height="400px"></canvas>
-		<h4 style="text-align: center; padding-right: 10%">Biểu đồ số lượng đơn hàng hoàn thành theo tháng</h4>
+		<h4 style="text-align: center; padding-right: 10%;color:#D2691E"><b>Biểu đồ sản phẩm có số lượng bán nhiều nhất</b></h4>
 
 	</div>
 
@@ -81,45 +81,64 @@
 			}
 		});
 
-		
+		labelsAjusted=label.map(label=>label.split(' '));
 		data = {
-			labels : label,
+			labels : labelsAjusted,
 			datasets : [ {
-				label : "Tổng tổng số lượng ( Triệu đồng)",
-				backgroundColor : "#0000ff",
-				borderColor : "#0000ff",
+				label : "Tổng số lượng ",
+				backgroundColor : "#CD5C5C",
+				borderColor : "#CD5C5C",
 				borderWidth : 2,
-				hoverBackgroundColor : "#0043ff",
-				hoverBorderColor : "#0043ff",
+				hoverBackgroundColor : "#DC143C",
+				hoverBorderColor : "#DC143C",
 				data : dataForDataSets,
 			} ]
 		};
 		var option = {
-			scales : {
-				yAxes : [ {
-					stacked : true,
-					gridLines : {
-						display : true,
-						color : "rgba(255,99,132,0.2)"
-					}
-				} ],
-				xAxes : [ {
-					barPercentage: 0.5,
-					gridLines : {
-						display : false
-					}
-				} ]
-			},
-			maintainAspectRatio: false,
-			legend: {
-	            labels: {
-	                // This more specific font property overrides the global property
-	                fontSize: 20
-	            }
-			}
-		};
-var canvas = document.getElementById('myChart');
-		myBarChart = Chart.Bar(canvas, {
+				scales : {
+					y :  { ticks: {
+						font: {
+	                        family: 'Raleway', // Your font family
+	                        size: 18,
+	                    },
+		        },
+						stacked : true,
+						gridLines : {
+							display : true,
+							color : "rgba(255,99,132,0.2)"
+						}
+					} ,
+					x : 
+						
+						{ ticks: {
+							font: {
+	family: 'Raleway', // Your font family
+		                        size: 15,
+		                    },
+			        },
+						barPercentage: 0.5,
+						gridLines : {
+							display : false
+						}
+					} 
+				},
+				maintainAspectRatio: false,
+				 plugins: {
+					 legend: {
+				            labels: {
+				                // This more specific font property overrides the global property
+				            	font: {
+			                        family: 'Raleway', // Your font family
+			                        size: 18,
+			                    },
+				            }
+						}
+			        }
+				
+			};
+		const canvas = document.getElementById('myChart').getContext('2d');
+		 myBarChart = new Chart(canvas, {type: 'bar',
+			 /* myBarChart = Chart.Bar(canvas, { */
 			data : data,
 			options : option
 		});
@@ -127,7 +146,36 @@ var canvas = document.getElementById('myChart');
 	};
 	
 </script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
+<script>
+		setInterval(function (){
+        	$("#here").load(window.location.href + " #here" );
+       	    $("#lienHeMoi").load(window.location.href + " #lienHeMoi" );
+   	        $("#donHangMoi").load(window.location.href + " #donHangMoi" );
+          	 if(parseInt(document.getElementById("list").innerHTML)<parseInt(document.getElementById("listCurrent").innerHTML))
+          	 {
+          		Swal.fire(
+          			  'Bạn có thông báo mới!',
+          			  'Nhấn "ok" để hủy',
+          			  'warning'
+          			)
+          		 $("#here1").load(window.location.href + " #here1" );	
+          		
+          	 }
+          	
+          		
+          	}, 5000);
+		
+	</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<c:if test = "${listCongViec.soDonHangMoi > 0}" >
+       <div hidden id="donHangMoi"> ${listCongViec.soDonHangMoi}</div> 
+       </c:if>
+       
+       <c:if test = "${listCongViec.soLienHeMoi > 0}">
+       <div hidden id="lienHeMoi"> ${listCongViec.soLienHeMoi}</div> 
+       </c:if>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" 
+	integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

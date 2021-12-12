@@ -42,11 +42,16 @@ public class CartController {
 	@Autowired
 	private ChiMucGioHangService chiMucGioHangService;
 	
-	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		return nguoiDungService.findByEmail(auth.getName());
+
+    @ModelAttribute("loggedInUser")
+	public NguoiDung loggedInUser(boolean isBlocked) {
+
+		if (!isBlocked) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			return nguoiDungService.findByEmail(auth.getName());
+		} else
+			return null;
 	}
 	
 	public NguoiDung getSessionUser(HttpServletRequest request) {
@@ -110,7 +115,12 @@ Set<Long> idList = new HashSet<Long>();
 		model.addAttribute("quanityNew",quanityNew);
 		model.addAttribute("quanity",quanity);
 		
-		return "client/cart";
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/cart";
+		}
 	}
 
 }

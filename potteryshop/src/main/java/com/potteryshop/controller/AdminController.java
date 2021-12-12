@@ -206,13 +206,44 @@ public class AdminController {
 	}
 	@GetMapping("/thong-ke/doanh-thu-sp-theo-thang")
 	public String thongKeDoanhThuSpTheoThangPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/thongKe";
 	}
 	
 	@GetMapping("/thong-ke/so-luong-sp-theo-thang")
 	public String thongKeSoLuongSpTheoThangPage(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
 		return "admin/thongKe2";
 	}
-
+	@GetMapping("/thong-ke/top4DoanhThuCuaNhanVienTheoThang")
+	public String top4DoanhThuCuaNhanVienTheoThang(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
+		return "admin/thongKe3";
+	}
+	@GetMapping("/thong-ke/top4SoLuongSanPhamCuaNhanVienTheoThang")
+	public String top4SoLuongSanPhamCuaNhanVienTheoThang(Model model) {
+		ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
+		return "admin/thongKe4";
+	}
 
 }

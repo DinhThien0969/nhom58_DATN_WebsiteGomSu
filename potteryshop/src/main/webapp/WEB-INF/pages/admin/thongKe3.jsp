@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Thống kê doanh thu sản phẩm</title>
+<title>top4 Doanh Thu Cua Nhan Vien Theo Thang</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
@@ -16,9 +16,9 @@
 	<jsp:include page="template/sidebar.jsp"></jsp:include>
 
 	<div class="col-md-9 animated bounce">
-		<h3 class="page-header"><b>Thống kê</b></h3>
+		<h3 class="page-header">Thống kê</h3>
 		
-		<select class="form-select" id="month" style="">
+		<select id="month">
 			<option value=1> Tháng 1 </option>
 			<option value=2 > Tháng 2 </option>
 			<option value=3> Tháng 3 </option>
@@ -32,9 +32,8 @@
 			<option value=11> Tháng 11 </option>
 			<option value=12> Tháng 12 </option>
 		</select>
-		<h1><canvas id="myChart" ></canvas>
-		</h1>
-		<h4 style="text-align: center; padding-right: 10%; color:#D2691E"><b>Biểu đồ doanh thu sản phẩm bán chạy nhất theo tháng</b></h4>
+		<canvas id="myChart" width="600px" height="400px"></canvas>
+		<h4 style="text-align: center; padding-right: 10%;color:#D2691E"><b>Biểu đồ doanh thu của nhân viên theo tháng</b></h4>
 
 	</div>
 
@@ -45,8 +44,9 @@
 
 
 	var month = new Date().getMonth()+1;
-	var myBarChart ;
 	$("#month").val(month).change();
+	var myBarChart ;
+	
 	
 	$(document).on('change','#month',function(){
 		var select = document.getElementById('month');
@@ -68,11 +68,11 @@
 			type : "GET",
 			data : data,
 			contentType : "application/json",
-			url : "http://localhost:8080/potteryshop/api/don-hang/report/doanh-thu-theo-san-pham/"+month,
+			url : "http://localhost:8080/potteryshop/api/don-hang/report/top4DoanhThuCuaNhanVienTheoThang/"+month,
 			success : function(data) {
 				for (var i = 0; i < data.length; i++) {
-					label.push(data[i][3]);
-					dataForDataSets.push(data[i][4]/1000000);
+					label.push(data[i][2]);
+					dataForDataSets.push(data[i][0]);
 				}
 			},
 			error : function(e) {
@@ -80,63 +80,62 @@
 				console.log("Error", e);
 			}
 		});
+
 		labelsAjusted=label.map(label=>label.split(' '));
-		console.log(labelsAjusted);
 		data = {
-			labels :labelsAjusted,
+			labels : labelsAjusted,
 			datasets : [ {
-				label : "Tổng giá trị ( Triệu đồng)",
+				label : "Tổng doanh thu ",
 				backgroundColor : "#CD5C5C",
 				borderColor : "#CD5C5C",
 				borderWidth : 2,
-				
 				hoverBackgroundColor : "#DC143C",
 				hoverBorderColor : "#DC143C",
 				data : dataForDataSets,
 			} ]
 		};
 		var option = {
-			scales : {
-				y :  { ticks: {
-					font: {
-                        family: 'Raleway', // Your font family
-                        size: 18,
-                    },
-	        },
-					stacked : true,
-					gridLines : {
-						display : true,
-						color : "rgba(255,99,132,0.2)"
-					}
-				} ,
-				x : 
-					
-					{ ticks: {
+				scales : {
+					y :  { ticks: {
 						font: {
-family: 'Raleway', // Your font family
-	                        size: 15,
+	                        family: 'Raleway', // Your font family
+	                        size: 18,
 	                    },
 		        },
-					barPercentage: 0.5,
-					gridLines : {
-						display : false
-					}
-				} 
-			},
-			maintainAspectRatio: false,
-			 plugins: {
-				 legend: {
-			            labels: {
-			                // This more specific font property overrides the global property
-			            	font: {
-		                        family: 'Raleway', // Your font family
-		                        size: 18,
+						stacked : true,
+						gridLines : {
+							display : true,
+							color : "rgba(255,99,132,0.2)"
+						}
+					} ,
+					x : 
+						
+						{ ticks: {
+							font: {
+	family: 'Raleway', // Your font family
+		                        size: 15,
 		                    },
-			            }
-					}
-		        }
-			
-		};
+			        },
+						barPercentage: 0.5,
+						gridLines : {
+							display : false
+						}
+					} 
+				},
+				maintainAspectRatio: false,
+				 plugins: {
+					 legend: {
+				            labels: {
+				                // This more specific font property overrides the global property
+				            	font: {
+			                        family: 'Raleway', // Your font family
+			                        size: 18,
+			                    },
+				            }
+						}
+			        }
+				
+			};
 		const canvas = document.getElementById('myChart').getContext('2d');
 		 myBarChart = new Chart(canvas, {type: 'bar',
 			 /* myBarChart = Chart.Bar(canvas, { */

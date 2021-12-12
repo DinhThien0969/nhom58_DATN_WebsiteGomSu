@@ -120,24 +120,21 @@
 					Tổng giá trị đơn hàng: <b id="ordertotal"> </b>
 				</p>
 				<br>
-
-
-
-
-
 				<p>potteryshop xin chân thành cảm ơn quý khách hàng đã tin tưởng
 					sử dụng dịch vụ, sản phẩm của chúng tôi</p>
 				<br> <a href="<%=request.getContextPath()%>/">Nhấn vào đây
 					để tiếp tục mua sắm</a>
 				</c:if>
 				<c:if test="${fn:length(cartNew)+fn:length(cart)<=0 }">
-				<script type="text/javascript"  >	  
+				<img alt="" src="https://gomsuthanhtam.com/userfile/config/BannerHome-5.jpg">
+				<script type="text/javascript">	  
 	                   $(document).ready(function() { 
-		             Swal.fire({
+		      Swal.fire({
 			  icon: 'error',
               title: 'VUI LÒNG QUAY LẠI TRANG CHỦ ĐỂ MUA HÀNG',
 			  text: 'NHẤN OK ĐỂ HỦY',
-			  footer: '<a href="http://localhost:8080/potteryshop/">TIẾP TỤC MUA HÀNG</a>'
+			  background: ' url(https://nhaxinhplaza.com/Images/giay-dan-tuong-phong-ngu-ma-8258-1.jpg)',
+			  footer: '<a href="http://localhost:8080/potteryshop/" style="color: #32CD32; font-size: 20px"><b>TIẾP TỤC MUA HÀNG</b></a>'
 			})
 	  });
 	</script> 

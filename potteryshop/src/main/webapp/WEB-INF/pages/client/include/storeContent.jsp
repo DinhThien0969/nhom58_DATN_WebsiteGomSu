@@ -6,6 +6,7 @@
 <script src="Frontend/js/responsiveslides.min.js"></script>
 <script src="js/client/accounting.js"></script>
 <script src="<c:url value='/js/client/store.js'/>" ></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <script type="text/javascript">	  

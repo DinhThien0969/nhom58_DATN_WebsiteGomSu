@@ -56,9 +56,14 @@ public class CheckOutController {
 	private DonHangRepository donHangRepo;
 
 	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return nguoiDungService.findByEmail(auth.getName());
+	public NguoiDung loggedInUser(boolean isBlocked) {
+
+		if (!isBlocked) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			return nguoiDungService.findByEmail(auth.getName());
+		} else
+			return null;
 	}
 
 	public NguoiDung getSessionUser(HttpServletRequest request) {
@@ -117,7 +122,12 @@ quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 		model.addAttribute("user", currentUser);
 		model.addAttribute("donhang", new DonHang());
 
-		return "client/checkout";
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/checkout";
+		}
 	}
 
 	@PostMapping(value = "/thankyou")

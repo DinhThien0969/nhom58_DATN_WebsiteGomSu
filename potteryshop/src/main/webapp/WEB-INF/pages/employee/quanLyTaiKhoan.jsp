@@ -85,8 +85,8 @@
 								<div class="form-group">
 									
 									 <c:forEach  var="vaiTro" items="${listVaiTro}">
-										<label style="visibility:hidden;display: none;"  class="radio-inline"> 
-										<input type="hidden" type="radio" name="tenVaiTro" value="${vaiTro.tenVaiTro}" checked="checked">
+										<label style="visibility:hidden;display: none;"  class="radio-inline">
+<input type="hidden" type="radio" name="tenVaiTro" value="${vaiTro.tenVaiTro}" checked="checked">
 											${vaiTro.tenVaiTro}
 										</label>
 									</c:forEach>

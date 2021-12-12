@@ -181,8 +181,9 @@ function muaHo() {
 		Swal.fire({
 			  icon: 'warning',
 title: 'VUI LÒNG ĐĂNG NHẬP VÀ QUAY LẠI GIỎ HÀNG',
+background: 'url(https://nhaxinhplaza.com/Images/giay-dan-tuong-phong-ngu-ma-8258-1.jpg)',
 			  text: 'NHẤN OK ĐỂ HỦY',
-			  footer: '<a href="http://localhost:8080/potteryshop/login">ĐĂNG NHẬP</a>'
+			  footer: '<a href="http://localhost:8080/potteryshop/login" style="color: #32CD32; font-size: 20px"><b>ĐĂNG NHẬP</b></a>'
 			})
 	  });
 	</script> 

@@ -280,7 +280,8 @@ $(document).ready(function() {
 			populate('.updateOtherForm', sanPham);
 			$("#idDanhMucKhac").val(sanPham.danhMuc.id);
 			var hangSXId = sanPham.hangSanXuat.id;
-			$("#nhaSXIdKhac").val(hangSXId);	
+			$("#nhaSXIdKhac").val(hangSXId);
+			$(".modal-title").text("Cập nhật sản phẩm của danh mục "+ sanPham.danhMuc.tenDanhMuc);	
 		});		
 		removeElementsByClass("error");		
 		$('.updateOtherForm .otherModal').modal();

@@ -38,7 +38,7 @@ public interface DonHangRepository extends JpaRepository<DonHang, Long>, Queryds
 				+ "and dh.trang_thai_don_hang = 'hoàn thành'\r\n"
 				+ "and month(dh.ngay_nhan_hang) like ? -- \r\n"
 				+ "order by doanh_thu desc\r\n"
-				+ "limit 4",nativeQuery = true)
+				+ "limit 10",nativeQuery = true)
 		public List<Object> top4DoanhThuSanPhamTheoThang(Integer thang);
 		
 		@Query(value = "select month(dh.ngay_nhan_hang) ,\r\n"
@@ -52,10 +52,30 @@ public interface DonHangRepository extends JpaRepository<DonHang, Long>, Queryds
 				+ "			where ctdh.ma_don_hang = dh.id\r\n"
 				+ "			and sp.id = ctdh.ma_san_pham\r\n"
 				+ "			and dh.trang_thai_don_hang = 'hoàn thành'\r\n"
-				+ "			-- and month(dh.ngay_nhan_hang) like 11 \r\n"
+				+ "		    and month(dh.ngay_nhan_hang) like ? \r\n"
 				+ "			order by doanh_thu desc\r\n"
-				+ "			limit 4\r\n"
+				+ "			limit 5\r\n"
 				+ "",nativeQuery = true)
 		public List<Object> top4SoLuongSanPhamTheoThang(Integer thang);
+		//
+		@Query(value = "select count(dh.ma_employee) \"so_luong\",month(dh.ngay_nhan_hang) \"ngay_nhan\",nd.ho_ten from don_hang dh , nguoi_dung nd , nguoidung_vaitro ndvt\r\n"
+				+ "where dh.ma_employee = nd.id = ndvt.ma_nguoi_dung\r\n"
+				+ "and dh.trang_thai_don_hang = 'Hoàn thành'\r\n"
+				+ "and month(dh.ngay_nhan_hang) = ?\r\n"
+				+ "group by month(dh.ngay_nhan_hang),dh.ma_employee\r\n"
+				+ "order by so_luong desc\r\n"
+				+ ";",nativeQuery = true)
+		public List<Object> top4SoLuongSanPhamCuaNhanVienTheoThang(Integer thang);
+		
+
+		@Query(value = "select sum(dh.tong_gia_tri) \"doanh_thu\",month(dh.ngay_nhan_hang) \"ngay_nhan\",nd.ho_ten from don_hang dh , nguoi_dung nd , nguoidung_vaitro ndvt\r\n"
+				+ "where dh.ma_employee = nd.id = ndvt.ma_nguoi_dung\r\n"
+				+ "and dh.trang_thai_don_hang = 'Hoàn thành'\r\n"
+				+ "and month(dh.ngay_nhan_hang) = ?\r\n"
+				+ "group by month(dh.ngay_nhan_hang),dh.ma_employee\r\n"
+				+ "order by doanh_thu desc\r\n"
+				+ ";",nativeQuery = true)
+		public List<Object> top4DoanhThuCuaNhanVienTheoThang(Integer thang);
+
 	
 }

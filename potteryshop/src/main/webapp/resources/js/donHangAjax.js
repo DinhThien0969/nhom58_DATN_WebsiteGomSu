@@ -33,8 +33,31 @@ $(document).ready(function() {
 					                  '<td>' + donHang.ngayDatHang + '</td>' +
 					                  '<td>' + donHang.ngayGiaoHang + '</td>' +
 					                  '<td>' + donHang.ngayNhanHang + '</td>' +
+					                  '<td width="0%">' + '<input type="hidden" class="nguoiDatId" value=' + donHang.nguoiDat.id + '>' + '</td>' +
 					                  '<td width="0%">'+'<input type="hidden" class="donHangId" value=' + donHang.id + '>'+ '</td>'+
 					                  '<td><button class="btn btn-warning btnChiTiet" >Chi Tiết</button>';
+					                  if(donHang.trangThaiDonHang == "Đang chờ xác nhận khách mua"){
+					              $('#date1').html("Ngày đặt");
+					              $( "#date2" ).html("");
+					              $( "#date3" ).html("");
+					            }else if(donHang.trangThaiDonHang == "Đang chờ giao"){
+					             $('#date1').html("Ngày đặt");
+					              $( "#date2" ).html("");					             
+					             $( "#date3" ).html("Ngày xác nhận đơn hàng");
+					            }else if(donHang.trangThaiDonHang == "Đang giao"){
+					             $('#date1').html("Ngày đặt");
+					             $('#date2').html("Ngày phân công giao");
+					             $( "#date3" ).html("Ngày xác nhận đơn hàng");
+					            }else if(donHang.trangThaiDonHang == "Chờ khách xác nhận" || donHang.trangThaiDonHang == "Hoàn thành"){
+					             $('#date1').html("Ngày đặt");
+					             $('#date2').html("Ngày phân công giao");
+					             $( "#date3" ).html("Ngày giao hàng");
+					            }else if(donHang.trangThaiDonHang == "Đã bị hủy"){
+					             $('#date1').html("Ngày đặt");
+					             $( "#date2" ).html("");
+					             $( "#date3" ).html("Ngày hủy đơn");
+					            }
+					                  
 					     if(donHang.trangThaiDonHang == "Đang chờ giao" || donHang.trangThaiDonHang == "Đang giao"){
 					    	 donHangRow += ' &nbsp;<button class="btn btn-primary btnPhanCong">Phân công</button>'+
 					    	               ' &nbsp;<button class="btn btn-danger btnHuy">Hủy đơn</button>' ;
@@ -174,6 +197,17 @@ $("#employee").html("<strong>Employee giao hàng</strong>: "+ donHang.employee.h
 			if(check){
 				$('.chiTietTable').find('thead tr').append('<th id="soLuongNhanTag" class="border-0 text-uppercase small font-weight-bold"> SỐ LƯỢNG NHẬN </th>');
 			}
+			if(donHang.trangThaiDonHang == "Đang chờ giao"){
+			$("#ngayNhanHang").text("Ngày xác nhận đơn hàng: "+ donHang.ngayNhanHang);
+			}else if(donHang.trangThaiDonHang == "Đang giao"){
+			$("#ngayShipHang").text("Ngày phân công giao: "+ donHang.ngayGiaoHang);
+			$("#ngayNhanHang").text("Ngày xác nhận đơn hàng: "+ donHang.ngayNhanHang);
+			}else if(donHang.trangThaiDonHang == "Chờ khách xác nhận" || donHang.trangThaiDonHang == "Hoàn thành"){
+			$("#ngayShipHang").text("Ngày phân công giao: "+ donHang.ngayGiaoHang);
+			$("#ngayNhanHang").text("Ngày giao hàng: "+ donHang.ngayNhanHang);
+			}else{	
+			$("#ngayNhanHang").text("Ngày hủy đơn hàng: "+ donHang.ngayNhanHang);
+			}
 			// thêm bảng:
 			var sum = 0; // tổng giá trị đơn
 			var stt = 1;
@@ -308,15 +342,58 @@ donHangRow += ' &nbsp;<button class="btn btn-warning btnCapNhat" >Duyệt hoàn 
 		}); 
     }	
 	
-    $(document).on('click', '.btnHuy', function (event) {
-    	event.preventDefault();
+    $(document).on('click', '.btnHuy', function(event) {
+		//var
 		var donHangId = $(this).parent().prev().children().val();
-		var confirmation = confirm("Bạn chắc chắn hủy đơn hàng này ?");
-		if(confirmation){	 
-    	    ajaxPostHuyDon(donHangId);
-    		resetData();
+		var idNguoiDat = $(this).parent().prev().prev().children().val();
+		console.log("donhang id =" + donHangId);
+		console.log("nguoi dat id =" + idNguoiDat);
+
+		var date;
+
+		var spamCountMax = 3;
+		var arr = JSON.parse(localStorage.getItem(idNguoiDat));
+		var clickCount;
+		var boo;
+
+		if (arr == null) {
+			arr = [];
+			clickCount = 0;
+		} else {
+			arr = JSON.parse(localStorage.getItem(idNguoiDat));
+			clickCount = arr.length;
 		}
-    });
+		//
+		var confirmation = confirm("Bạn chắc chắn hủy đơn hàng này ?");
+		if (confirmation) {
+
+			if (clickCount < spamCountMax) {
+				clickCount++;
+				date = new Date().toDateString();
+				var obj = { "date": date, "clickCount": clickCount };
+				arr.push(obj);
+				localStorage.setItem(idNguoiDat, JSON.stringify(arr));
+			}
+			else if (clickCount >=spamCountMax) {
+				var item = JSON.parse(localStorage.getItem(idNguoiDat));
+				localStorage.setItem(idNguoiDat, null);
+				boo = false;
+				if (item[0].date == item[1].date && item[2].date == item[1].date) {
+					boo = true;
+					console.log(boo);
+				}
+			};
+			if (boo) {
+				ajaxPUTKhoaTaiKhoanDen(idNguoiDat);
+				localStorage.removeItem(idNguoiDat);
+				window.location.reload();
+			}
+			ajaxPostHuyDon(donHangId);
+			alert("huỷ thành công");
+			resetData();
+		}
+	
+	});
     
 	// post request xác nhận hủy đơn hàng
 	function ajaxPostHuyDon(donHangId) { 
@@ -345,4 +422,17 @@ console.log("ERROR: ", e);
 		$('.chiTietTable tbody tr').remove();
 		$('.chiTietCapNhatTable tbody tr').remove();
 	});
+	function ajaxPUTKhoaTaiKhoanDen(idNguoiDat){
+		//alert("chạy function khóa tài khoản "+idNguoiDat+" đến ngày");
+		Swal.fire(
+  'Thông báo',
+  'Khóa tài khoản với ID là:'+idNguoiDat,
+  'warning'
+)
+		$.ajax({
+			type:"PUT",
+			url:"http://localhost:8080/potteryshop/api/tai-khoan/setBlockToDate/"+idNguoiDat
+		})
+		
+	}
 });

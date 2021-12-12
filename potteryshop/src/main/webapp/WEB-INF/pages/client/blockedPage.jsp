@@ -19,6 +19,7 @@
 	
 	<form action="logout" align="center" >
     <h1 >Tài Khoản của bạn đã bị khóa</h1>
+    <input id="userId" type="hidden" value="${loggedInUser.id}">
 	<button class="btn btn-primary" type="submit">Quay lại với tư cách là khách</button>		
     <script type="text/javascript">	  
 	$(document).ready(function() { 
@@ -26,6 +27,7 @@
 			  icon: 'error',
 			  title: 'TÀI KHOẢN BẠN ĐÃ BỊ KHÓA',
 			  text: 'NHẤN OK ĐỂ HỦY',
+			  background: 'url(https://nhaxinhplaza.com/Images/giay-dan-tuong-phong-ngu-ma-8258-1.jpg)',
 			  footer: '<a href="http://localhost:8080/potteryshop/login">QUAY LẠI ĐĂNG NHẬP</a>'
 			})
 	  });
@@ -35,5 +37,6 @@
 	
 
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="<c:url value='/js/client/header.js'/>"></script>
 </body>
 </html>

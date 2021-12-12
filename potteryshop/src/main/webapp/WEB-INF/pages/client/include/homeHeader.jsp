@@ -37,9 +37,8 @@ $(window).scroll(function(){
 	  else sticky.removeClass('fixed');
 	});</script>
 
-<style>/* ==========================================
-    FOR DEMO PURPOSE
-  ========================================== */
+<style>
+
 .holder {
 	background: #f0efe9;
 	min-height: 100vh;
@@ -99,7 +98,8 @@ a {
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
 
 					<ul>
-						<li></li>
+						
+						<li id="userId" value="${loggedInUser.id}"></li>
 						<li>Xin chào: ${loggedInUser.hoTen}</li>
                         <li >
 						<sec:authorize access="hasRole('ADMIN')">

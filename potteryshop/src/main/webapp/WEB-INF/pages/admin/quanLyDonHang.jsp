@@ -56,7 +56,7 @@
 		</form>
 
 		<hr />
-		<a href="admin/export/execl" style="text-decoration: none;color:#FFFFFF;font-size: 18px;border: 2px solid #008000;border-radius: 5px; background-color: #008000">Xuất excel</a>
+		<a href="admin/export/execl" style="text-decoration: none;color: 	#FFFFFF;font-size: 18px;border: 2px solid #008000;border-radius: 5px; background-color: #008000">Xuất excel</a>
 		<table class="table table-hover donHangTable"
 			style="text-align: center">
 			<thead>
@@ -65,10 +65,10 @@
 					<th>Người nhận</th>
 					<th>Trạng thái</th>
 					<th>Giá trị</th>
-					<th>Ngày đặt</th>
-					<th>Ngày giao</th>
-					<th>Ngày nhận</th>
-					<th></th>
+					<th id="date1"></th>
+					<th id="date2"></th>
+					<th id="date3"></th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -170,7 +170,6 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Đóng</button>
-								
 						</div>
 					</div>
 				</div>
@@ -320,6 +319,35 @@
 			}
 		});
 	</script>
+	<script>
+		setInterval(function (){
+        	$("#here").load(window.location.href + " #here" );
+       	    $("#lienHeMoi").load(window.location.href + " #lienHeMoi" );
+   	        $("#donHangMoi").load(window.location.href + " #donHangMoi" );
+          	 if(parseInt(document.getElementById("list").innerHTML)<parseInt(document.getElementById("listCurrent").innerHTML))
+          	 {
+          		Swal.fire(
+          			  'Bạn có thông báo mới!',
+          			  'Nhấn "ok" để hủy',
+          			  'warning'
+          			)
+          		 $("#here1").load(window.location.href + " #here1" );	
+          		
+          	 }
+          	
+          		
+          	}, 5000);
+		
+	</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<c:if test = "${listCongViec.soDonHangMoi > 0}" >
+       <div hidden id="donHangMoi"> ${listCongViec.soDonHangMoi}</div> 
+       </c:if>
+       
+       <c:if test = "${listCongViec.soLienHeMoi > 0}">
+       <div hidden id="lienHeMoi"> ${listCongViec.soLienHeMoi}</div> 
+       </c:if>
 
 	<script src="<c:url value='/js/donHangAjax.js'/>"></script>
 </body>
