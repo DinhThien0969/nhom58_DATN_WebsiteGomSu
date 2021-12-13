@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.potteryshop.dto.ListCongViecDTO;
 import com.potteryshop.entities.NguoiDung;
+import com.potteryshop.service.DanhMucService;
+import com.potteryshop.service.DonHangService;
+import com.potteryshop.service.HangSanXuatService;
+import com.potteryshop.service.LienHeService;
 import com.potteryshop.service.NguoiDungService;
+import com.potteryshop.service.VaiTroService;
 
 @Controller
 @RequestMapping("/employee")
@@ -24,22 +30,58 @@ public class EmployeeController {
 	
 	@Autowired
 	private NguoiDungService nguoiDungService;
-	
+	@Autowired
+	private DanhMucService danhMucService;
 
-	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return nguoiDungService.findByEmail(auth.getName());
+	@Autowired
+	private HangSanXuatService hangSXService;
+	
+	@Autowired
+	private DonHangService donHangService;
+	@Autowired
+	private LienHeService lienHeService;
+    @Autowired
+	private VaiTroService vaiTroService;
+    
+    @ModelAttribute("loggedInUser")
+	public NguoiDung loggedInUser(boolean isBlocked) {
+
+		if (!isBlocked) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			return nguoiDungService.findByEmail(auth.getName());
+		} else
+			return null;
 	}
 	
 	
 	@GetMapping(value= {"", "/don-hang"})
 	public String employeePage(Model model) {
-		return "employee/quanLyDonHang";
+          System.out.println(loggedInUser(false));
+		
+		if(loggedInUser(false)!=null && loggedInUser(false).getIsBlocked()) {
+			
+			return "client/blockedPage";
+		}
+		else {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+			user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+			model.addAttribute("employee", user);
+
+			return "employee/quanLyDonHang";
+		}
+		
 	}
 	
 	@GetMapping("/profile")
 	public String profilePage(Model model, HttpServletRequest request) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
 		model.addAttribute("user", getSessionUser(request));
 		System.out.println(getSessionUser(request).toString());
 		return "employee/profile";
@@ -57,5 +99,48 @@ public class EmployeeController {
 	public NguoiDung getSessionUser(HttpServletRequest request) {
 		return (NguoiDung) request.getSession().getAttribute("loggedInUser");
 	}
+	@GetMapping("/san-pham")
+	public String quanLySanPhamPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
+		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
+model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
+		return "employee/quanLySanPham";
+	}
+	@GetMapping("/danh-muc")
+	public String quanLyDanhMucPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
+		return "employee/quanLyDanhMuc";
+	}
+	@GetMapping("/tai-khoan")
+	public String quanLyTaiKhoanPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
+		model.addAttribute("employee", user);
+	    model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
+	    ListCongViecDTO listCongViec = new ListCongViecDTO();
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
+		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
+		
+		model.addAttribute("listCongViec", listCongViec);
+		
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "employee/quanLyTaiKhoan";
+		}
+	}
+
 
 }

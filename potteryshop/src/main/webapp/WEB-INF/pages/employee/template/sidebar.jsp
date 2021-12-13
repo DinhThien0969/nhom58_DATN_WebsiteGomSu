@@ -24,8 +24,19 @@
             <a href="<c:url value='/employee/don-hang' />">
               <span class="glyphicon glyphicon-shopping-cart">&nbsp;</span>Quản lý đơn hàng</a>
           </li>
-          
           <li class="side-bar">
+            <a href="<c:url value='/employee/san-pham' />">
+              <span class="glyphicon glyphicon-folder-open">&nbsp;</span>Quản lý sản phẩm</a>
+          </li>
+          <li class="side-bar">
+            <a href="<c:url value='/employee/danh-muc' />">
+              <span class="glyphicon glyphicon-tasks">&nbsp;</span>Quản lý danh mục </a>
+          </li>
+          <li class="side-bar"><a
+					href="<c:url value='/employee/tai-khoan' />"> <span
+						class="glyphicon glyphicon-eye-open">&nbsp;</span>Quản lý khách hàng
+				</a></li>
+           <li class="side-bar">
             <a href="<c:url value='/employee/profile' />">
               <span class="glyphicon glyphicon-user">&nbsp;</span>Thông tin cá nhân</a>
           </li>

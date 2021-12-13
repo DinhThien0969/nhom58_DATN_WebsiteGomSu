@@ -34,8 +34,10 @@ public class DonHangApi {
 
 	// lấy danh sách đơn hàng theo search object
 	@GetMapping("/all")
-	public Page<DonHang> getDonHangByFilter(@RequestParam(defaultValue = "1") int page, @RequestParam String trangThai,
-			@RequestParam String tuNgay, @RequestParam String denNgay) throws ParseException {
+	public Page<DonHang> getDonHangByFilter(@RequestParam(defaultValue = "1") int page,
+			@RequestParam String trangThai,
+			@RequestParam String tuNgay,
+			@RequestParam String denNgay) throws ParseException {
 
 		SearchDonHangObject object = new SearchDonHangObject();
 		object.setDenNgay(denNgay);
@@ -103,4 +105,38 @@ public class DonHangApi {
 	public List<Object> test() {
 		return donHangService.layDonHangTheoThangVaNam();
 	}
+	
+	@PostMapping("/buySuccess")
+	 public void buySuccess(@RequestParam("donHangId") long donHangId) {
+			DonHang dh = donHangService.findById(donHangId);
+			dh.setTrangThaiDonHang("Chờ duyệt");
+			donHangService.save(dh);
+			}
+	@PostMapping("/Problem")
+	 public void problem(@RequestParam("donHangId") long donHangId) {
+			DonHang dh = donHangService.findById(donHangId);
+			String statusPre = dh.getTrangThaiDonHang();			
+			dh.setTrangThaiDonHang("Đang có sự cố");
+			donHangService.save(dh);
+			}
+	@GetMapping("/report/doanh-thu-theo-san-pham/{thang}")
+	public List<Object> revenueByProduct(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4DoanhThuSanPhamTheoThang(thang);
+	}
+	
+	@GetMapping("/report/so-luong-theo-san-pham/{thang}")
+	public List<Object> quantityByProduct(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4SoLuongSanPhamTheoThang(thang);
+	}
+	
+	@GetMapping("/report/top4DoanhThuCuaNhanVienTheoThang/{thang}")
+	public List<Object> revenueOfEmployeeByProduct(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4DoanhThuCuaNhanVienTheoThang(thang);
+	}
+	
+	@GetMapping("/report/top4SoLuongSanPhamCuaNhanVienTheoThang/{thang}")
+	public List<Object> top4SoLuongSanPhamCuaNhanVienTheoThang(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4SoLuongSanPhamCuaNhanVienTheoThang(thang);
+	}
+
 }

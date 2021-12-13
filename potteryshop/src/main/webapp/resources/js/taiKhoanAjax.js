@@ -24,10 +24,24 @@ $(document).ready(function() {
 						  taiKhoanRow += "<br>";
 					  });
 					  
+					  var role = $("#vaiTro").val();
+					  if(role=="ROLE_EMPLOYEE"){
+					  taiKhoanRow += '<td width="0%">'+'<input type="hidden" id="idTaiKhoan" value=' + taiKhoan.id + '>'+ '</td>';
+					  	taiKhoanRow += '<td><button class="btn btn-success btnUpRole">Nâng quyền Admin</button></td>';
+					  };
+					  
+					  if(role=="ROLE_MEMBER" || role=="ROLE_EMPLOYEE"){
+					  
+					  taiKhoanRow += '<td width="0%">'+'<input type="hidden" id="idTaiKhoan" value=' + taiKhoan.id + '>'+ '</td>';
+					  if(taiKhoan.isBlocked) taiKhoanRow += '<td><button class="btn btn-primary btnX" >Mở khóa</button></td>';
+					  else taiKhoanRow+= '<td><button class="btn btn-danger btnX" >Khóa</button></td>'
+					  ;
+					  
+					  
 					  taiKhoanRow +='</td>' +
 					                  '<td width="0%">'+'<input type="hidden" id="idTaiKhoan" value=' + taiKhoan.id + '>'+ '</td>'+
 //					                  '<td><button class="btn btn-primary btnCapNhat" >Cập nhật</button></td>' + 
-					                  '<td><button class="btn btn-danger btnXoa" >Xóa</button></td>';			;				                  
+					                  '<td><button class="btn btn-danger btnXoa" >Xóa</button></td>';		}	;				                  
 					$('.taiKhoanTable tbody').append(taiKhoanRow);
 
 				});
@@ -167,4 +181,44 @@ $(document).ready(function() {
             elements[0].parentNode.removeChild(elements[0]);
         }
     }
+    
+    //event click btnX
+    $(document).on("click",".btnX", function() {
+		var taiKhoanId = $(this).parent().prev().children().val();
+		console.log(taiKhoanId);
+		var confirmation = confirm("Bạn chắc chắn khóa/mở tài khoản này ?");
+		if(confirmation){
+		  $.ajax({
+			  type : "PUT",
+			  url : "http://localhost:8080/potteryshop/api/tai-khoan/switchStatus/" + taiKhoanId,
+			  success: function(resultMsg){
+				  resetData();
+			  },
+			  error : function(e) {
+				 console.log("ERROR: ", e);
+			  }
+		  });
+		}
+     });
+    
+     //event click btnUprole
+     $(document).on("click",".btnUpRole",function(){
+     	var taiKhoanId = $(this).parent().prev().children().val();
+     	console.log(taiKhoanId);
+     	var confirmation = confirm("Bạn muốn nâng cấp tài khoản này thành Admin ?");
+     	if(confirmation){
+     		
+     		$.ajax({
+			  type : "PUT",
+			  url : "http://localhost:8080/potteryshop/api/tai-khoan/upRoleToAdmin/"+taiKhoanId,
+			  success: function(resultMsg){
+				  resetData();
+			  },
+			  error : function(e) {
+				 console.log("ERROR: ", e);
+			  }
+		  });
+     	}
+     });
+    
 });

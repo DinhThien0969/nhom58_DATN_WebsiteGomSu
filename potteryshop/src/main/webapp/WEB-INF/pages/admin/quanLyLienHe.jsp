@@ -193,6 +193,35 @@ td, #noiDungLienHe, .noiDungLienHe, #noiDungTraLoi {
 			}
 		});
 	</script>
+	<script>
+		setInterval(function (){
+        	$("#here").load(window.location.href + " #here" );
+       	    $("#lienHeMoi").load(window.location.href + " #lienHeMoi" );
+   	        $("#donHangMoi").load(window.location.href + " #donHangMoi" );
+          	 if(parseInt(document.getElementById("list").innerHTML)<parseInt(document.getElementById("listCurrent").innerHTML))
+          	 {
+          		Swal.fire(
+          			  'Bạn có thông báo mới!',
+          			  'Nhấn "ok" để hủy',
+          			  'warning'
+          			)
+          		 $("#here1").load(window.location.href + " #here1" );	
+          		
+          	 }
+          	
+          		
+          	}, 5000);
+		
+	</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<c:if test = "${listCongViec.soDonHangMoi > 0}" >
+       <div hidden id="donHangMoi"> ${listCongViec.soDonHangMoi}</div> 
+       </c:if>
+       
+       <c:if test = "${listCongViec.soLienHeMoi > 0}">
+       <div hidden id="lienHeMoi"> ${listCongViec.soLienHeMoi}</div> 
+       </c:if>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>

@@ -2,6 +2,7 @@ package com.potteryshop.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +127,51 @@ public class DonHangServiceImpl implements DonHangService {
 	@Override
 	public int countByTrangThaiDonHang(String trangThaiDonHang) {
 		return donHangRepo.countByTrangThaiDonHang(trangThaiDonHang);
+	}
+
+	@Override
+	public List<DonHang> fillAll() {
+		
+		return donHangRepo.findAll();
+	}
+	//
+	@Override
+	public List<Object> top4DoanhThuSanPhamTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4DoanhThuSanPhamTheoThang(thang);
+	}
+
+	@Override
+	public List<Object> top4SoLuongSanPhamTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4SoLuongSanPhamTheoThang(thang);
+	}
+	@Override
+	public List<Object> top4SoLuongSanPhamCuaNhanVienTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4SoLuongSanPhamCuaNhanVienTheoThang(thang);
+	}
+
+	@Override
+	public List<Object> top4DoanhThuCuaNhanVienTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4DoanhThuCuaNhanVienTheoThang(thang);
 	}
 
 }

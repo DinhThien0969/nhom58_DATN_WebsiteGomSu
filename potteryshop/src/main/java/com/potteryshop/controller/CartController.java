@@ -42,10 +42,16 @@ public class CartController {
 	@Autowired
 	private ChiMucGioHangService chiMucGioHangService;
 	
-	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return nguoiDungService.findByEmail(auth.getName());
+
+    @ModelAttribute("loggedInUser")
+	public NguoiDung loggedInUser(boolean isBlocked) {
+
+		if (!isBlocked) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			return nguoiDungService.findByEmail(auth.getName());
+		} else
+			return null;
 	}
 	
 	public NguoiDung getSessionUser(HttpServletRequest request) {
@@ -57,6 +63,8 @@ public class CartController {
 		NguoiDung currentUser = getSessionUser(res);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Map<Long,String> quanity = new HashMap<Long,String>();
+		Map<Long,String> quanityNew = new HashMap<Long,String>();
+
 		List<SanPham> listspNew = new ArrayList<SanPham>();
 		List<SanPham> listspOld = new ArrayList<SanPham>();
 		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
@@ -81,14 +89,14 @@ public class CartController {
 			{
 				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
 				
-				Cookie cl[] = res.getCookies();		
-				Set<Long> idList = new HashSet<Long>();
+				Cookie cl[] = res.getCookies();
+Set<Long> idList = new HashSet<Long>();
 				for(int i=0; i< cl.length; i++)
 				{
 					if(cl[i].getName().matches("[0-9]+"))
 					{
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
 					}				
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
@@ -104,10 +112,15 @@ public class CartController {
 		model.addAttribute("cartOld",listspOld);
 		
 		model.addAttribute("cartNew",listspNew);
+		model.addAttribute("quanityNew",quanityNew);
 		model.addAttribute("quanity",quanity);
 		
-		
-		return "client/cart";
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/cart";
+		}
 	}
 
 }

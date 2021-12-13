@@ -95,7 +95,7 @@ text-align: center;
 
 }
 .content-section{
-    width: 800px;
+    width: 950px;
     margin-left: auto;
     margin-right: auto;
     padding: 64px 0;
@@ -111,12 +111,13 @@ text-align: center;
 .section-sub-heading{
     text-align: center;
     padding: 14px;
-    opacity: 0.6;
+   
     font-style: italic;
 
 }
 .about-text{
     text-align: justify;
+    font-size: 18px;
     line-height: 1.4;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

@@ -49,4 +49,5 @@ public class RegisterController {
 
         return "redirect:/";
 	}
+	
 }

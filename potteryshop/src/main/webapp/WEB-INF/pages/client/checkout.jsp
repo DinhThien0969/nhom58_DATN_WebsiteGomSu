@@ -10,12 +10,12 @@
 	<body>
 		
 		<!----start-Header---->
-	 <jsp:include page="include/homeHeader.jsp"></jsp:include>
+	 <div style="position: relative;z-index: 1"><jsp:include page="include/homeHeader.jsp"></jsp:include></div>
 		<!----End-Header---->
-		  <jsp:include page="include/checkoutContent.jsp"></jsp:include>
+		  <div><jsp:include page="include/checkoutContent.jsp"></jsp:include></div>
 		   
 		<!----start-Footder---->
-	<jsp:include page="include/homeFooter.jsp"></jsp:include>
+	<div><jsp:include page="include/homeFooter.jsp"></jsp:include></div>
 	<!----End-Footder---->
 	</body>
 </html>

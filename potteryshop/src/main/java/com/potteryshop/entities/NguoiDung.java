@@ -1,5 +1,6 @@
 package com.potteryshop.entities;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,31 @@ public class NguoiDung {
 	private String hoTen;
 	private String soDienThoai;
 	private String diaChi;
+	private Boolean isBlocked = false;
+	private Date blockTodate = new Date(0);
+
+	/**
+	 * @return the blockTodate
+	 */
+	public Date getBlockTodate() {
+		return blockTodate;
+	}
+
+	/**
+	 * @param blockTodate the blockTodate to set
+	 */
+	public void setBlockTodate(Date blockTodate) {
+		this.blockTodate = blockTodate;
+	}
+
+	public Boolean getIsBlocked() {
+		return isBlocked;
+	}
+
+	public void setIsBlocked(Boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+	
 	
 	@ManyToMany
 	@JoinTable(name="nguoidung_vaitro",

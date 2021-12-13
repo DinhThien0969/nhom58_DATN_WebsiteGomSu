@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pottery Shop </title>
     </head>
-    <body style="background-color:  "> 
+    <body style=""> 
            <jsp:include page="include/homeHeader.jsp"></jsp:include>
 
            <jsp:include page="include/homeContent.jsp"></jsp:include>

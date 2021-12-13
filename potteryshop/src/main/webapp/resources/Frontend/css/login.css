@@ -8,11 +8,13 @@
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background:#F4A460;
   max-width: 520px;
   margin: 0 auto 100px;
   padding: 45px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border: 2px solid #8a6d3b;
+  border-radius: 15px;
 }
 
 
@@ -94,11 +96,12 @@
   color: #EF3B3A;
 }
 body {
-   background: #9fc9df; 
+   /* background: #9fc9df; 
   background: -webkit-linear-gradient(right, #c750c5, #c750c5);
   background: -moz-linear-gradient(right, #c750c5, #c750c5);
   background: -o-linear-gradient(right, 	#FFA07A, #286090);
-  background: linear-gradient(to left, 	#FFA07A, #286090);
+  background: linear-gradient(to left, 	#FFA07A, #286090); */
+  background-image: url("https://scontent.fhan3-2.fna.fbcdn.net/v/t1.15752-9/259644553_3142748476005484_5214817160023316839_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=ae9488&_nc_ohc=XsDjIoBc3AsAX8NsZbX&tn=SoA6gHrYSfnV0MvM&_nc_ht=scontent.fhan3-2.fna&oh=d5b40aaee5d410c7c22cab4790ea2436&oe=61C75F5E");
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;     

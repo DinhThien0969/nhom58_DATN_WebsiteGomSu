@@ -21,7 +21,7 @@
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<div class="login-page">
 		<div class="form">
-		    <h2 class="form-signin-heading" style="text-align: center">PotteryShop - Đăng nhập</h2>
+		    <h1 class="form-signin-heading" style="text-align: center;font-family:initial">PotteryShop - Đăng nhập</h1>
 		    <hr>
 			<c:if test="${param.error != null}">
 				<div class="alert alert-danger">

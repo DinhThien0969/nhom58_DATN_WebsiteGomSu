@@ -9,8 +9,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>laptop-shop</name>
-	<description>a simple laptop shop online with spring boot</description>
+	<name>Pottery-shop</name>
+	<description>a simple pottery shop online with spring boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -102,18 +102,34 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 		<dependency>
-		    <groupId>javax.xml.bind</groupId>
-		    <artifactId>jaxb-api</artifactId>
-		    <version>2.3.1</version>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
 		<dependency>
-		    <groupId>org.javassist</groupId>
-		    <artifactId>javassist</artifactId>
-		    <version>3.25.0-GA</version>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.25.0-GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.0</version>
 		</dependency>
 	</dependencies>
 

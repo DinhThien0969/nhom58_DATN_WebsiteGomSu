@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,16 +10,14 @@
 <script src="<c:url value='/js/client/password.js'/>"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+
 		$(".mytable .tongGiaTri ").each(function() {
 			var value = accounting.formatMoney($(this).text()) + ' VND';
 			console.log(value)
 			$(this).html(value);
 		});
-
-	});
+	
 </script>
-
 <body>
 
 	<div class="container">
@@ -26,9 +25,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<br>
-				<p style="font-size: 20px">
-					<b>Thông tin tài khoản:</b>
-				</p>
+				<p style="font-size: 20px"><b>Thông tin tài khoản:</b></p>
 				<br>
 				<h3 style="line-height: 2;">
 					<span style="font-weight: bold">Họ tên: </span>${user.getHoTen()}</h3>
@@ -56,53 +53,83 @@
 						<th>Sản phẩm</th>
 						<th>Tổng tiền</th>
 						<th>Trạng thái đơn hàng</th>
+						<th>Hành động</th>
+						
 					</tr>
 
 					<c:forEach var="donHang" items="${list}" varStatus="loop">
+			
+					
+					
+					
 						<tr style="text-align: center;">
+						
 							<td>${donHang.id}</td>
+								
+								
 							<td>${donHang.ngayDatHang}</td>
-
 							<td>${donHang.ngayGiaoHang}</td>
-
 							<td>${donHang.ngayNhanHang}</td>
-
-							<%-- 							<c:set var="tongGiaTri"
-								value="${tongGiaTri + chiTiet.soLuongNhanHang*chiTiet.donGia}" /> --%>
+                            
 							<td><c:forEach var="chiTiet"
 									items="${donHang.danhSachChiTiet}">
 									<p>
-										<a href='<c:url value="/sp?id=${chiTiet.sanPham.id}" />'>${chiTiet.sanPham.tenSanPham}</a><br>
+									<a href='<c:url value="/sp?id=${chiTiet.sanPham.id}" />'>${chiTiet.sanPham.tenSanPham} </a>
+									<br>
 									</p>
-
+									<p>Đơn giá: ${chiTiet.sanPham.donGia} VND</p>	
+																
+								
+									
+									
 									<c:choose>
 										<c:when 
-											test='${(donHang.trangThaiDonHang == "Đang chờ giao") || (donHang.trangThaiDonHang =="Đang giao")  }'>
+											test='${(donHang.trangThaiDonHang == "Đang chờ giao") 
+											|| (donHang.trangThaiDonHang =="Đang giao")
+											|| (donHang.trangThaiDonHang == "Đã bị hủy")  }'>
 
 											<p>Số lượng: ${chiTiet.soLuongDat }</p>
 											<hr>
 											<c:set var="tongGiaTri"
-												value="${tongGiaTri + chiTiet.soLuongDat*chiTiet.donGia}" />
+												value="${tongGiaTri + chiTiet.soLuongDat*chiTiet.sanPham.donGia}" />
 										</c:when>
 										<c:otherwise >
-											<p>Số lượng: ${chiTiet.soLuongNhanHang }</p>
+											<p>Số lượng: ${chiTiet.soLuongDat }</p>
 											<hr>
 											<c:set var="tongGiaTri"
-												value="${tongGiaTri + chiTiet.soLuongNhanHang*chiTiet.donGia}" />
+												value="${tongGiaTri + chiTiet.soLuongDat*chiTiet.sanPham.donGia}" />
 										</c:otherwise>
-									</c:choose>
-								</c:forEach></td>
-
+									</c:choose> 
+								</c:forEach>
+							
+								
+								</td>
 							<td class="tongGiaTri">${tongGiaTri}</td>
-							<td>${donHang.trangThaiDonHang}</td>
+							<c:remove var="tongGiaTri"/>
+							<td>${donHang.trangThaiDonHang}
+							</td>
+                            <td>
+                            <c:if test='${(donHang.trangThaiDonHang == "Chờ khách xác nhận")}'> 
+							<input class="donHangId hidden" type="text" value="${donHang.id}"/>                        
+							<button class="btn btn-primary btnDaNhanHang">Đã nhận hàng thành công</button>
+                            </c:if>
+                            <!-- <hr> -->
+                            <input class="baoCaoId hidden" type="text" value="${donHang.id}"/>
+                              <!-- <button type="button" class="btn btn-danger btnSuCo" >Báo cáo sự cố</button>    -->               
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
-
 			</div>
 			<div class="col-md-1"></div>
 		</div>
 	</div>
+	
+	 	
+	
+	
+	
+	
 	<!-- Modal cập nhật thông tin -->
 	<div class="modal fade" id="modalInformation" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -123,7 +150,7 @@
 						<label style="line-height: 2">Họ tên khách hàng*:</label><br>
 						<label id="nameWarning" style="color: red"></label> <input
 							class="form-control" id="name" name="name" type="text"
-							value=${user.getHoTen()}>
+							value="${user.getHoTen()}">
 					</div>
 					<div class="form-group ">
 						<label style="line-height: 2">Số điệnt thoại*:</label><br> <label
@@ -148,9 +175,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal cập nhật thông tin -->
-
-	<!-- Modal đổi pass -->
 
 	<div class="modal fade" id="modalChangePassword" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -191,9 +215,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Modal đổi pass -->
-
 
 </body>
 </html>

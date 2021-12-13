@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <head>
 <link rel="stylesheet" href="Frontend/css/detailsp.css">
 </head>
@@ -26,13 +28,15 @@
 						<h2 class="product-title">${sp.getTenSanPham()}</h2>
 						<h4 class="price">Mô tả sản phẩm</h4>
 						<c:if test = "${sp.getMauSac().length() > 0}">
-							<p class="product-description">Màu sắc: ${sp.mauSac}</p>
+							<p class="product-description">Chất men: ${sp.mauSac}</p>
 						</c:if>
 						<c:if test = "${sp.getKichThuoc().length() > 0}">
 							<p class="product-description">Kích thước: ${sp.kichThuoc}</p>
 						</c:if>
 						<c:if test = "${sp.getThietKe().length() > 0}">
-						<p class="product-description">Thiết kế: ${sp.getThietKe()}</p>
+						
+						<c:set var="string" value="${sp.danhMuc.tenDanhMuc}"/>					
+						<p class="product-description">Hoa văn ${fn:toLowerCase(string)}: ${sp.getThietKe()}</p>
 						</c:if>
 						
 						<p class="product-description">Hãng sản xuất: ${sp.hangSanXuat.tenHangSanXuat}</p>

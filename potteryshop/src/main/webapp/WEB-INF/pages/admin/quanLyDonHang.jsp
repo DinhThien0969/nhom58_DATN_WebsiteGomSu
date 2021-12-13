@@ -26,9 +26,10 @@
 		<form class="form-inline" id="searchForm" name="searchObject">
 
 			<select class="form-control" id="trangThai">
-				<option value="Đang chờ giao">Đang chờ giao</option>
+			    <option value="Đang chờ xác nhận khách mua">Đang chờ xác nhận khách mua</option>
+				<option value="Đang chờ giao" selected>Đang chờ giao</option>
 				<option value="Đang giao">Đang giao</option>
-				<option value="Chờ duyệt">Chờ duyệt</option>
+				<option value="Chờ khách xác nhận">Chờ khách xác nhận</option> 	
 				<option value="Hoàn thành">Hoàn thành</option>
 				<option value="Đã bị hủy">Đã bị hủy</option>
 				<!-- <option value="">Tất cả</option> -->
@@ -55,6 +56,7 @@
 		</form>
 
 		<hr />
+		<a href="admin/export/execl" style="text-decoration: none;color: 	#FFFFFF;font-size: 18px;border: 2px solid #008000;border-radius: 5px; background-color: #008000">Xuất excel</a>
 		<table class="table table-hover donHangTable"
 			style="text-align: center">
 			<thead>
@@ -63,10 +65,10 @@
 					<th>Người nhận</th>
 					<th>Trạng thái</th>
 					<th>Giá trị</th>
-					<th>Ngày đặt</th>
-					<th>Ngày giao</th>
-					<th>Ngày nhận</th>
-					<th></th>
+					<th id="date1"></th>
+					<th id="date2"></th>
+					<th id="date3"></th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -243,8 +245,8 @@
 											<thead>
 												<tr>
 													<th class="border-0 text-uppercase small font-weight-bold">STT</th>
-													<th class="border-0 text-uppercase small font-weight-bold">Tên
-														sản phẩm</th>
+													<th class="border-0 text-uppercase small font-weight-bold">Tên 
+													    sản phẩm</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Đơn
 														giá</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Số
@@ -260,6 +262,7 @@
 									</div>
 
 									<div>
+									
 										<h5 id="ghiChu" style="font-weight: bold; padding-top: 10px">Ghi
 											chú</h5>
 										<textarea rows="3" cols="75" id="ghiChuAdmin"></textarea>
@@ -316,6 +319,35 @@
 			}
 		});
 	</script>
+	<script>
+		setInterval(function (){
+        	$("#here").load(window.location.href + " #here" );
+       	    $("#lienHeMoi").load(window.location.href + " #lienHeMoi" );
+   	        $("#donHangMoi").load(window.location.href + " #donHangMoi" );
+          	 if(parseInt(document.getElementById("list").innerHTML)<parseInt(document.getElementById("listCurrent").innerHTML))
+          	 {
+          		Swal.fire(
+          			  'Bạn có thông báo mới!',
+          			  'Nhấn "ok" để hủy',
+          			  'warning'
+          			)
+          		 $("#here1").load(window.location.href + " #here1" );	
+          		
+          	 }
+          	
+          		
+          	}, 5000);
+		
+	</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<c:if test = "${listCongViec.soDonHangMoi > 0}" >
+       <div hidden id="donHangMoi"> ${listCongViec.soDonHangMoi}</div> 
+       </c:if>
+       
+       <c:if test = "${listCongViec.soLienHeMoi > 0}">
+       <div hidden id="lienHeMoi"> ${listCongViec.soLienHeMoi}</div> 
+       </c:if>
 
 	<script src="<c:url value='/js/donHangAjax.js'/>"></script>
 </body>

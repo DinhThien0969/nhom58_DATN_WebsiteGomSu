@@ -99,4 +99,10 @@ public class NguoiDungServiceImpl implements NguoiDungService {
 		nguoiDungRepo.deleteById(id);
 	}
 
+	@Override
+	public NguoiDung switchStatus(NguoiDung nd) {
+		// TODO Auto-generated method stub
+		return nguoiDungRepo.save(nd);
+	}
+
 }

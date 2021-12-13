@@ -7,11 +7,11 @@
         <title>Potteryshop Shop </title>
     </head>
     <body> 
-           <jsp:include page="include/homeHeader.jsp"></jsp:include>
+           <div style="position: relative;z-index: 1"><jsp:include page="include/homeHeader.jsp"></jsp:include></div>
 
-           <jsp:include page="include/guaranteeContent.jsp"></jsp:include>
+           <div><jsp:include page="include/guaranteeContent.jsp"></jsp:include></div>
            
-           <jsp:include page="include/homeFooter.jsp"></jsp:include>
+           <div><jsp:include page="include/homeFooter.jsp"></jsp:include></div>
 
     </body>
 </html>

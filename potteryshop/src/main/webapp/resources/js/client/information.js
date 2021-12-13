@@ -1,4 +1,70 @@
-function changeInformation()
+ 
+ $(document).ready(function() {
+	
+	
+ 
+ $(document).on('click', '.btnDaNhanHang', function (event) {
+		    	event.preventDefault();
+				var donHangId =  $(this).prev('.donHangId').val();
+			 	var confirmation = confirm("Bạn đã nhận được đơn hàng này ?"+donHangId); 
+			console.log(donHangId);
+				 if(confirmation){	 
+		    	    ajaxPostNhanHang(donHangId);
+				} 
+		    });
+
+function ajaxPostNhanHang(donHangId) { 
+		    	 $.ajax({
+		     		async:false,
+		 			type : "POST",
+		 			contentType : "application/json",
+ 			url : "http://localhost:8080/potteryshop/api/don-hang/update?donHangId=" +donHangId +"&ghiChu="+"",
+					success : function(response) {
+						alert("Cám ơn bạn đã mua hàng");
+						location.reload();
+
+					},
+					error : function(e) {
+						alert("Error!")
+		console.log("ERROR: ", e);
+					}
+				}); 
+		    }
+
+ $(document).on('click', '.btnSuCo', function (event) {
+			    	event.preventDefault();
+					 var donHangId =  $(this).prev('.baoCaoId').val();
+				 	var confirmation = confirm("Bạn chắc chắn muốn báo cáo sự cố này về đơn hàng "+donHangId+"?"); 
+				console.log(donHangId);
+					 if(confirmation){	 
+			    	    ajaxPostSuCo(donHangId);
+					} 
+			    });	
+
+function ajaxPostSuCo(donHangId) { 
+		    	 $.ajax({
+		     		async:false,
+		 			type : "POST",
+		 			contentType : "application/json",
+		 			url : "http://localhost:8080/potteryshop/api/don-hang/Problem?donHangId=" +donHangId ,
+					success : function(response) {
+						alert("Phản hồi sự cố thành công");
+						location.reload();
+
+					},
+					error : function(e) {
+						alert("Error!")
+		console.log("ERROR: ", e);
+					}
+				}); 
+		    }
+
+
+
+
+	
+	});
+	function changeInformation()
 {
 	var name = document.getElementById("name").value;
 	var phone = document.getElementById("phone").value;
@@ -50,3 +116,5 @@ function changeInformation()
 		});
 	
 }
+ 
+ 
