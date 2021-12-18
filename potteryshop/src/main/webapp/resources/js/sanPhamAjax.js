@@ -68,7 +68,8 @@ $(document).ready(function() {
 				$('#otherForm').removeClass().addClass("addOtherForm");
 				$('#otherForm #btnSubmit').removeClass().addClass("btn btn-primary btnSaveOtherForm");
 			}			
-            $(".modal-title").text("Thêm mới sản phẩm danh mục "+ label);
+            $(".modal-title").text("Thêm mới sản phẩm danh mục "+ label);            
+             $(".danhMucId").find("option").css("display","none");
 			
 		}
 		$(this).data("isopen", !open);
@@ -280,10 +281,13 @@ $(document).ready(function() {
 			populate('.updateOtherForm', sanPham);
 			$("#idDanhMucKhac").val(sanPham.danhMuc.id);
 			var hangSXId = sanPham.hangSanXuat.id;
-			$("#nhaSXIdKhac").val(hangSXId);	
+			$("#nhaSXIdKhac").val(hangSXId);
+			$(".modal-title").text("Cập nhật sản phẩm của danh mục "+ sanPham.danhMuc.tenDanhMuc);	
+			 $(".danhMucId").find("option").css("display","block");
 		});		
 		removeElementsByClass("error");		
 		$('.updateOtherForm .otherModal').modal();
+		
 	});
     
     // btnUpdateOtherForm event click

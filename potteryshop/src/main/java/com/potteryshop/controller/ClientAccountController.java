@@ -68,9 +68,10 @@ public class ClientAccountController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser() {
+	public NguoiDung loggedInUser(boolean model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return nguoiDungService.findByEmail(auth.getName());
+		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
+		return user;
 	}
 
 	public NguoiDung getSessionUser(HttpServletRequest request) {
@@ -139,7 +140,14 @@ Set<Long> idList = new HashSet<Long>();
 		model.addAttribute("user", currentUser);
 		List<DonHang> list = Lists.reverse(donHangService.getDonHangByNguoiDung(currentUser));
 		model.addAttribute("list",list);
-		return "client/account";
+		
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/account";
+		}
+		
 	}	
 	 
 	@GetMapping("/changeInformation")

@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,23 +50,27 @@ setInterval(function (){
 	 console.log("listCurrent ", parseInt(document.getElementById("listCurrent").innerHTML));
 	 if(parseInt(document.getElementById("list").innerHTML)<parseInt(document.getElementById("listCurrent").innerHTML))
 	 {
-		 alert("Bạn có đơn hàng cần giao mới!!");
+		 Swal.fire(
+     			  'Bạn có đơn hàng mới!!',
+     			  'Nhấn "ok" để hủy',
+     			  'warning'
+     			)
 		 $("#here1").load(window.location.href + " #here1" );	 
 	 }
 	 
-	}, 10000);
+	}, 5000);
 </script>
 <li id="here1">
-<p hidden id="list">${fn:length(employee.listDonHang)}</p>
+<p hidden id="list">${donHangMoi}</p>
 </li>
         <li>
             <a id="here" style="color:#FFD700;" href="<c:url value='/employee'/>"><span  class="glyphicon glyphicon-bell"> 
-            <c:if test ="${fn:length(employee.listDonHang)>0}">
-             <p hidden id="listCurrent">${fn:length(employee.listDonHang)}</p>
-             (${fn:length(employee.listDonHang)})
+            <c:if test ="${donHangMoi>0}">
+             <p hidden id="listCurrent">${donHangMoi}</p>
+             (${donHangMoi})
              
              </c:if>
-               </span> Thông báo giao hàng 
+               </span> Đơn hàng mới 
                </a>
           </li>
 

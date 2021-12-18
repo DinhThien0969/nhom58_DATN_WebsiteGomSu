@@ -134,7 +134,7 @@
               title: 'VUI LÒNG QUAY LẠI TRANG CHỦ ĐỂ MUA HÀNG',
 			  text: 'NHẤN OK ĐỂ HỦY',
 			  background: ' url(https://nhaxinhplaza.com/Images/giay-dan-tuong-phong-ngu-ma-8258-1.jpg)',
-			  footer: '<a href="http://localhost:8080/potteryshop/login" style="color: #32CD32; font-size: 20px"><b>TIẾP TỤC MUA HÀNG</b></a>'
+			  footer: '<a href="http://localhost:8080/potteryshop/" style="color: #32CD32; font-size: 20px"><b>TIẾP TỤC MUA HÀNG</b></a>'
 			})
 	  });
 	</script> 

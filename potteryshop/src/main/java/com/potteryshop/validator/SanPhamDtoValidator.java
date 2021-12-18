@@ -30,7 +30,10 @@ public class SanPhamDtoValidator implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "soLuong", "error.soLuong", "Số lượng không được trống");
 		ValidationUtils.rejectIfEmpty(errors, "thongTinBaoHanh", "error.thongTinBaoHanh", "Thông tin bảo hành không được trống");
 		ValidationUtils.rejectIfEmpty(errors, "thongTinChung", "error.thongTinChung", "Thông tin chung không được trống");
-		
+		ValidationUtils.rejectIfEmpty(errors, "mauSac", "error.mauSac", "Chất men không được trống");
+		ValidationUtils.rejectIfEmpty(errors, "chatLieu", "error.chatLieu", "Chất liệu không được trống");
+		ValidationUtils.rejectIfEmpty(errors, "thietKe", "error.thietKe", "Họa tiết không được trống");
+		ValidationUtils.rejectIfEmpty(errors, "kichThuoc", "error.kichThuoc", "Kích thước không được trống");
 		if(Integer.parseInt(s.getDonGia()) < 0) {
 			errors.rejectValue("donGia", "error.donGia", "Đơn giá không được âm");
 		}

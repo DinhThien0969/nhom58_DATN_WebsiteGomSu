@@ -19,6 +19,7 @@
 	
 	<form action="logout" align="center" >
     <h1 >Tài Khoản của bạn đã bị khóa</h1>
+    <input id="userId" type="hidden" value="${loggedInUser.id}">
 	<button class="btn btn-primary" type="submit">Quay lại với tư cách là khách</button>		
     <script type="text/javascript">	  
 	$(document).ready(function() { 
@@ -36,5 +37,6 @@
 	
 
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="<c:url value='/js/client/header.js'/>"></script>
 </body>
 </html>

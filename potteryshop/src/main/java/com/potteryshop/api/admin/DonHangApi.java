@@ -128,5 +128,15 @@ public class DonHangApi {
 	public List<Object> quantityByProduct(@PathVariable(value = "thang") Integer thang){
 		return donHangService.top4SoLuongSanPhamTheoThang(thang);
 	}
+	
+	@GetMapping("/report/top4DoanhThuCuaNhanVienTheoThang/{thang}")
+	public List<Object> revenueOfEmployeeByProduct(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4DoanhThuCuaNhanVienTheoThang(thang);
+	}
+	
+	@GetMapping("/report/top4SoLuongSanPhamCuaNhanVienTheoThang/{thang}")
+	public List<Object> top4SoLuongSanPhamCuaNhanVienTheoThang(@PathVariable(value = "thang") Integer thang){
+		return donHangService.top4SoLuongSanPhamCuaNhanVienTheoThang(thang);
+	}
 
 }

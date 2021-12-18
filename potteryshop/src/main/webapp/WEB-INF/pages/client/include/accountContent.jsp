@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,12 +11,61 @@
 
 <script type="text/javascript">
 
-		$(".mytable .tongGiaTri ").each(function() {
-			var value = accounting.formatMoney($(this).text()) + ' VND';
-			console.log(value)
-			$(this).html(value);
-		});
-	
+      
+		
+		function searchByStatus() {
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("mylist");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[6];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
+		function searchById() {
+			  var input, filter, table, tr, td, i, txtValue;
+			  input = document.getElementById("myInput");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[0];
+			    if (td) {
+			      txtValue = td.textContent || td.innerText;
+			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
+		function searchByDate() {
+			  var input, filter, table, tr, td, i, txtValue;
+			  input = document.getElementById("myDate");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[1];
+			    if (td) {
+			      txtValue = td.textContent || td.innerText;
+			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
 </script>
 <body>
 
@@ -39,11 +89,29 @@
 				&nbsp; &nbsp; &nbsp; <a class="btn btn-danger" data-toggle="modal"
 					data-target="#modalChangePassword">Đổi mật khẩu</a> <br> <br>
 				<br>
-				<h3>
+				<h1>
 					<b>Lịch sử mua hàng:</b>
-				</h3>
+				</h1>
+				<p><h3>Lọc theo trạng thái</h3></p>
+				<p>
+				
+			<select id="mylist" onchange="searchByStatus()" class='form-control'>
+			<option value="">Tất cả</option>
+<option value="Vui lòng đợi nhân viên xác nhận">Chờ xác nhận</option>
+				<option value="Đang giao">Đang giao</option>
+				<option value="Hoàn thành">Hoàn thành</option>
+				<option value="Đã bị hủy">Đã bị hủy</option>
+</select>
+<p><h3>Tìm kiếm theo mã đơn hàng</h3></p>
+			<input type="text" class='form-control' id="myInput" onkeyup="searchById()" placeholder="Nhập id đơn hàng">
+				<p><h3>Tìm kiếm theo ngày mua hàng</h3></p>
+				<div class="form-group">
+				<input id="myDate" class="form-control" type="date" 
+					onChange="searchByDate()">
+			</div>
+				
 				<br>
-				<table class="table-cart-checkout mytable">
+				<table id="myTable" class="table-cart-checkout mytable">
 					<tr>
 						<th>Mã đơn hàng</th>
 						<th>Ngày mua</th>
@@ -63,9 +131,7 @@
 					
 						<tr style="text-align: center;">
 						
-							<td>${donHang.id}</td>
-								
-								
+							<td>${donHang.id}</td>	
 							<td>${donHang.ngayDatHang}</td>
 							<td>${donHang.ngayGiaoHang}</td>
 							<td>${donHang.ngayNhanHang}</td>
@@ -76,11 +142,10 @@
 									<a href='<c:url value="/sp?id=${chiTiet.sanPham.id}" />'>${chiTiet.sanPham.tenSanPham} </a>
 									<br>
 									</p>
-									<p>Đơn giá: ${chiTiet.sanPham.donGia} VND</p>	
-																
-								
-									
-									
+									<c:set var="donGia"
+												value=" ${chiTiet.sanPham.donGia}" />
+									<p class="donGia">${chiTiet.sanPham.donGia}</p>	
+										
 									<c:choose>
 										<c:when 
 											test='${(donHang.trangThaiDonHang == "Đang chờ giao") 
@@ -105,12 +170,20 @@
 								</td>
 							<td class="tongGiaTri">${tongGiaTri}</td>
 							<c:remove var="tongGiaTri"/>
-							<td>${donHang.trangThaiDonHang}
+							<td>
+							<c:choose>
+										<c:when test='${(donHang.trangThaiDonHang == "Đang chờ xác nhận khách mua")}'>
+							                Vui lòng đợi nhân viên xác nhận
+							           </c:when>
+							            <c:otherwise >
+							           ${donHang.trangThaiDonHang}
+							           </c:otherwise>
+							</c:choose> 
 							</td>
                             <td>
-                            <c:if test='${(donHang.trangThaiDonHang == "Chờ khách xác nhận")}'> 
+                            <c:if test='${(donHang.trangThaiDonHang == "Đang giao")}'> 
 							<input class="donHangId hidden" type="text" value="${donHang.id}"/>                        
-							<button class="btn btn-primary btnDaNhanHang">Đã nhận hàng thành công</button>
+							<button class="btn btn-primary btnDaNhanHang">Đã nhận hàng </button>
                             </c:if>
                             <!-- <hr> -->
                             <input class="baoCaoId hidden" type="text" value="${donHang.id}"/>

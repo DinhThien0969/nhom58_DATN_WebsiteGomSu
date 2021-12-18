@@ -154,5 +154,24 @@ public class DonHangServiceImpl implements DonHangService {
 		}
 		return donHangRepo.top4SoLuongSanPhamTheoThang(thang);
 	}
+	@Override
+	public List<Object> top4SoLuongSanPhamCuaNhanVienTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4SoLuongSanPhamCuaNhanVienTheoThang(thang);
+	}
+
+	@Override
+	public List<Object> top4DoanhThuCuaNhanVienTheoThang(Integer thang) {
+		// TODO Auto-generated method stub
+		if (thang == null) {
+			LocalDate date = LocalDate.now();
+			thang = date.getMonthValue();
+		}
+		return donHangRepo.top4DoanhThuCuaNhanVienTheoThang(thang);
+	}
 
 }

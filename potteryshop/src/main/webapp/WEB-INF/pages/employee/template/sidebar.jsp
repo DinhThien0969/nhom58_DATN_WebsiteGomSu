@@ -26,15 +26,15 @@
           </li>
           <li class="side-bar">
             <a href="<c:url value='/employee/san-pham' />">
-              <span class="glyphicon glyphicon-folder-open">&nbsp;</span>Quản lí sản phẩm</a>
+              <span class="glyphicon glyphicon-folder-open">&nbsp;</span>Quản lý sản phẩm</a>
           </li>
           <li class="side-bar">
             <a href="<c:url value='/employee/danh-muc' />">
-              <span class="glyphicon glyphicon-tasks">&nbsp;</span>Quản lí danh mục </a>
+              <span class="glyphicon glyphicon-tasks">&nbsp;</span>Quản lý danh mục </a>
           </li>
           <li class="side-bar"><a
 					href="<c:url value='/employee/tai-khoan' />"> <span
-						class="glyphicon glyphicon-eye-open">&nbsp;</span>Danh sách khách hàng
+						class="glyphicon glyphicon-eye-open">&nbsp;</span>Quản lý khách hàng
 				</a></li>
            <li class="side-bar">
             <a href="<c:url value='/employee/profile' />">

@@ -27,8 +27,9 @@
 			<input id="idEmployee" type="hidden" value="${loggedInUser.id }">
 			<select class="form-control" id="trangThai">		
 			    <option value="Đang chờ xác nhận khách mua">Đang chờ xác nhận khách mua</option>
-				<option value="Đang giao">Được phân công</option>
+				<option value="Đang giao">Đang giao</option>
 				<option value="Hoàn thành">Hoàn thành</option>
+				<option value="Đã bị hủy">Đã bị hủy</option>
 			</select>
 
 			<div class="form-group">
@@ -62,12 +63,12 @@
 				<tr>
 					<th>Mã</th>
 					<th>Người nhận</th>
+					<th>Số điện thoại</th>
 					<th>Trạng thái</th>
 					<th>Giá trị</th>
-					<th>Ngày đặt</th>
-					<th>Ngày giao</th>
-					<th>Ngày nhận</th>
-					<th></th>
+					<th id="date1"></th>
+					
+					<th id="date3"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -136,12 +137,8 @@ aria-label="Close">
 															<th
 																class="border-0 text-uppercase small font-weight-bold">Số
 																lượng đặt</th>
-<!-- 															<th
-																class="border-0 text-uppercase small font-weight-bold">Số
-																lượng nhận</th> -->
-																<th
-																class="border-0 text-uppercase small font-weight-bold">Thành 
-																tiền</th>
+
+																
 														</tr>
 													</thead>
 													<tbody>
@@ -159,12 +156,12 @@ aria-label="Close">
 										</div>
 										<hr />
 
-										<div class="col-md-6">
+										<div class="col-md-6" >
 											<h5 class="font-weight-bold mb-4">
 												<strong>Thông tin khác</strong>
 											</h5>
 											<p class="mb-1" id="employee"></p>
-											<p class="mb-1" id="nguoiDat"></p>
+											
 											<p class="mb-1" id="ghiChu"></p>
 										</div>
 									</div>
@@ -220,10 +217,8 @@ aria-label="Close">
 																class="border-0 text-uppercase small font-weight-bold">Đơn
 																giá</th>
 															<th
-																class="border-0 text-uppercase small font-weight-bold">SL</th>
-																<th
-																class="border-0 text-uppercase small font-weight-bold">Thành 
-																tiền</th>
+																class="border-0 text-uppercase small font-weight-bold">Số Lượng Đặt</th>
+																
 														</tr>
 													</thead>
 													<tbody>
@@ -252,7 +247,7 @@ aria-label="Close">
 </div></div>
 						<div class="modal-footer">
 						<button type="button" class="btn btn-warning"
-								 id="exportPDFbyId">Xuất file pdf</button>
+								 id="exportPDFbyId">Xuất PDF</button>
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Đóng</button>
 						</div>
@@ -337,12 +332,12 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
 										</div>
 										<hr />
 
-										<div class="col-md-6">
+										<div class="col-md-6" >
 											<h5 class="font-weight-bold mb-4">
-												<strong>Thông tin khác</strong>
+												<strong>Thông tin khác1</strong>
 											</h5>
 											<p class="mb-1" id="employee"></p>
-											<p class="mb-1" id="nguoiDat"></p>
+											
 											<p class="mb-1" id="ghiChu"></p>
 										</div>
 									</div>
@@ -393,7 +388,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
 													<th class="border-0 text-uppercase small font-weight-bold">Đơn
 														giá</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Số
-														lượng đặt</th>
+														lượng khách yêu cầu</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Số
 														lượng nhận</th>
 												</tr>
@@ -401,11 +396,15 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<tbody>
 											</tbody>
 										</table>
-										<h4 id="tongTienCapNhat"
+										<h4 id="tongTienCapNhat2"
 											style="float: right; font-weight: bold;padding-right: 50px"></h4>
 									</div>
 
 									<div>
+									<h4>Cập nhật trạng thái</h4>
+         <input type="hidden" id="donHangId" value="">
+        <label><input checked type="radio" value="Hoàn thành" name="status1">Hoàn thành</label>
+        <label><input type="radio" value="Hủy đơn hàng" name="status1">Hủy đơn hàng</label>
 										<h5 id="ghiChu" style="font-weight: bold; padding-top: 10px">Ghi
 											chú</h5>
 										<textarea rows="3" cols="117" id="ghiChuEmployee"></textarea>
@@ -462,8 +461,8 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false">
 														giá</th>
 													<th class="border-0 text-uppercase small font-weight-bold">Số
 														lượng đặt</th>
-													 <!-- <th class="border-0 text-uppercase small font-weight-bold">Số
-														lượng khách yêu cầu</th>  -->
+													 <th class="border-0 text-uppercase small font-weight-bold">Số
+														lượng khách yêu cầu</th>  
 												</tr>
 											</thead>
 											<tbody>
@@ -474,10 +473,12 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false">
 									</div>
 
 									<div>
+									
 									<h4>Cập nhật trạng thái</h4>
 								
 
-        <label><input checked type="radio" value="Chờ giao hàng" name="status">Chờ giao hàng</label>
+<input type="hidden" id="donHangId" value="">
+        <label><input checked type="radio" value="Xác nhận thành công" name="status">Xác nhận thành công</label>
         <label><input type="radio" value="Hủy đơn hàng" name="status">Hủy đơn hàng</label>
 
 
@@ -491,6 +492,7 @@ aria-hidden="true" data-backdrop="static" data-keyboard="false">
 										data-dismiss="modal">Hủy</button>
 									<input class="btn btn-primary" id="btnXacNhanTrangThai" type="button"
 										value="Xác nhận" />
+										
 								</div>
 							</div>
 						</div>
@@ -537,6 +539,7 @@ changeMonth : true
 				return date;
 			}
 		});
+		
 		
 	</script>
 

@@ -49,7 +49,7 @@
 			<br>
 			<p>- Đối với sản phẩm yêu cầu theo thiết kế của khách hàng thì thời gian nhận sẽ được cửa hàng thỏa thuận và thông báo cho khác hàng</p>
 			<br>
-			<p>- Không nhận vận chuyển các đơn hàng ngoài phạm vi Hà Nội</p>
+			
 			
 			
 			

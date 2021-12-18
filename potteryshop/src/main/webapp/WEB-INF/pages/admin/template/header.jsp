@@ -8,13 +8,9 @@
 
   <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
   <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css'>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
   <link rel="stylesheet" href="<c:url value='/css/admin.css' />" />
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 </head>
 
@@ -35,15 +31,20 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
         <li hidden id="here1">
-                 <p hidden id="list">${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi}</p>
+                 <p hidden id="list">${listCongViec.soLienHeMoi}</p>
         </li>       
           <li>
             <a id="here" style="color:#FFD700;" href="<c:url value='/admin'/>"><span  class="glyphicon glyphicon-bell"> 
-            <c:if test ="${listCongViec.soDonHangMoi > 0 || listCongViec.soLienHeMoi > 0}">
-             (${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi})
-              <p hidden id="listCurrent">${listCongViec.soDonHangMoi+listCongViec.soLienHeMoi}</p>
+            <c:if test ="${listCongViec.soLienHeMoi > 0}">
+             (${listCongViec.soLienHeMoi})
+              <p hidden id="listCurrent">${listCongViec.soLienHeMoi}</p>
             </c:if>
-               </span> Thông báo  
+            
+       
+       <c:if test = "${listCongViec.soLienHeMoi > 0}">
+       <div hidden id="lienHeMoi"> ${listCongViec.soLienHeMoi}</div> 
+       </c:if>
+               </span> Liên hệ mới  
                </a>
           </li>
           <li>

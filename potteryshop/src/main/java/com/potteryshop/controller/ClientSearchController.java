@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.potteryshop.dto.SearchSanPhamObject;
@@ -27,6 +28,7 @@ import com.potteryshop.entities.NguoiDung;
 import com.potteryshop.entities.SanPham;
 import com.potteryshop.service.ChiMucGioHangService;
 import com.potteryshop.service.GioHangService;
+import com.potteryshop.service.NguoiDungService;
 import com.potteryshop.service.SanPhamService;
 
 @Controller
@@ -39,6 +41,19 @@ public class ClientSearchController {
 	@Autowired
 	private ChiMucGioHangService chiMucGioHangService;
 	
+	@Autowired
+	NguoiDungService nguoiDungService;
+	
+	@ModelAttribute("loggedInUser")
+	public NguoiDung loggedInUser(boolean isBlocked) {
+
+		if (!isBlocked) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			return nguoiDungService.findByEmail(auth.getName());
+		} else
+			return null;
+	}
 	
 	public NguoiDung getSessionUser(HttpServletRequest request) {
 		return (NguoiDung) request.getSession().getAttribute("loggedInUser");
@@ -157,7 +172,13 @@ Set<Long> idList = new HashSet<Long>();
 		model.addAttribute("cartNew",listspNew);
 		model.addAttribute("quanityNew",quanityNew);
 		model.addAttribute("quanity",quanity);
-		return "client/searchResult";
+		
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/searchResult";
+		}
 	}
 
 }
