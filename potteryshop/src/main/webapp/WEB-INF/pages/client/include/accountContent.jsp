@@ -11,19 +11,68 @@
 
 <script type="text/javascript">
 
-		$(".mytable .tongGiaTri ").each(function() {
-			var value = accounting.formatMoney($(this).text()) + ' VND';
-			console.log(value)
-			$(this).html(value);
-		});
-	
+      
+		
+		function searchByStatus() {
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("mylist");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[6];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
+		function searchById() {
+			  var input, filter, table, tr, td, i, txtValue;
+			  input = document.getElementById("myInput");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[0];
+			    if (td) {
+			      txtValue = td.textContent || td.innerText;
+			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
+		function searchByDate() {
+			  var input, filter, table, tr, td, i, txtValue;
+			  input = document.getElementById("myDate");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[1];
+			    if (td) {
+			      txtValue = td.textContent || td.innerText;
+			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
 </script>
 <body>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<br>
 				<p style="font-size: 20px"><b>Thông tin tài khoản:</b></p>
 				<br>
@@ -40,15 +89,33 @@
 				&nbsp; &nbsp; &nbsp; <a class="btn btn-danger" data-toggle="modal"
 					data-target="#modalChangePassword">Đổi mật khẩu</a> <br> <br>
 				<br>
-				<h3>
-					<b>Lịch sử mua hàng:</b>
-				</h3>
+				<h1>
+					<b style="font-size: 21px">Lịch sử mua hàng:</b>
+				</h1>
+				<p><h3>Lọc theo trạng thái</h3></p>
+				<p>
+				
+			<select id="mylist" onchange="searchByStatus()" class='form-control'>
+			<option value="">Tất cả</option>
+<option value="Vui lòng đợi nhân viên xác nhận">Chờ xác nhận</option>
+				<option value="Đang giao">Đang giao</option>
+				<option value="Hoàn thành">Hoàn thành</option>
+				<option value="Đã bị hủy">Đã bị hủy</option>
+</select>
+<p><h3>Tìm kiếm theo mã đơn hàng</h3></p>
+			<input type="text" class='form-control' id="myInput" onkeyup="searchById()" placeholder="Nhập id đơn hàng">
+				<p><h3>Tìm kiếm theo ngày mua hàng</h3></p>
+				<div class="form-group">
+				<input id="myDate" class="form-control" type="date" 
+					onChange="searchByDate()">
+			</div>
+				
 				<br>
-				<table class="table-cart-checkout mytable">
+				<table id="myTable" class="table-cart-checkout mytable">
 					<tr>
 						<th>Mã đơn hàng</th>
-						<th>Ngày mua</th>
-						<th>Ngày giao hàng</th>
+						<th>Ngày đặt</th>
+						<th>Ngày xác nhận đơn hàng</th>
 						<th>Ngày nhận hàng</th>
 						<th>Sản phẩm</th>
 						<th>Tổng tiền</th>
@@ -64,12 +131,15 @@
 					
 						<tr style="text-align: center;">
 						
-							<td>${donHang.id}</td>
-								
-								
+							<td>${donHang.id}</td>	
 							<td>${donHang.ngayDatHang}</td>
 							<td>${donHang.ngayGiaoHang}</td>
-							<td>${donHang.ngayNhanHang}</td>
+							<td>
+							<c:if test='${(donHang.trangThaiDonHang == "Hoàn thành")}'> 
+							 ${donHang.ngayNhanHang}
+							 </c:if>
+							</td>
+							
                             
 							<td><c:forEach var="chiTiet"
 									items="${donHang.danhSachChiTiet}">
@@ -77,27 +147,24 @@
 									<a href='<c:url value="/sp?id=${chiTiet.sanPham.id}" />'>${chiTiet.sanPham.tenSanPham} </a>
 									<br>
 									</p>
-									<p>Đơn giá: ${chiTiet.sanPham.donGia} VND</p>	
-																
-								
-									
-									
+									<c:set var="donGia"
+												value=" ${chiTiet.sanPham.donGia}" />
+									<p class="donGia">${chiTiet.sanPham.donGia}</p>	
+										
 									<c:choose>
 										<c:when 
-											test='${(donHang.trangThaiDonHang == "Đang chờ giao") 
-											|| (donHang.trangThaiDonHang =="Đang giao")
-											|| (donHang.trangThaiDonHang == "Đã bị hủy")  }'>
-
-											<p>Số lượng: ${chiTiet.soLuongDat }</p>
+											test='${(donHang.trangThaiDonHang == "Đang chờ xác nhận khách mua" || donHang.trangThaiDonHang == "Đã bị hủy")}'>
+											<p>Số lượng đặt: ${chiTiet.soLuongDat }</p>
 											<hr>
 											<c:set var="tongGiaTri"
 												value="${tongGiaTri + chiTiet.soLuongDat*chiTiet.sanPham.donGia}" />
 										</c:when>
 										<c:otherwise >
-											<p>Số lượng: ${chiTiet.soLuongDat }</p>
+											<p>Số lượng đặt: ${chiTiet.soLuongDat }</p>
+											<p>Số lượng nhận: ${chiTiet.soLuongNhanHang }</p>
 											<hr>
 											<c:set var="tongGiaTri"
-												value="${tongGiaTri + chiTiet.soLuongDat*chiTiet.sanPham.donGia}" />
+												value="${tongGiaTri + chiTiet.soLuongNhanHang*chiTiet.sanPham.donGia}" />
 										</c:otherwise>
 									</c:choose> 
 								</c:forEach>
@@ -106,12 +173,20 @@
 								</td>
 							<td class="tongGiaTri">${tongGiaTri}</td>
 							<c:remove var="tongGiaTri"/>
-							<td>${donHang.trangThaiDonHang}
+							<td>
+							<c:choose>
+										<c:when test='${(donHang.trangThaiDonHang == "Đang chờ xác nhận khách mua")}'>
+							                Vui lòng đợi nhân viên xác nhận
+							           </c:when>
+							            <c:otherwise >
+							           ${donHang.trangThaiDonHang}
+							           </c:otherwise>
+							</c:choose> 
 							</td>
                             <td>
-                            <c:if test='${(donHang.trangThaiDonHang == "Chờ khách xác nhận")}'> 
+                            <c:if test='${(donHang.trangThaiDonHang == "Đang giao")}'> 
 							<input class="donHangId hidden" type="text" value="${donHang.id}"/>                        
-							<button class="btn btn-primary btnDaNhanHang">Đã nhận hàng thành công</button>
+							<button class="btn btn-primary btnDaNhanHang">Đã nhận hàng </button>
                             </c:if>
                             <!-- <hr> -->
                             <input class="baoCaoId hidden" type="text" value="${donHang.id}"/>

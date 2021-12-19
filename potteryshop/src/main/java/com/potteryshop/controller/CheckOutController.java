@@ -56,9 +56,14 @@ public class CheckOutController {
 	private DonHangRepository donHangRepo;
 
 	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return nguoiDungService.findByEmail(auth.getName());
+	public NguoiDung loggedInUser(boolean isBlocked) {
+
+		if (!isBlocked) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			return nguoiDungService.findByEmail(auth.getName());
+		} else
+			return null;
 	}
 
 	public NguoiDung getSessionUser(HttpServletRequest request) {
@@ -82,7 +87,8 @@ public class CheckOutController {
 			for (int i = 0; i < cl.length; i++) {
 				if (cl[i].getName().matches("[0-9]+")) {
 					idList.add(Long.parseLong(cl[i].getName()));
-quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					
+               quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 				}
 			}
 			listsp = sanPhamService.getAllSanPhamByList(idList);
@@ -97,6 +103,10 @@ quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 				for (int i = 0; i < cl.length; i++) {
 					if (cl[i].getName().matches("[0-9]+")) {
 						idList.add(Long.parseLong(cl[i].getName()));
+						if(Integer.parseInt(cl[i].getValue())>20) {
+							quanityNew.put(Long.parseLong(cl[i].getName()),"20");
+						}else {
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());} 
 						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 					}
 				}
@@ -104,7 +114,11 @@ quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 
 				for (ChiMucGioHang c : listchimuc) {
 					listsp.add(c.getSanPham());
-					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+					if(c.getSo_luong()>20) {
+						quanity.put(c.getSanPham().getId(), "20");					
+					}else {
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));}
+				/* quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong())); */
 				}
 			}
 		}
@@ -117,7 +131,12 @@ quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 		model.addAttribute("user", currentUser);
 		model.addAttribute("donhang", new DonHang());
 
-		return "client/checkout";
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/checkout";
+		}
 	}
 
 	@PostMapping(value = "/thankyou")
@@ -210,8 +229,14 @@ System.out.println("11111"+Integer.parseInt(quanityNew.get(sp.getId())));
 				{detailDH.setSoLuongDat(c.getSo_luong());				
 				c.getSanPham().setSoLuong(c.getSanPham().getSoLuong()-c.getSo_luong());
 				}else {
+					/*
+					 * detailDH.setSoLuongDat(c.getSanPham().getSoLuong());
+					 * c.getSanPham().setSoLuong(0);
+					 */
+					detailDH.setSoLuongNhanHang(c.getSanPham().getSoLuong());
+					detailDH.setSoLuongDat(c.getSo_luong());
 					c.getSanPham().setSoLuong(0);
-					detailDH.setSoLuongDat(c.getSanPham().getSoLuong()-c.getSo_luong());
+					
 				}
 				detailDH.setDonHang(d);
 				listDetailDH.add(detailDH);

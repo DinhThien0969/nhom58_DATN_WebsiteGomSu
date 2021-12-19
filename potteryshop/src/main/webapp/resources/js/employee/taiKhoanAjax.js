@@ -18,12 +18,7 @@ $(document).ready(function() {
 					                  '<td>' + taiKhoan.email + '</td>' +
 					                  '<td>' + taiKhoan.soDienThoai + '</td>' +
 					                  '<td>' + taiKhoan.diaChi + '</td>'+ '<td>';
-					
-					  $.each(taiKhoan.vaiTro, function(i, vaiTro){
-						  taiKhoanRow += vaiTro.tenVaiTro;
-						  taiKhoanRow += "<br>";
-					  });
-					  
+		
 					  var role = $("#vaiTro").val();
 					  if(role=="ROLE_EMPLOYEE"){
 					  taiKhoanRow += '<td width="0%">'+'<input type="hidden" id="idTaiKhoan" value=' + taiKhoan.id + '>'+ '</td>';

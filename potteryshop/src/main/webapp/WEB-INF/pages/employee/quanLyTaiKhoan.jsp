@@ -18,16 +18,14 @@
 
 		<!-- <button class="btn btn-success btnThemTaiKhoan">Thêm mới tài
 			khoản cho Empolyee</button> -->
-		<hr>
-		<div class="form-group form-inline">
+		
+		<div hidden class="form-group form-inline">
 			<label for="sel1"><strong>Lọc tài khoản:</strong> </label> <select
-				id="vaiTro" class="form-control">
-				<c:forEach var="vaiTro" items="${listVaiTro}">
-					<option value="${vaiTro.tenVaiTro }">${vaiTro.tenVaiTro }</option>
-				</c:forEach>
+				id="vaiTro" class="form-control">		
+					<option value="ROLE_MEMBER">ROLE_MEMBER</option>	
 			</select>
 		</div>
-		<hr>
+		
 
 
 		<table class="table table-hover taiKhoanTable"
@@ -39,8 +37,7 @@
 					<th>Email</th>
 					<th>Số điện thoại</th>
 					<th>Địa chỉ</th>
-					<th>Vai trò</th>
-					<th></th>
+					
 				</tr>
 
 			</thead>

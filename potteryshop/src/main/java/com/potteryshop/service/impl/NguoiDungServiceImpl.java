@@ -104,5 +104,9 @@ public class NguoiDungServiceImpl implements NguoiDungService {
 		// TODO Auto-generated method stub
 		return nguoiDungRepo.save(nd);
 	}
+	@Override
+	public NguoiDung findBysoDienThoai(String soDienThoai) {
+		return nguoiDungRepo.findBysoDienThoai(soDienThoai);
+	}
 
 }

@@ -87,6 +87,17 @@ public class DonHangApi {
 		String ghiChu = dh.getGhiChu();
 		if (!ghiChuAdmin.equals("")) {
 			ghiChu += "<br> Ghi chú admin:\n" + ghiChuAdmin;
+			
+		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+
+			String dateStr = format.format(new Date());
+			Date date = format.parse(dateStr);
+			dh.setNgayNhanHang(date);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		dh.setGhiChu(ghiChu);
 		donHangService.save(dh);

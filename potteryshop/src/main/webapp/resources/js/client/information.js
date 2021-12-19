@@ -1,8 +1,20 @@
  
  $(document).ready(function() {
 	
+
+		$(".mytable .tongGiaTri ").each(function() {
+			
+			var value = accounting.formatMoney($(this).text()) + ' VND';
+			
+			$(this).html(value);
+		});
 	
- 
+ $(".mytable .donGia ").each(function() {
+			
+			var value = accounting.formatMoney($(this).text()) + ' VND';
+			
+			$(this).html('Đơn giá : '+value);
+		});
  $(document).on('click', '.btnDaNhanHang', function (event) {
 		    	event.preventDefault();
 				var donHangId =  $(this).prev('.donHangId').val();
@@ -86,10 +98,10 @@ function ajaxPostSuCo(donHangId) {
 		document.getElementById("addressWarning").innerHTML = "Địa chỉ không được để trống";	
 	}
 	var pat = "[0-9]+{9,10}"
-	if(!/^([0-9]{9,10})$/.test(phone))
+	if(!/((0)+([0-9]{9})\b)/.test(phone))
 	{
 		flag = 1;
-		document.getElementById("phoneWarning").innerHTML = "Hãy nhập số điện thoại từ 9-10 số";
+		document.getElementById("phoneWarning").innerHTML = "Hãy nhập số điện thoại 10 số";
 	}
 	if(flag == 1)
 	{

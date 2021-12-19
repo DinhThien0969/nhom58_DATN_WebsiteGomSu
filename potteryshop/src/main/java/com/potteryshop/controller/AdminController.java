@@ -70,7 +70,7 @@ public class AdminController {
 	@GetMapping
 	public String adminPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -81,7 +81,7 @@ public class AdminController {
 	@GetMapping("/danh-muc")
 	public String quanLyDanhMucPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -92,7 +92,7 @@ public class AdminController {
 	@GetMapping("/nhan-hieu")
 	public String quanLyNhanHieuPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -103,7 +103,7 @@ public class AdminController {
 	@GetMapping("/lien-he")
 	public String quanLyLienHePage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -114,7 +114,7 @@ public class AdminController {
 	@GetMapping("/san-pham")
 	public String quanLySanPhamPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -127,7 +127,7 @@ public class AdminController {
 	@GetMapping("/profile")
 	public String profilePage(Model model, HttpServletRequest request) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -157,7 +157,7 @@ public class AdminController {
 		}
 		model.addAttribute("allEmployee", employees);
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -169,7 +169,7 @@ public class AdminController {
 	public String quanLyTaiKhoanPage(Model model) {
 	    model.addAttribute("listVaiTro", vaiTroService.findAllVaiTro());
 	    ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -180,7 +180,7 @@ public class AdminController {
 	@GetMapping("/thong-ke")
 	public String thongKePage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -207,7 +207,7 @@ public class AdminController {
 	@GetMapping("/thong-ke/doanh-thu-sp-theo-thang")
 	public String thongKeDoanhThuSpTheoThangPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -218,7 +218,7 @@ public class AdminController {
 	@GetMapping("/thong-ke/so-luong-sp-theo-thang")
 	public String thongKeSoLuongSpTheoThangPage(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -228,7 +228,7 @@ public class AdminController {
 	@GetMapping("/thong-ke/top4DoanhThuCuaNhanVienTheoThang")
 	public String top4DoanhThuCuaNhanVienTheoThang(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
@@ -238,7 +238,7 @@ public class AdminController {
 	@GetMapping("/thong-ke/top4SoLuongSanPhamCuaNhanVienTheoThang")
 	public String top4SoLuongSanPhamCuaNhanVienTheoThang(Model model) {
 		ListCongViecDTO listCongViec = new ListCongViecDTO();
-		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ giao"));
+		listCongViec.setSoDonHangMoi(donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua"));
 		listCongViec.setSoDonhangChoDuyet(donHangService.countByTrangThaiDonHang("Hoàn thành"));
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		

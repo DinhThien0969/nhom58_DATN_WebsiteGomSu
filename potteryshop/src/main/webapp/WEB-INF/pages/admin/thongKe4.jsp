@@ -33,7 +33,7 @@
 			<option value=12> Tháng 12 </option>
 		</select>
 		<canvas id="myChart" width="600px" height="400px"></canvas>
-		<h4 style="text-align: center; padding-right: 10%;color:#D2691E"><b>Biểu đồ sản phẩm có số lượng bán nhiều nhất</b></h4>
+		<h4 style="text-align: center; padding-right: 10%;color:#D2691E"><b>Top 4 nhân viên có số lượng sản phẩm bán cao nhất trong tháng</b></h4>
 
 	</div>
 

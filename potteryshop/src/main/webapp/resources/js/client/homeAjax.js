@@ -18,7 +18,7 @@ function addToCart(id)
   'Nếu bạn muốn mua số lượng lớn vui lòng liên hệ trực tiếp với cửa hàng',
   'info'
 )}
-				else
+				else 
 				{ $("#here").load(window.location.href + " #here" );
 				
 					Swal.fire(

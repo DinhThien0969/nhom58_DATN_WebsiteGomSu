@@ -53,11 +53,11 @@
           <li class="dropdown">
   <button class="dropbtn" style="width: 220px;
     background-color: initial;margin-left: -48px;"><span class="glyphicon glyphicon-signal">&nbsp;</span>Thống kê</button>
-  <div class="dropdown-content" style=" width: 214px;position: relative;z-index: 1">
+  <div class="dropdown-content" style=" width: 214px;position: relative;z-index: 1;background-color: #d9edf7">
   <a href="<c:url value='/admin/thong-ke/doanh-thu-sp-theo-thang' />">Doanh thu sản phẩm </a>
   <a href="<c:url value='/admin/thong-ke/so-luong-sp-theo-thang' />">Số lượng sản phẩm </a>
-  <a href="<c:url value='/admin/thong-ke/top4DoanhThuCuaNhanVienTheoThang' />">Doanh thu giao hàng nhân viên </a>
-  <a href="<c:url value='/admin/thong-ke/top4SoLuongSanPhamCuaNhanVienTheoThang' />">Sản phẩm  </a>
+  <a href="<c:url value='/admin/thong-ke/top4DoanhThuCuaNhanVienTheoThang' />">Giá trị đơn hàng </a>
+  <a href="<c:url value='/admin/thong-ke/top4SoLuongSanPhamCuaNhanVienTheoThang' />">Sản phẩm theo nhân viên  </a>
   </div>
 </li>
 

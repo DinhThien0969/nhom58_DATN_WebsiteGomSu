@@ -42,11 +42,16 @@ public class EmployeeController {
 	private LienHeService lienHeService;
     @Autowired
 	private VaiTroService vaiTroService;
-	@ModelAttribute("loggedInUser")
-	public NguoiDung loggedInUser(boolean model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
-		return user;
+    
+    @ModelAttribute("loggedInUser")
+	public NguoiDung loggedInUser(boolean isBlocked) {
+
+		if (!isBlocked) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			return nguoiDungService.findByEmail(auth.getName());
+		} else
+			return null;
 	}
 	
 	
@@ -65,6 +70,9 @@ public class EmployeeController {
 			user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
 			model.addAttribute("employee", user);
 
+			int donHangMoi=donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua");
+			
+			model.addAttribute("donHangMoi", donHangMoi);
 			return "employee/quanLyDonHang";
 		}
 		
@@ -79,6 +87,9 @@ public class EmployeeController {
 		model.addAttribute("employee", user);
 		model.addAttribute("user", getSessionUser(request));
 		System.out.println(getSessionUser(request).toString());
+		int donHangMoi=donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua");
+		
+		model.addAttribute("donHangMoi", donHangMoi);
 		return "employee/profile";
 	}
 	
@@ -89,6 +100,7 @@ public class EmployeeController {
 		currentUser.setHoTen(nd.getHoTen());
 		currentUser.setSoDienThoai(nd.getSoDienThoai());
 		nguoiDungService.updateUser(currentUser);
+		
 		return "redirect:/employee/profile";
 	}
 	public NguoiDung getSessionUser(HttpServletRequest request) {
@@ -103,6 +115,9 @@ public class EmployeeController {
 		model.addAttribute("employee", user);
 		model.addAttribute("listNhanHieu", hangSXService.getALlHangSX());
 model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
+int donHangMoi=donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua");
+
+model.addAttribute("donHangMoi", donHangMoi);
 		return "employee/quanLySanPham";
 	}
 	@GetMapping("/danh-muc")
@@ -112,6 +127,9 @@ model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		NguoiDung user = nguoiDungService.findByEmail(auth.getName());
 		user.setListDonHang(donHangService.findByTrangThaiDonHangAndEmployee("Đang giao", user));
 		model.addAttribute("employee", user);
+		int donHangMoi=donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua");
+		
+		model.addAttribute("donHangMoi", donHangMoi);
 		return "employee/quanLyDanhMuc";
 	}
 	@GetMapping("/tai-khoan")
@@ -128,7 +146,16 @@ model.addAttribute("listDanhMuc", danhMucService.getAllDanhMuc());
 		listCongViec.setSoLienHeMoi(lienHeService.countByTrangThai("Đang chờ trả lời"));
 		
 		model.addAttribute("listCongViec", listCongViec);
-		return "employee/quanLyTaiKhoan";
+		int donHangMoi=donHangService.countByTrangThaiDonHang("Đang chờ xác nhận khách mua");
+		
+		model.addAttribute("donHangMoi", donHangMoi);
+		
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "employee/quanLyTaiKhoan";
+		}
 	}
 
 

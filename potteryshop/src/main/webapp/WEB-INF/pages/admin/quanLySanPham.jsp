@@ -85,6 +85,7 @@
 			style="text-align: center;">
 			<thead>
 				<tr>
+				<th>Mã</th>
 					<th>Hình ảnh</th>
 					<th>Tên SP</th>
 					<th>Danh Mục</th>
@@ -169,7 +170,7 @@
 							<div class="row">
 								
 								<div class="form-group col-md-4">
-									<label for="inputEmail4">Thông tin bảo hành</label> <input
+									<label for="">Thông tin bảo hành</label> <input
 										type="text" class="form-control" name="thongTinBaoHanh"
 										required="required">
 								</div>
@@ -181,7 +182,7 @@
 								</div>
 							</div>
 							<div>
-								<label for="inputEmail4">Hình ảnh</label> <input type="file"
+								<label for="">Hình ảnh</label> <input type="file"
 									class="form-control" id="inputEmail4" name="hinhAnh">
 							</div>
 						</div>
@@ -240,9 +241,9 @@
 								</div>
 								<div class="form-group col-md-6">
 									 <label for="inputState">Danh mục</label> 
-									<select name="danhMucId" id="idDanhMucKhac" class="form-control" >
+									<select name="danhMucId"  id="idDanhMucKhac" class="form-control danhMucId" >
 										<c:forEach var="danhMuc" items="${listDanhMuc }">
-											<option value="${danhMuc.id}">${danhMuc.tenDanhMuc}</option>
+											<option  value="${danhMuc.id}">${danhMuc.tenDanhMuc}</option>
 										</c:forEach>
 									</select>
 									
@@ -263,27 +264,27 @@
 							</div>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label for="inputEmail4">Thông tin bảo hành</label> <input
+									<label for="">Thông tin bảo hành</label> <input
 										type="text" class="form-control" id="inputEmail4"
 										name="thongTinBaoHanh">
 								</div>
                                  <div class="form-group col-md-6">
-									<label for="inputEmail4">Chất men</label> <input
+									<label for="">Chất men</label> <input
 										type="text" class="form-control" id="inputEmail4"
 										name="mauSac">
 								</div>
 								<div class="form-group col-md-6">
-									<label for="inputEmail4">Chất liệu gốm</label> <input
+									<label for="">Chất liệu gốm</label> <input
 										type="text" class="form-control" id="inputEmail4"
 										name="chatLieu">
 								</div>
 								<div class="form-group col-md-6">
-									<label for="inputEmail4">Kích thước</label> <input
+									<label for="">Kích thước</label> <input
 										type="text" class="form-control" id="inputEmail4"
 										name="kichThuoc">
 								</div>
 								<div class="form-group col-md-6">
-									<label for="inputEmail4">Họa tiết gốm</label> <input
+									<label for="">Họa tiết gốm</label> <input
 										type="text" class="form-control" id="inputEmail4"
 										name="thietKe">
 								</div>
@@ -294,7 +295,7 @@
 								</div>
 							</div>
 							<div>
-								<label for="inputEmail4">Hình ảnh</label> <input type="file"
+								<label for="">Hình ảnh</label> <input type="file"
 									class="form-control" name="hinhAnh">
 							</div>
 						</div>

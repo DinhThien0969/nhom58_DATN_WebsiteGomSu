@@ -55,28 +55,30 @@ public class ClientController {
 
 	@Autowired
 	private NguoiDungService nguoiDungService;
-	
+
 	@Autowired
 	private DanhMucService danhMucService;
-	
+
 	@Autowired
 	private LienHeService lienHeService;
 	@Autowired
 	private ChiMucGioHangService chiMucGioHangService;
 	@Autowired
 	private GioHangService gioHangService;
+
 	@ModelAttribute("loggedInUser")
 	public NguoiDung loggedInUser(boolean isBlocked) {
-		
-		if(!isBlocked) {
+
+		if (!isBlocked) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			
+
 			return nguoiDungService.findByEmail(auth.getName());
-		} else return null;
+		} else
+			return null;
 	}
-	
+
 	@ModelAttribute("listDanhMuc")
-	public List<DanhMuc> listDanhMuc(){
+	public List<DanhMuc> listDanhMuc() {
 		return danhMucService.getAllDanhMuc();
 	}
 
@@ -85,73 +87,65 @@ public class ClientController {
 	}
 
 	@GetMapping("/*")
-	public String clientPage(HttpServletRequest res,Model model) {
+	public String clientPage(HttpServletRequest res, Model model) {
 		NguoiDung currentUser = getSessionUser(res);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Map<Long,String> quanity = new HashMap<Long,String>();
-		Map<Long,String> quanityNew = new HashMap<Long,String>();
+		Map<Long, String> quanity = new HashMap<Long, String>();
+		Map<Long, String> quanityNew = new HashMap<Long, String>();
 
 		List<SanPham> listspNew = new ArrayList<SanPham>();
 		List<SanPham> listspOld = new ArrayList<SanPham>();
-		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		if (auth == null || auth.getPrincipal() == "anonymousUser") // Lay tu cookie
 		{
-			
-			Cookie cl[] = res.getCookies();	
-			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
-			for(int i=0; i< cl.length; i++)
-			{
-				if(cl[i].getName().matches("[0-9]+"))
-				{
-					idList.add(Long.parseLong(cl[i].getName()));
-					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+
+			Cookie cl[] = res.getCookies();
+			if (cl != null) {
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
+
 				}
-				
+				listspOld = sanPhamService.getAllSanPhamByList(idList);
 			}
-			listspOld = sanPhamService.getAllSanPhamByList(idList);}
-		
-			
-		}else     //Lay tu database
+
+		} else // Lay tu database
 		{
 			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
-			if(g != null)
-			{
+			if (g != null) {
 				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
-				
+
 				Cookie cl[] = res.getCookies();
-Set<Long> idList = new HashSet<Long>();
-				for(int i=0; i< cl.length; i++)
-				{
-					if(cl[i].getName().matches("[0-9]+"))
-					{
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
-					}				
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
-				
-				for(ChiMucGioHang c: listchimuc)
-				{
+
+				for (ChiMucGioHang c : listchimuc) {
 					listspOld.add(c.getSanPham());
 					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 				}
 			}
 		}
-		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
-		model.addAttribute("cartOld",listspOld);
-		
-		model.addAttribute("cartNew",listspNew);
-		model.addAttribute("quanityNew",quanityNew);
-		model.addAttribute("quanity",quanity);
-		
-		
-		
+		model.addAttribute("checkEmpty", listspOld.size() + listspNew.size());
+		model.addAttribute("cartOld", listspOld);
+
+		model.addAttribute("cartNew", listspNew);
+		model.addAttribute("quanityNew", quanityNew);
+		model.addAttribute("quanity", quanity);
+
 		System.out.println(loggedInUser(false));
-		
-		if(loggedInUser(false)!=null && loggedInUser(false).getIsBlocked()) {
-			
+
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
 			return "client/blockedPage";
-		}
-		else {
+		} else {
 			return "client/home";
 		}
 	}
@@ -160,80 +154,83 @@ Set<Long> idList = new HashSet<Long>();
 	public String loginPage() {
 		return "client/login";
 	}
-	
+
 	@GetMapping("/contact")
-	public String contactPage(HttpServletRequest res,Model model) {
+	public String contactPage(HttpServletRequest res, Model model) {
 		NguoiDung currentUser = getSessionUser(res);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Map<Long,String> quanity = new HashMap<Long,String>();
-		Map<Long,String> quanityNew = new HashMap<Long,String>();
+		Map<Long, String> quanity = new HashMap<Long, String>();
+		Map<Long, String> quanityNew = new HashMap<Long, String>();
 
 		List<SanPham> listspNew = new ArrayList<SanPham>();
 		List<SanPham> listspOld = new ArrayList<SanPham>();
-		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		if (auth == null || auth.getPrincipal() == "anonymousUser") // Lay tu cookie
 		{
-			
-			Cookie cl[] = res.getCookies();	
-			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
-			for(int i=0; i< cl.length; i++)
-			{
-				if(cl[i].getName().matches("[0-9]+"))
-				{
-					idList.add(Long.parseLong(cl[i].getName()));
-					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+
+			Cookie cl[] = res.getCookies();
+			if (cl != null) {
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
+
 				}
-				
+				listspOld = sanPhamService.getAllSanPhamByList(idList);
 			}
-			listspOld = sanPhamService.getAllSanPhamByList(idList);}
-		
-			
-		}else     //Lay tu database
+
+		} else // Lay tu database
 		{
 			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
-			if(g != null)
-			{
+			if (g != null) {
 				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
-				
+
 				Cookie cl[] = res.getCookies();
-Set<Long> idList = new HashSet<Long>();
-				for(int i=0; i< cl.length; i++)
-				{
-					if(cl[i].getName().matches("[0-9]+"))
-					{
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
-					}				
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
-				
-				for(ChiMucGioHang c: listchimuc)
-				{
+
+				for (ChiMucGioHang c : listchimuc) {
 					listspOld.add(c.getSanPham());
 					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 				}
 			}
 		}
-		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
-		model.addAttribute("cartOld",listspOld);
-		
-		model.addAttribute("cartNew",listspNew);
-		model.addAttribute("quanityNew",quanityNew);
-		model.addAttribute("quanity",quanity);
+		model.addAttribute("checkEmpty", listspOld.size() + listspNew.size());
+		model.addAttribute("cartOld", listspOld);
 
-		return "client/contact";
+		model.addAttribute("cartNew", listspNew);
+		model.addAttribute("quanityNew", quanityNew);
+		model.addAttribute("quanity", quanity);
+
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/contact";
+		}
 	}
-	
+
 	@PostMapping("/createContact")
 	@ResponseBody
-	public ResponseObject createContact(@RequestBody LienHe lh)
-	{
+	public ResponseObject createContact(@RequestBody LienHe lh) {
 		lh.setNgayLienHe(new Date());
 		lienHeService.save(lh);
 		return new ResponseObject();
 	}
 
 	@GetMapping("/store")
-	public String storePage(HttpServletRequest res,@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "") String range,@RequestParam(defaultValue = "") String brand,@RequestParam(defaultValue = "") String manufactor,@RequestParam(defaultValue = "") String thietke,@RequestParam(defaultValue = "") String mausac,@RequestParam(defaultValue = "") String kichthuoc,Model model) {		
+	public String storePage(HttpServletRequest res, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "") String range, @RequestParam(defaultValue = "") String brand,
+			@RequestParam(defaultValue = "") String manufactor, @RequestParam(defaultValue = "") String thietke,
+			@RequestParam(defaultValue = "") String mausac, @RequestParam(defaultValue = "") String kichthuoc,
+			Model model) {
 		SearchSanPhamObject obj = new SearchSanPhamObject();
 		obj.setBrand(brand);
 		obj.setDonGia(range);
@@ -241,185 +238,174 @@ Set<Long> idList = new HashSet<Long>();
 		obj.setThietke(thietke);
 		obj.setMausac(mausac);
 		obj.setKichthuoc(kichthuoc);
-		Page<SanPham> list = sanPhamService.getSanPhamByBrand(obj,page,12);
+		Page<SanPham> list = sanPhamService.getSanPhamByBrand(obj, page, 12);
 		int totalPage = list.getTotalPages();
-		model.addAttribute("totalPage",totalPage);
-		model.addAttribute("list",list.getContent());
-		model.addAttribute("currentPage",page);
-		model.addAttribute("range",range);
-		model.addAttribute("brand",brand);
-		model.addAttribute("manufactor",manufactor);
-		model.addAttribute("thietke",thietke);
-		model.addAttribute("mausac",mausac);
-		model.addAttribute("kichthuoc",kichthuoc);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("list", list.getContent());
+		model.addAttribute("currentPage", page);
+		model.addAttribute("range", range);
+		model.addAttribute("brand", brand);
+		model.addAttribute("manufactor", manufactor);
+		model.addAttribute("thietke", thietke);
+		model.addAttribute("mausac", mausac);
+		model.addAttribute("kichthuoc", kichthuoc);
 		List<Integer> pagelist = new ArrayList<Integer>();
-		
-		//Lap ra danh sach cac trang
-		if(page==1 || page ==2 || page == 3 || page == 4)
-		{
-			for(int i = 2; i <=5 && i<=totalPage; i++)
-			{
+
+		// Lap ra danh sach cac trang
+		if (page == 1 || page == 2 || page == 3 || page == 4) {
+			for (int i = 2; i <= 5 && i <= totalPage; i++) {
 				pagelist.add(i);
 			}
-		}else if(page == totalPage)
-		{
-			for(int i = totalPage; i >= totalPage - 3 && i> 1; i--)
-			{
+		} else if (page == totalPage) {
+			for (int i = totalPage; i >= totalPage - 3 && i > 1; i--) {
 				pagelist.add(i);
 			}
 			Collections.sort(pagelist);
-		}else
-		{
-			for(int i = page; i <= page + 2 && i<= totalPage; i++)
-			{
+		} else {
+			for (int i = page; i <= page + 2 && i <= totalPage; i++) {
 				pagelist.add(i);
 			}
-			for(int i = page-1; i >= page - 2 && i> 1; i--)
-			{
+			for (int i = page - 1; i >= page - 2 && i > 1; i--) {
 				pagelist.add(i);
 			}
 			Collections.sort(pagelist);
 		}
-		model.addAttribute("pageList",pagelist);
-			
-		//Lay cac danh muc va hang san xuat tim thay
+		model.addAttribute("pageList", pagelist);
+
+		// Lay cac danh muc va hang san xuat tim thay
 		Set<String> hangsx = new HashSet<String>();
 		Set<String> pinSet = new HashSet<String>();
 		Iterable<SanPham> dum = sanPhamService.getSanPhamByTenDanhMuc(brand);
-		for(SanPham sp: dum)
-		{
+		for (SanPham sp : dum) {
 			hangsx.add(sp.getHangSanXuat().getTenHangSanXuat());
-			if(brand.equals("BÌNH HOA - LỌ HOA"))
-			{
+			if (brand.equals("BÌNH HOA - LỌ HOA")) {
 				pinSet.add(sp.getKichThuoc());
 			}
 		}
-		model.addAttribute("hangsx",hangsx);
-		model.addAttribute("pinSet",pinSet);
-		
-		
-		
-		
+		model.addAttribute("hangsx", hangsx);
+		model.addAttribute("pinSet", pinSet);
+
 		NguoiDung currentUser = getSessionUser(res);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Map<Long,String> quanity = new HashMap<Long,String>();
-		Map<Long,String> quanityNew = new HashMap<Long,String>();
+		Map<Long, String> quanity = new HashMap<Long, String>();
+		Map<Long, String> quanityNew = new HashMap<Long, String>();
 
 		List<SanPham> listspNew = new ArrayList<SanPham>();
 		List<SanPham> listspOld = new ArrayList<SanPham>();
-		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		if (auth == null || auth.getPrincipal() == "anonymousUser") // Lay tu cookie
 		{
-			Cookie cl[] = res.getCookies();		
+			Cookie cl[] = res.getCookies();
 			Set<Long> idList = new HashSet<Long>();
-			for(int i=0; i< cl.length; i++)
-			{
-				if(cl[i].getName().matches("[0-9]+"))
-				{
+			for (int i = 0; i < cl.length; i++) {
+				if (cl[i].getName().matches("[0-9]+")) {
 					idList.add(Long.parseLong(cl[i].getName()));
-					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
 				}
-				
+
 			}
 			listspOld = sanPhamService.getAllSanPhamByList(idList);
-			
-		}else     //Lay tu database
+
+		} else // Lay tu database
 		{
 			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
-			if(g != null)
-			{
+			if (g != null) {
 				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
-				
+
 				Cookie cl[] = res.getCookies();
-Set<Long> idList = new HashSet<Long>();
-				for(int i=0; i< cl.length; i++)
-				{
-					if(cl[i].getName().matches("[0-9]+"))
-					{
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
-					}				
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
-				
-				for(ChiMucGioHang c: listchimuc)
-				{
+
+				for (ChiMucGioHang c : listchimuc) {
 					listspOld.add(c.getSanPham());
 					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 				}
 			}
 		}
-		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
-		model.addAttribute("cartOld",listspOld);
-		
-		model.addAttribute("cartNew",listspNew);
-		model.addAttribute("quanityNew",quanityNew);
-		model.addAttribute("quanity",quanity);
-		
-		return "client/store";
+		model.addAttribute("checkEmpty", listspOld.size() + listspNew.size());
+		model.addAttribute("cartOld", listspOld);
+
+		model.addAttribute("cartNew", listspNew);
+		model.addAttribute("quanityNew", quanityNew);
+		model.addAttribute("quanity", quanity);
+
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/store";
+		}
 	}
 
 	@GetMapping("/sp")
-	public String detailspPage(@RequestParam int id,HttpServletRequest res, Model model) {
+	public String detailspPage(@RequestParam int id, HttpServletRequest res, Model model) {
 		NguoiDung currentUser = getSessionUser(res);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Map<Long,String> quanity = new HashMap<Long,String>();
-		Map<Long,String> quanityNew = new HashMap<Long,String>();
+		Map<Long, String> quanity = new HashMap<Long, String>();
+		Map<Long, String> quanityNew = new HashMap<Long, String>();
 
 		List<SanPham> listspNew = new ArrayList<SanPham>();
 		List<SanPham> listspOld = new ArrayList<SanPham>();
-		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		if (auth == null || auth.getPrincipal() == "anonymousUser") // Lay tu cookie
 		{
-			
-			Cookie cl[] = res.getCookies();	
-			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
-			for(int i=0; i< cl.length; i++)
-			{
-				if(cl[i].getName().matches("[0-9]+"))
-				{
-					idList.add(Long.parseLong(cl[i].getName()));
-					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+
+			Cookie cl[] = res.getCookies();
+			if (cl != null) {
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
+
 				}
-				
+				listspOld = sanPhamService.getAllSanPhamByList(idList);
 			}
-			listspOld = sanPhamService.getAllSanPhamByList(idList);}
-		
-			
-		}else     //Lay tu database
+
+		} else // Lay tu database
 		{
 			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
-			if(g != null)
-			{
+			if (g != null) {
 				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
-				
+
 				Cookie cl[] = res.getCookies();
-Set<Long> idList = new HashSet<Long>();
-				for(int i=0; i< cl.length; i++)
-				{
-					if(cl[i].getName().matches("[0-9]+"))
-					{
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
-					}				
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
-				
-				for(ChiMucGioHang c: listchimuc)
-				{
+
+				for (ChiMucGioHang c : listchimuc) {
 					listspOld.add(c.getSanPham());
 					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 				}
 			}
 		}
-		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
-		model.addAttribute("cartOld",listspOld);
-		
-		model.addAttribute("cartNew",listspNew);
-		model.addAttribute("quanityNew",quanityNew);
-		model.addAttribute("quanity",quanity);
+		model.addAttribute("checkEmpty", listspOld.size() + listspNew.size());
+		model.addAttribute("cartOld", listspOld);
+
+		model.addAttribute("cartNew", listspNew);
+		model.addAttribute("quanityNew", quanityNew);
+		model.addAttribute("quanity", quanity);
 
 		SanPham sp = sanPhamService.getSanPhamById(id);
 		model.addAttribute("sp", sp);
-		return "client/detailsp";
+		
+
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/detailsp";
+		}
 	}
 
 	@GetMapping(value = "/logout")
@@ -435,124 +421,124 @@ Set<Long> idList = new HashSet<Long>();
 	public String shippingPage(HttpServletRequest res, Model model) {
 		NguoiDung currentUser = getSessionUser(res);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Map<Long,String> quanity = new HashMap<Long,String>();
-		Map<Long,String> quanityNew = new HashMap<Long,String>();
+		Map<Long, String> quanity = new HashMap<Long, String>();
+		Map<Long, String> quanityNew = new HashMap<Long, String>();
 
 		List<SanPham> listspNew = new ArrayList<SanPham>();
 		List<SanPham> listspOld = new ArrayList<SanPham>();
-		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		if (auth == null || auth.getPrincipal() == "anonymousUser") // Lay tu cookie
 		{
-			
-			Cookie cl[] = res.getCookies();	
-			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
-			for(int i=0; i< cl.length; i++)
-			{
-				if(cl[i].getName().matches("[0-9]+"))
-				{
-					idList.add(Long.parseLong(cl[i].getName()));
-					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+
+			Cookie cl[] = res.getCookies();
+			if (cl != null) {
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
+
 				}
-				
+				listspOld = sanPhamService.getAllSanPhamByList(idList);
 			}
-			listspOld = sanPhamService.getAllSanPhamByList(idList);}
-		
-			
-		}else     //Lay tu database
+
+		} else // Lay tu database
 		{
 			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
-			if(g != null)
-			{
+			if (g != null) {
 				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
-				
+
 				Cookie cl[] = res.getCookies();
-Set<Long> idList = new HashSet<Long>();
-				for(int i=0; i< cl.length; i++)
-				{
-					if(cl[i].getName().matches("[0-9]+"))
-					{
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
-					}				
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
-				
-				for(ChiMucGioHang c: listchimuc)
-				{
+
+				for (ChiMucGioHang c : listchimuc) {
 					listspOld.add(c.getSanPham());
 					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 				}
 			}
 		}
-		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
-		model.addAttribute("cartOld",listspOld);
-		
-		model.addAttribute("cartNew",listspNew);
-		model.addAttribute("quanityNew",quanityNew);
-		model.addAttribute("quanity",quanity);
+		model.addAttribute("checkEmpty", listspOld.size() + listspNew.size());
+		model.addAttribute("cartOld", listspOld);
 
-		return "client/shipping";
+		model.addAttribute("cartNew", listspNew);
+		model.addAttribute("quanityNew", quanityNew);
+		model.addAttribute("quanity", quanity);
+
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/shipping";
+		}
 	}
 
 	@GetMapping("/guarantee")
 	public String guaranteePage(HttpServletRequest res, Model model) {
 		NguoiDung currentUser = getSessionUser(res);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Map<Long,String> quanity = new HashMap<Long,String>();
-		Map<Long,String> quanityNew = new HashMap<Long,String>();
+		Map<Long, String> quanity = new HashMap<Long, String>();
+		Map<Long, String> quanityNew = new HashMap<Long, String>();
 
 		List<SanPham> listspNew = new ArrayList<SanPham>();
 		List<SanPham> listspOld = new ArrayList<SanPham>();
-		if(auth == null || auth.getPrincipal() == "anonymousUser")     //Lay tu cookie
+		if (auth == null || auth.getPrincipal() == "anonymousUser") // Lay tu cookie
 		{
-			
-			Cookie cl[] = res.getCookies();	
-			if(cl!=null) {	Set<Long> idList = new HashSet<Long>();
-			for(int i=0; i< cl.length; i++)
-			{
-				if(cl[i].getName().matches("[0-9]+"))
-				{
-					idList.add(Long.parseLong(cl[i].getName()));
-					quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+
+			Cookie cl[] = res.getCookies();
+			if (cl != null) {
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
+						idList.add(Long.parseLong(cl[i].getName()));
+						quanity.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
+
 				}
-				
+				listspOld = sanPhamService.getAllSanPhamByList(idList);
 			}
-			listspOld = sanPhamService.getAllSanPhamByList(idList);}
-		
-			
-		}else     //Lay tu database
+
+		} else // Lay tu database
 		{
 			GioHang g = gioHangService.getGioHangByNguoiDung(currentUser);
-			if(g != null)
-			{
+			if (g != null) {
 				List<ChiMucGioHang> listchimuc = chiMucGioHangService.getChiMucGioHangByGioHang(g);
-				
+
 				Cookie cl[] = res.getCookies();
-Set<Long> idList = new HashSet<Long>();
-				for(int i=0; i< cl.length; i++)
-				{
-					if(cl[i].getName().matches("[0-9]+"))
-					{
+				Set<Long> idList = new HashSet<Long>();
+				for (int i = 0; i < cl.length; i++) {
+					if (cl[i].getName().matches("[0-9]+")) {
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
-					}				
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());
+					}
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
-				
-				for(ChiMucGioHang c: listchimuc)
-				{
+
+				for (ChiMucGioHang c : listchimuc) {
 					listspOld.add(c.getSanPham());
 					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
 				}
 			}
 		}
-		model.addAttribute("checkEmpty",listspOld.size()+listspNew.size());
-		model.addAttribute("cartOld",listspOld);
-		
-		model.addAttribute("cartNew",listspNew);
-		model.addAttribute("quanityNew",quanityNew);
-		model.addAttribute("quanity",quanity);
+		model.addAttribute("checkEmpty", listspOld.size() + listspNew.size());
+		model.addAttribute("cartOld", listspOld);
 
-		return "client/guarantee";
+		model.addAttribute("cartNew", listspNew);
+		model.addAttribute("quanityNew", quanityNew);
+		model.addAttribute("quanity", quanity);
+
+		if (loggedInUser(false) != null && loggedInUser(false).getIsBlocked()) {
+
+			return "client/blockedPage";
+		} else {
+			return "client/guarantee";
+		}
 	}
 
 }

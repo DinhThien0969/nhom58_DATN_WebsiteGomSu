@@ -52,11 +52,13 @@ public class GioHangApi  {
 	
 	@GetMapping("/addSanPham")
 	public ResponseObject addToCart(@RequestParam String id,HttpServletRequest request,HttpServletResponse response) {
+		
+		
 		ResponseObject ro = new ResponseObject();
 		SanPham sp = sanPhamService.getSanPhamById(Long.parseLong(id));
 		if(sp.getSoLuong() == 0 )
 		{
-			ro.setStatus("false");
+			ro.setStatus("false");			
 			return ro;
 		}
 		NguoiDung currentUser = getSessionUser(request);
@@ -67,11 +69,13 @@ public class GioHangApi  {
 		for (int i = 0; i < cl.length; i++) {
 				if (cl[i].getName().equals(id)) {
 					quanityCookie = Integer.parseInt(cl[i].getValue());
-            }
-		
+            }		
 		}
 		}
-		
+		if(quanityCookie==20) {
+	    ro.setStatus("max");
+		return ro;
+		}
 		
 		if(auth == null || auth.getPrincipal() == "anonymousUser" )    //Su dung cookie de luu
 		{
@@ -116,8 +120,8 @@ public class GioHangApi  {
 			ChiMucGioHang c = chiMucGioHangService.getChiMucGioHangBySanPhamAndGioHang(sp,g);
 			if(c== null)     //Neu khong tim chi muc gio hang, tao moi
 			{
-				System.out.println(g.getNguoiDung().getEmail());
-				System.out.println(g.getId());
+				
+				
 				c = new ChiMucGioHang();
 				c.setGioHang(g);
 				c.setSanPham(sp);
@@ -129,16 +133,19 @@ public class GioHangApi  {
 				if(c.getSo_luong()+1>20)
 				{ro.setStatus("max");}
 				else 
-				{	System.out.println(quanityCookie);
+				{	
 				c.setSo_luong(c.getSo_luong()+1);
+				
 				ro.setStatus("success");
 				}
-			}else { System.out.println(quanityCookie+c.getSo_luong()); 
+			}else { 
 				if(quanityCookie+c.getSo_luong()>19)
-				{ro.setStatus("max");}
+				{
+					ro.setStatus("max");}
 				else 
-				{ /* System.out.println(count); */
+				{ 
 				c.setSo_luong(c.getSo_luong()+1);
+				
 				ro.setStatus("success");
 				}
 			};
@@ -177,6 +184,7 @@ public class GioHangApi  {
 c = chiMucGioHangService.saveChiMucGiohang(c);
 		}
 		ro.setStatus("success");
+		
 		return ro;
 	}
 	@GetMapping("/changSanPhamQuanityNew")
@@ -185,9 +193,7 @@ c = chiMucGioHangService.saveChiMucGiohang(c);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		ResponseObject ro = new ResponseObject();
 		if(auth == null || auth.getPrincipal() == "anonymousUser" )    //Su dung cookie de luu
-		{
-			
-			
+		{	
 		}else //Su dung database de luu
 		{
 			Cookie clientCookies[] = request.getCookies();
@@ -204,6 +210,7 @@ c = chiMucGioHangService.saveChiMucGiohang(c);
 			}
 		}
 		ro.setStatus("success");
+		
 		return ro;
 	}
 	
@@ -221,7 +228,7 @@ c = chiMucGioHangService.saveChiMucGiohang(c);
 				{						
 					clientCookies[i].setMaxAge(0);
 					clientCookies[i].setPath("/potteryshop");
-					System.out.println(clientCookies[i].getMaxAge());
+					
 					response.addCookie(clientCookies[i]);
 					break;
 				}
@@ -238,6 +245,7 @@ c = chiMucGioHangService.saveChiMucGiohang(c);
 		}
 		
 		ro.setStatus("success");
+		
 		return ro;
 	}
 	@GetMapping("/deleteFromCartNew")
@@ -254,7 +262,7 @@ c = chiMucGioHangService.saveChiMucGiohang(c);
 				{						
 					clientCookies[i].setMaxAge(0);
 					clientCookies[i].setPath("/potteryshop");
-					System.out.println(clientCookies[i].getMaxAge());
+					
 					response.addCookie(clientCookies[i]);
 					break;
 				}
@@ -274,8 +282,8 @@ Cookie clientCookies[] = request.getCookies();
 			}
 			
 		}
-		
 		ro.setStatus("success");
+		
 		return ro;
 	}
 }

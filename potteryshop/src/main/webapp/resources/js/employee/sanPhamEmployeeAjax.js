@@ -15,6 +15,7 @@ $(document).ready(function() {
 			success: function(result){
 				$.each(result.content, function(i, sanPham){
 					var sanPhamRow = '<tr>' +
+					'<td>' + sanPham.id + '</td>'+
 					                  '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
 					                  '<td>' + sanPham.tenSanPham + '</td>' +
 					                  '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +
@@ -69,6 +70,7 @@ $(document).ready(function() {
 				$('#otherForm #btnSubmit').removeClass().addClass("btn btn-primary btnSaveOtherForm");
 			}			
             $(".modal-title").text("Thêm mới sản phẩm danh mục "+ label);
+            $(".danhMucId").find("option").css("display","none");
 			
 		}
 		$(this).data("isopen", !open);
@@ -282,6 +284,7 @@ $(document).ready(function() {
 			var hangSXId = sanPham.hangSanXuat.id;
 			$("#nhaSXIdKhac").val(hangSXId);
 			$(".modal-title").text("Cập nhật sản phẩm của danh mục "+ sanPham.danhMuc.tenDanhMuc);	
+			$(".danhMucId").find("option").css("display","block");
 		});		
 		removeElementsByClass("error");		
 		$('.updateOtherForm .otherModal').modal();
@@ -437,6 +440,7 @@ $(document).ready(function() {
 		  var href = "http://localhost:8080/potteryshop/api/san-pham/"+sanPhamId;
 		  $.get(href, function(sanPham) {
 			  var sanPhamRow = '<tr>' +
+			  '<td>' + sanPham.id + '</td>'+
               '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
               '<td>' + sanPham.tenSanPham + '</td>' +
               '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +
