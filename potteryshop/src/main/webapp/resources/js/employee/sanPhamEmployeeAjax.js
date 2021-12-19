@@ -15,6 +15,7 @@ $(document).ready(function() {
 			success: function(result){
 				$.each(result.content, function(i, sanPham){
 					var sanPhamRow = '<tr>' +
+					'<td>' + sanPham.id + '</td>'+
 					                  '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
 					                  '<td>' + sanPham.tenSanPham + '</td>' +
 					                  '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +
@@ -439,6 +440,7 @@ $(document).ready(function() {
 		  var href = "http://localhost:8080/potteryshop/api/san-pham/"+sanPhamId;
 		  $.get(href, function(sanPham) {
 			  var sanPhamRow = '<tr>' +
+			  '<td>' + sanPham.id + '</td>'+
               '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
               '<td>' + sanPham.tenSanPham + '</td>' +
               '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +

@@ -85,6 +85,7 @@
 			style="text-align: center;">
 			<thead>
 				<tr>
+				<th>Mã</th>
 					<th>Hình ảnh</th>
 					<th>Tên SP</th>
 					<th>Danh Mục</th>

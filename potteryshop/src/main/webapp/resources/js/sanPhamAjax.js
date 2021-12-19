@@ -14,7 +14,7 @@ $(document).ready(function() {
 			url: "http://localhost:8080/potteryshop/api/san-pham/all" + '?page=' + page,
 			success: function(result){
 				$.each(result.content, function(i, sanPham){
-					var sanPhamRow = '<tr>' +
+					var sanPhamRow = '<tr>' +'<td>' + sanPham.id + '</td>'+
 					                  '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
 					                  '<td>' + sanPham.tenSanPham + '</td>' +
 					                  '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +
@@ -358,6 +358,7 @@ $(document).ready(function() {
 			  },
 			  error : function(e) {
 				 console.log("ERROR: ", e);
+				  alert("Xóa thất bại");
 			  }
 		  });	
 		}
@@ -405,7 +406,8 @@ $(document).ready(function() {
     	console.log(page);
     	if(count == 1){    	
     		ajaxGet(page -1 );
-    	} else {
+    	} else if(count.length == undefined ){   	
+    	}else {
     		ajaxGet(page);
     	}
 
@@ -440,6 +442,7 @@ $(document).ready(function() {
 		  var href = "http://localhost:8080/potteryshop/api/san-pham/"+sanPhamId;
 		  $.get(href, function(sanPham) {
 			  var sanPhamRow = '<tr>' +
+			  '<td>' + sanPham.id + '</td>'+
               '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
               '<td>' + sanPham.tenSanPham + '</td>' +
               '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +

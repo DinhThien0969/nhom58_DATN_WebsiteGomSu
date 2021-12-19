@@ -34,7 +34,7 @@
 		</select>
 		<h1><canvas id="myChart" ></canvas>
 		</h1>
-		<h4 style="text-align: center; padding-right: 10%; color:#D2691E"><b>Biểu đồ doanh thu sản phẩm bán chạy nhất theo tháng</b></h4>
+		<h4 style="text-align: center; padding-right: 10%; color:#D2691E"><b>Top 10 doanh thu sản phẩm bán chạy theo tháng</b></h4>
 
 	</div>
 

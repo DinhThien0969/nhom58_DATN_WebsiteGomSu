@@ -72,7 +72,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<br>
 				<p style="font-size: 20px"><b>Thông tin tài khoản:</b></p>
 				<br>
@@ -90,7 +90,7 @@
 					data-target="#modalChangePassword">Đổi mật khẩu</a> <br> <br>
 				<br>
 				<h1>
-					<b>Lịch sử mua hàng:</b>
+					<b style="font-size: 21px">Lịch sử mua hàng:</b>
 				</h1>
 				<p><h3>Lọc theo trạng thái</h3></p>
 				<p>
@@ -114,8 +114,8 @@
 				<table id="myTable" class="table-cart-checkout mytable">
 					<tr>
 						<th>Mã đơn hàng</th>
-						<th>Ngày mua</th>
-						<th>Ngày giao hàng</th>
+						<th>Ngày đặt</th>
+						<th>Ngày xác nhận đơn hàng</th>
 						<th>Ngày nhận hàng</th>
 						<th>Sản phẩm</th>
 						<th>Tổng tiền</th>
@@ -134,7 +134,12 @@
 							<td>${donHang.id}</td>	
 							<td>${donHang.ngayDatHang}</td>
 							<td>${donHang.ngayGiaoHang}</td>
-							<td>${donHang.ngayNhanHang}</td>
+							<td>
+							<c:if test='${(donHang.trangThaiDonHang == "Hoàn thành")}'> 
+							 ${donHang.ngayNhanHang}
+							 </c:if>
+							</td>
+							
                             
 							<td><c:forEach var="chiTiet"
 									items="${donHang.danhSachChiTiet}">
@@ -148,20 +153,18 @@
 										
 									<c:choose>
 										<c:when 
-											test='${(donHang.trangThaiDonHang == "Đang chờ giao") 
-											|| (donHang.trangThaiDonHang =="Đang giao")
-											|| (donHang.trangThaiDonHang == "Đã bị hủy")  }'>
-
-											<p>Số lượng: ${chiTiet.soLuongDat }</p>
+											test='${(donHang.trangThaiDonHang == "Đang chờ xác nhận khách mua" || donHang.trangThaiDonHang == "Đã bị hủy")}'>
+											<p>Số lượng đặt: ${chiTiet.soLuongDat }</p>
 											<hr>
 											<c:set var="tongGiaTri"
 												value="${tongGiaTri + chiTiet.soLuongDat*chiTiet.sanPham.donGia}" />
 										</c:when>
 										<c:otherwise >
-											<p>Số lượng: ${chiTiet.soLuongDat }</p>
+											<p>Số lượng đặt: ${chiTiet.soLuongDat }</p>
+											<p>Số lượng nhận: ${chiTiet.soLuongNhanHang }</p>
 											<hr>
 											<c:set var="tongGiaTri"
-												value="${tongGiaTri + chiTiet.soLuongDat*chiTiet.sanPham.donGia}" />
+												value="${tongGiaTri + chiTiet.soLuongNhanHang*chiTiet.sanPham.donGia}" />
 										</c:otherwise>
 									</c:choose> 
 								</c:forEach>

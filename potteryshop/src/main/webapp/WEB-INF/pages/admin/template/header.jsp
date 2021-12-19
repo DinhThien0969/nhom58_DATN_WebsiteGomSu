@@ -34,7 +34,7 @@
                  <p hidden id="list">${listCongViec.soLienHeMoi}</p>
         </li>       
           <li>
-            <a id="here" style="color:#FFD700;" href="<c:url value='/admin'/>"><span  class="glyphicon glyphicon-bell"> 
+            <a id="here" style="color:#FFD700;" href="<c:url value='/admin/lien-he'/>"><span  class="glyphicon glyphicon-bell"> 
             <c:if test ="${listCongViec.soLienHeMoi > 0}">
              (${listCongViec.soLienHeMoi})
               <p hidden id="listCurrent">${listCongViec.soLienHeMoi}</p>

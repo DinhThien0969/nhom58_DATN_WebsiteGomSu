@@ -14,41 +14,22 @@
 			<h3>- Sau khi bạn đặt hàng, trong vòng 12 giờ làm việc chúng tôi sẽ liên lạc lại để xác nhận và kiểm tra thông tin.</h3>
 			<h3>- Những rủi ro phát sinh trong quá trình vận chuyển (va đập,tai nạn..) có thể ảnh hưởng đến hàng hóa, vì thế xin quý Khách vui lòng kiểm tra hàng hóa thật kỹ trước khi ký nhận. Thành Phát sẽ không chịu trách nhiệm với những sai lệch hình thức của hàng hoá sau khi Quý khách đã ký nhận hàng.</h3>
 			<br>
-			<p><b>2. BẢNG GIÁ DỊCH VỤ VẨN CHUYỂN HÀNG HÓA</b></p>
+			<p><b>2. Vận chuyển các Quận nội thành Hà Nội</b></p>
+			<br>
+			<p><b>a. Chi phí vận chuyển</b><br> – Miễn phí vận chuyển tận nơi cho khách hàng tại nội thành&nbsp;Hà Nội.</p>
+			<br>
+			<p><b>b. Thời gian giao hàng</b><br> – Không chậm hơn 24h khi hàng có sẵn trong kho<br>– Đối với hàng không có sẵn thì thời gian sẽ được nhân viên liên hệ thỏa thuận với khách hàng</p>
+			<br>
+			<p><b>3. Vận chuyển đi ngoại thành Hà Nội và các tỉnh thành khác</b></p>
+			<br>
+			<p><b>a. Phương tiện vận chuyển</b><br> – Vận chuyển qua các xe khách tại các bến xe Hà Nội<br> – Vận chuyển qua đường máy bay<br> – Vận chuyển qua đường xe tải<br> – Vận chuyển qua đường bưu điện</p>
+			<br>
+			<p><b>b. Đóng gói và chuyển hàng ra bến xe, bưu điện</b><br> – Chúng tôi sẽ đóng gói, đóng thùng &nbsp;miễn phí và vận chuyển miễn phí ra bến xe gửi cho Quý khách hàng.<br> <b>c. Chi phí vận chuyển</b><br> – Giá phụ thuộc vào địa điểm nhận hàng và theo giá bưu điện</p>
+			<br>
+			<p><b>e. Thời gian vận chuyển hàng tới tay khách hàng</b><br> – Thời gian từ 4&nbsp;– 10 ngày (kể cả ngày thứ 7 và chủ nhật)</p>
+			<br>
 			<br>
 			
-			<table class="table-cart-checkout mytable">
-					 <tr>
-						    <th>Theo giá trị đơn hàng</th>
-						    <th>Thời gian đáp ứng</th>
-						    <th>Thu phí</th>
-					</tr>
-					
-				
-					 <tr style="text-align: center;">
-						    
-						    <td>500.000đ-2.000.000đ</td>
-						    <td>Giao hàng trong vòng 3h-7h</td>
-						    <td>Giao hàng bán kính 15km và thu phí 60.000đ /1 lần giao. Km16 tính 10000đ/km và tối đa 30 km</td>
-					</tr>
-					<tr style="text-align: center;">
-						    <td>2.000.000đ - 10.000.000đ  </td>
-						    <td> Giao hàng trong vòng 3h-7h</td>
-						    <td>Giao hàng bán kính 15km và thu phí 30.000đ /1 lần giao. Km16 tính 5000đ/km và tối đa 30 km</td>
-					</tr>
-				
-					<tr style="text-align: center;">
-						    <td>Trên 10.000.000đ </td>
-						    <td>Giao hàng trong vòng 3h-7h </td>
-						    <td>Miễn phí giao hàng trong bán kính 30km</td>
-					</tr>
-				</table>
-			
-			<br>
-			<p>- Bảng giá phí vận chuyển trên áp dụng cho các đơn hàng trong phạm vi Hà Nội và thời gian giao hàng chỉ áp dụng cho các sản phẩm có sẵn tại cửa hàng.</p>
-			<br>
-			<p>- Đối với sản phẩm yêu cầu theo thiết kế của khách hàng thì thời gian nhận sẽ được cửa hàng thỏa thuận và thông báo cho khác hàng</p>
-			<br>
 			
 			
 			

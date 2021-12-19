@@ -229,8 +229,14 @@ System.out.println("11111"+Integer.parseInt(quanityNew.get(sp.getId())));
 				{detailDH.setSoLuongDat(c.getSo_luong());				
 				c.getSanPham().setSoLuong(c.getSanPham().getSoLuong()-c.getSo_luong());
 				}else {
+					/*
+					 * detailDH.setSoLuongDat(c.getSanPham().getSoLuong());
+					 * c.getSanPham().setSoLuong(0);
+					 */
+					detailDH.setSoLuongNhanHang(c.getSanPham().getSoLuong());
+					detailDH.setSoLuongDat(c.getSo_luong());
 					c.getSanPham().setSoLuong(0);
-					detailDH.setSoLuongDat(c.getSanPham().getSoLuong()-c.getSo_luong());
+					
 				}
 				detailDH.setDonHang(d);
 				listDetailDH.add(detailDH);

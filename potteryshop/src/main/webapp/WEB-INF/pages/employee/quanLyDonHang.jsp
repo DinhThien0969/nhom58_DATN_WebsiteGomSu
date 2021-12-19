@@ -57,7 +57,10 @@
 <h4>Nhấn "Làm mới" thường xuyên để cập nhật đơn hàng</h1>
 
 		<hr />
-		<table class="table table-hover donHangTable"
+		<div class="col-md-2" >
+    <a class="btn btn-default" id="export-btn" style="background-color: #8e0303;">Xuất Excel</a>
+  </div>
+		<table class="table table-hover donHangTable" id="resultsTable"
 			style="text-align: center">
 			<thead>
 				<tr>
@@ -542,7 +545,8 @@ changeMonth : true
 		
 		
 	</script>
-
+	
+<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 	<script src="<c:url value='/js/employee/donHangEmployeeAjax.js'/>"></script>
 </body>
 </html>

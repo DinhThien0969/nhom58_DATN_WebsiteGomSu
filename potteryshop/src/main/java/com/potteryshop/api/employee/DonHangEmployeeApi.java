@@ -81,13 +81,19 @@ public class DonHangEmployeeApi {
 			for (CapNhatDonHangEmployee.CapNhatChiTietDon chiTietCapNhat : capNhatDonHangEmployee
 					.getDanhSachCapNhatChiTietDon()) {
 				if (chiTiet.getId() == chiTietCapNhat.getIdChiTiet()) {	
-					if(chiTietCapNhat.getSoLuongNhanHang() >chiTiet.getSoLuongDat() ) {						
-						sp.setSoLuong(sp.getSoLuong()-(chiTietCapNhat.getSoLuongNhanHang()-chiTiet.getSoLuongDat()));
+					if(chiTietCapNhat.getSoLuongNhanHang() >chiTiet.getSoLuongDat() ) {	
+						/*
+						 * System.out.println("So luong yeu cau "+chiTietCapNhat.getSoLuongNhanHang());
+						 * System.out.println("So luong dat "+chiTiet.getSoLuongDat());
+						 * System.out.println("So luong trong kho "+sp.getSoLuong());
+						 */
+						if(sp.getSoLuong()<(chiTietCapNhat.getSoLuongNhanHang()-chiTiet.getSoLuongDat())) {
+							sp.setSoLuong(0);
+						}else
+						{sp.setSoLuong(sp.getSoLuong()-(chiTietCapNhat.getSoLuongNhanHang()-chiTiet.getSoLuongDat()));}
 					}else if(chiTietCapNhat.getSoLuongNhanHang() <chiTiet.getSoLuongDat() ) {
 						sp.setSoLuong(sp.getSoLuong()+(chiTiet.getSoLuongDat()-chiTietCapNhat.getSoLuongNhanHang()));
 					}
-					
-					
 					chiTiet.setSoLuongNhanHang(chiTietCapNhat.getSoLuongNhanHang());
 				}
 			}
@@ -99,6 +105,7 @@ public class DonHangEmployeeApi {
 			String dateStr = format.format(new Date());
 			Date date = format.parse(dateStr);
 			donHang.setNgayNhanHang(date);
+			donHang.setNgayGiaoHang(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +117,7 @@ public class DonHangEmployeeApi {
 		if (!ghiChu.equals("")) {
 			donHang.setGhiChu(capNhatDonHangEmployee.getGhiChuEmployee());
 		}
-		donHangService.save(donHang);
+		 donHangService.save(donHang); 
 	}
 	
 	@PostMapping("/update")
@@ -137,6 +144,7 @@ public class DonHangEmployeeApi {
 			String dateStr = format.format(new Date());
 			Date date = format.parse(dateStr);
 			donHang.setNgayNhanHang(date);
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

@@ -72,7 +72,7 @@ html
 		<input id="soLuongSp${sanpham.id}" class="input_num_cart" 
         type="number" value="${quanity[sanpham.id]}" 
 			min="1" max ="20" onchange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})"
-			onkeyUp="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})"
+			<%-- onkeyUp="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})" --%>
 			>
 		</c:if>
 		<c:if test="${fn:length(cartNew)>0 }">
@@ -94,14 +94,14 @@ max =${20 - quanity02}
 		 id="soLuongSp${sanpham.id}"class="input_num_cart" 
          type="number" value="${quanity[sanpham.id]}" 
 	     min="1" onChange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})"
-	     onkeyUp="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})"
+	    <%--  onkeyUp="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})" --%>
 	     > 
 		</c:if>
 		<c:if test="${sanpham.id != ID01}">
 		 <input id="soLuongSp${sanpham.id}"class="input_num_cart" 
           type="number" value="${quanity[sanpham.id]}" 
 			min="1" max ="20" onChange="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})"
-			onkeyUp="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})"
+			<%-- onkeyUp="changeQuanity(${sanpham.id},this.value,${sanpham.donGia})" --%>
 			> 
 		</c:if>
 		</c:if>	
@@ -165,7 +165,7 @@ max =${20 - quanity02}
         id="soLuongSpNew${sanpham.id}"class="input_num_cart" 
         type="number" value="${quanityNew[sanpham.id]}" 
         min="1"  max="20" onChange="changeQuanityNew(${sanpham.id},this.value,${sanpham.donGia})"
-        onkeyUp="changeQuanityNew(${sanpham.id},this.value,${sanpham.donGia})"> 
+       <%--  onkeyUp="changeQuanityNew(${sanpham.id},this.value,${sanpham.donGia})" --%>> 
     
 		</td>
 		<td><b><span class="totalNew" id="itemNew${sanpham.id}_totalNew" name="total_price">${sanpham.donGia*quanityNew[sanpham.id]} </span> VND</b></td>

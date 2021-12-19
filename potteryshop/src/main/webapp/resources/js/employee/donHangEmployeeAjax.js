@@ -1,4 +1,15 @@
 $(document).ready(function() {
+$('#export-btn').on('click', function(e){
+        e.preventDefault();
+        ResultsToTable();
+    });
+
+    function ResultsToTable(){    
+        $("#resultsTable").table2excel({
+            exclude: ".noExl",
+            name: "Results"
+        });
+    }
 	var idDonhang;
 	// load first when coming page
 	/*if (parseInt(document.getElementById("intro").innerHTML) == 0)
@@ -14,7 +25,9 @@ $(document).ready(function() {
 			url: url,
 			success: function(result) {
 				$.each(result.content, function(i, donHang) {
+				console.log(data);
 				console.log(url);
+				console.log(result);
 					// tính giá trị đơn hàng
 					var sum = 0;
 					if (donHang.trangThaiDonHang == "Đang chờ xác nhận khách mua" || donHang.trangThaiDonHang == "Đã bị hủy") {
@@ -85,6 +98,7 @@ donHangRow += ' &nbsp;<button class="btn btn-warning btnXacNhanKhachMua" >Xác n
 				};
 			},
 			error: function(e) {
+			console.log("Loi"+data);
 				alert("Error: ", e);
 				console.log("Error", e);
 			}
@@ -292,8 +306,8 @@ var table = $(".chiTietCapNhatTable tbody");
 		if($(this).find("td:eq(4) input[type='number']").val() == ''){
 		alert("Lỗi số lượng");
 		$(this).find("td:eq(4) input[type='number']").val('1');		
-		}else if($(this).find("td:eq(4) input[type='number']").val() <=0){
-		alert("Số lượng phải lớn hơn 0 ");
+		}else if($(this).find("td:eq(4) input[type='number']").val() <0){
+		alert("Số lượng không được âm");
 		$(this).find("td:eq(4) input[type='number']").val('1');
 		}else if(/^\d+$/.test($(this).find("td:eq(4) input[type='number']").val())==false )
 		{alert("Số lượng phải là số");
@@ -316,12 +330,18 @@ var table = $(".chiTietCapNhatTable tbody");
 		
 		sum = 0;
 		table.find('tr').each(function(i) {
-		
+		if($(this).find("td:eq(4) input[type='number']").val() > $(this).find('td:eq(3)').html()
+		&& ($(this).find("td:eq(4) input[type='number']").val() - $(this).find('td:eq(3)').html())
+		>$(this).find("td:eq(6) input[type='hidden']").val()		
+		){
+		alert("Trong kho chỉ còn "+$(this).find("td:eq(6) input[type='hidden']").val());
+		$(this).find("td:eq(4) input[type='number']").val($(this).find('td:eq(3)').html());
+		}
 		if($(this).find("td:eq(4) input[type='number']").val() == ''){
 		alert("Lỗi số lượng");
 		$(this).find("td:eq(4) input[type='number']").val('1');		
-		}else if($(this).find("td:eq(4) input[type='number']").val() <=0){
-		alert("Số lượng phải lớn hơn 0 ");
+		}else if($(this).find("td:eq(4) input[type='number']").val() <0){
+		alert("Số lượng không được âm ");
 		$(this).find("td:eq(4) input[type='number']").val('1');
 		}else if(/^\d+$/.test($(this).find("td:eq(4) input[type='number']").val())==false )
 		{alert("Số lượng phải là số");
@@ -526,14 +546,39 @@ $.each($("input[name='status']:checked"), function() {
 					'<td>' + stt + '</td>' +
 					'<td>' + chiTiet.sanPham.tenSanPham + '</td>' +
 					'<td>' + chiTiet.sanPham.donGia + '</td>' +
-					'<td>' + chiTiet.soLuongDat + '</td>' +
-                '<td><input type="number" class="soLuongNhanYeuCau" style="width: 40px; text-align: center;" value ="'+chiTiet.soLuongDat+'" min="0" max="20" ></td>'+
-               '<td><input type="hidden" value="' + chiTiet.id + '" ></td>'
+					'<td>' + chiTiet.soLuongDat + '</td>' 			
+           
+               if(chiTiet.soLuongNhanHang>0 && chiTiet.soLuongNhanHang<20){ 
+                chiTietRow +='<td><input id="soLuongNhanYeuCau1" type="number" class="soLuongNhanYeuCau" style="width: 40px; text-align: center;" value ="'+chiTiet.soLuongNhanHang+'" min="0" max="'+chiTiet.soLuongNhanHang+'" ></td>'+
+               '<td><input type="hidden" value="' + chiTiet.id + '" ></td>'+
+               '<td><input id="soLuongKho" type="hidden" value="'+chiTiet.soLuongNhanHang+'"</td>' +             
+               '<td style="color: red;">' + "Kho chỉ còn :"+chiTiet.soLuongNhanHang +" sản phẩm" + '</td>';
+			    }
+			    else if(chiTiet.soLuongNhanHang==20){
+			    chiTietRow +='<td><input id="soLuongNhanYeuCau1" type="number" class="soLuongNhanYeuCau" style="width: 40px; text-align: center;" value ="'+chiTiet.soLuongNhanHang+'" min="0" max="'+chiTiet.soLuongNhanHang+'" ></td>'+
+               '<td><input type="hidden" value="' + chiTiet.id + '" ></td>'+
+               '<td><input id="soLuongKho" type="hidden" value="'+chiTiet.soLuongNhanHang+'"</td>' +             
+               '<td style="color: red;">' + "Kho đã hết hàng" + '</td>';
+			    }
+			    else{
+			   
+			    var href = "http://localhost:8080/potteryshop/api/san-pham/"+chiTiet.sanPham.id;
+		$.get(href, function(sanPham) {	
+			  var soLuongKho = sanPham.soLuong;	
+			 		$("#soLuongKho1").val(soLuongKho);
+		}); 
+			   chiTietRow += '<td><input id="soLuongNhanYeuCau1" type="number" class="soLuongNhanYeuCau" style="width: 40px; text-align: center;" value ="'+chiTiet.soLuongDat+'" min="0" max="20" ></td>'+
+               '<td><input type="hidden" value="' + chiTiet.id + '" ></td>'+
+               '<td><input id="soLuongKho1" type="hidden" value=""</td>' ;
+			    }
 				$('.chiTietCapNhatTablexacNhanKhach tbody').append(chiTietRow);
 				stt++;
 			});
+			
+			
+			
 			var sum = 0;
-			$.each(donHang.danhSachChiTiet, function(i, chiTiet) {
+$.each(donHang.danhSachChiTiet, function(i, chiTiet) {
 				sum += chiTiet.sanPham.donGia * chiTiet.soLuongDat;
 			});
 			$("#tongTienCapNhat1").text("Tổng : " + formatDollar(sum));
@@ -634,7 +679,8 @@ function ajaxPostHuyDonGiaoHang() {
 		};
 		//    	 console.log(data);
 		$.ajax({
-			async: false,
+
+async: false,
 			type: "POST",
 			contentType: "application/json",
 			url: "http://localhost:8080/potteryshop/api/employee/don-hang/cancelConfirm",
