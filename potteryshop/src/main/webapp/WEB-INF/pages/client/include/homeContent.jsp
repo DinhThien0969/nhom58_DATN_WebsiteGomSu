@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="<c:url value='/js/client/homeAjax.js'/>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!--start-image-slider---->
 
 <div class="wrap">

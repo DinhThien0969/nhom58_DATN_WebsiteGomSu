@@ -17,4 +17,5 @@ public interface NguoiDungRepository extends JpaRepository<NguoiDung, Long>{
 	Page<NguoiDung> findByVaiTro(Set<VaiTro> vaiTro, Pageable of);
 
 	List<NguoiDung> findByVaiTro(Set<VaiTro> vaiTro);
+	NguoiDung findBysoDienThoai(String soDienThoai);
 }

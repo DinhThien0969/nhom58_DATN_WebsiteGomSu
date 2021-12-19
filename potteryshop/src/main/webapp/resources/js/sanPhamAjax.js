@@ -14,7 +14,7 @@ $(document).ready(function() {
 			url: "http://localhost:8080/potteryshop/api/san-pham/all" + '?page=' + page,
 			success: function(result){
 				$.each(result.content, function(i, sanPham){
-					var sanPhamRow = '<tr>' +
+					var sanPhamRow = '<tr>' +'<td>' + sanPham.id + '</td>'+
 					                  '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
 					                  '<td>' + sanPham.tenSanPham + '</td>' +
 					                  '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +
@@ -68,7 +68,8 @@ $(document).ready(function() {
 				$('#otherForm').removeClass().addClass("addOtherForm");
 				$('#otherForm #btnSubmit').removeClass().addClass("btn btn-primary btnSaveOtherForm");
 			}			
-            $(".modal-title").text("Thêm mới sản phẩm danh mục "+ label);
+            $(".modal-title").text("Thêm mới sản phẩm danh mục "+ label);            
+             $(".danhMucId").find("option").css("display","none");
 			
 		}
 		$(this).data("isopen", !open);
@@ -282,6 +283,7 @@ $(document).ready(function() {
 			var hangSXId = sanPham.hangSanXuat.id;
 			$("#nhaSXIdKhac").val(hangSXId);
 			$(".modal-title").text("Cập nhật sản phẩm của danh mục "+ sanPham.danhMuc.tenDanhMuc);	
+			 $(".danhMucId").find("option").css("display","block");
 		});		
 		removeElementsByClass("error");		
 		$('.updateOtherForm .otherModal').modal();
@@ -356,6 +358,7 @@ $(document).ready(function() {
 			  },
 			  error : function(e) {
 				 console.log("ERROR: ", e);
+				  alert("Xóa thất bại");
 			  }
 		  });	
 		}
@@ -403,7 +406,8 @@ $(document).ready(function() {
     	console.log(page);
     	if(count == 1){    	
     		ajaxGet(page -1 );
-    	} else {
+    	} else if(count.length == undefined ){   	
+    	}else {
     		ajaxGet(page);
     	}
 
@@ -438,6 +442,7 @@ $(document).ready(function() {
 		  var href = "http://localhost:8080/potteryshop/api/san-pham/"+sanPhamId;
 		  $.get(href, function(sanPham) {
 			  var sanPhamRow = '<tr>' +
+			  '<td>' + sanPham.id + '</td>'+
               '<td>' + '<img src="/potteryshop/img/'+sanPham.id+'.png" class="img-responsive" style="height: 50px; width: 50px" />'+'</td>' +
               '<td>' + sanPham.tenSanPham + '</td>' +
               '<td>' + sanPham.danhMuc.tenDanhMuc + '</td>' +

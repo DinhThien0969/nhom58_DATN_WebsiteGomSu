@@ -32,5 +32,6 @@ public interface NguoiDungService {
 	void deleteById(long id);
 
 	NguoiDung switchStatus(NguoiDung nd);
+	NguoiDung findBysoDienThoai(String soDienThoai);
 
 }

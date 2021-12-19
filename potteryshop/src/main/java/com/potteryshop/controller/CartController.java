@@ -96,7 +96,12 @@ Set<Long> idList = new HashSet<Long>();
 					if(cl[i].getName().matches("[0-9]+"))
 					{
 						idList.add(Long.parseLong(cl[i].getName()));
-						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());  
+						if(Integer.parseInt(cl[i].getValue())>20) {
+							quanityNew.put(Long.parseLong(cl[i].getName()),"20");
+						}else {
+						quanityNew.put(Long.parseLong(cl[i].getName()), cl[i].getValue());} 
+						
+						
 					}				
 				}
 				listspNew = sanPhamService.getAllSanPhamByList(idList);
@@ -104,7 +109,10 @@ Set<Long> idList = new HashSet<Long>();
 				for(ChiMucGioHang c: listchimuc)
 				{
 					listspOld.add(c.getSanPham());
-					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));
+					if(c.getSo_luong()>20) {
+						quanity.put(c.getSanPham().getId(), "20");					
+					}else {
+					quanity.put(c.getSanPham().getId(), Integer.toString(c.getSo_luong()));}
 				}
 			}
 		}

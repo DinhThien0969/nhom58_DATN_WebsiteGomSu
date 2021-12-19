@@ -7,7 +7,7 @@ import com.potteryshop.entities.SanPham;
 
 public interface QueryRepository extends JpaRepository<SanPham, Long>{
 	@Query(value = "select sum(dh.tong_gia_tri) from don_hang dh\r\n"
-			+ "where month(dh.ngay_nhan_hang) = 12 AND dh.trang_thai_don_hang = \"Hoàn Thành\";",nativeQuery = true)
+			+ "where month(dh.ngay_nhan_hang) = MONTH(CURRENT_DATE()) AND dh.trang_thai_don_hang = 'Hoan thanh';",nativeQuery = true)
 	public int tongDoanhThuThang();
 	
 	@Query(value = "select count(nd.id) from nguoi_dung nd,nguoidung_vaitro ndvt\r\n"
@@ -19,6 +19,10 @@ public interface QueryRepository extends JpaRepository<SanPham, Long>{
 	public int tongSoLuongMatHang();
 	
 	@Query(value = "select sum(dh.tong_gia_tri) from don_hang dh\r\n"
-			+ "	where Date(dh.ngay_nhan_hang)= CURRENT_DATE AND dh.trang_thai_don_hang = \"Hoàn Thành\";",nativeQuery = true)
+			+ "where date(dh.ngay_nhan_hang) = CURRENT_DATE AND dh.trang_thai_don_hang = 'Hoan thanh';",nativeQuery = true)
 	public int tongDoanhThuTheoNgay();
+
+	
+	@Query(value = "SELECT COUNT(dh.ngay_nhan_hang) FROM don_hang dh WHERE date(dh.ngay_nhan_hang) = date(CURRENT_DATE()) and trang_thai_don_hang = \"Hoàn thành\";",nativeQuery = true)
+	public int sodonhoanthanh();
 }

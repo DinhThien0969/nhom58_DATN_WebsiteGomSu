@@ -33,7 +33,6 @@ a {
 .thongke {
 	display: flex;
 	justify-content: center;
-	
 }
 
 .thongke1 {
@@ -74,6 +73,7 @@ a {
 	-o-border-radius: 10px;
 	border-radius: 10px;
 }
+
 .thongke4 {
 	background-color: #d08585;
 	width: 300px;
@@ -86,25 +86,52 @@ a {
 	-o-border-radius: 10px;
 	border-radius: 10px;
 }
-.text{
-  text-align: center;
-  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-  font-size: 19px;
-  color: #000000;
-  letter-spacing: .1em;
+
+.thongke5 {
+	background-color: #b285d0;
+	width: 300px;
+	height: 163px;
+	margin: 0 12px;
+	border: 3px solid #94717c;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
 }
-.soluong{
-    text-align: center;
-    margin: -31px 125px;
-    font-size: 20px;
-    margin-top: -57px;
-    margin-left: 136px;
+
+.text {
+	text-align: center;
+	font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic,
+		"AppleGothic", sans-serif;
+	font-size: 16px;
+	color: #000000;
+	letter-spacing: .1em;
+}
+
+.soluong {
+	text-align: center;
+	margin: -31px 125px;
+	font-size: 20px;
+	margin-top: -57px;
+	margin-left: 136px;
+}
+
+.hihi {
+	display: flex;
+	justify-content: center;
+	margin-top: 14px;
 }
 </style>
 
 <div class="col-md-9 animated bounce">
 	<script type="text/javascript">
-	
+	function formatDollar(num) {
+		var p = num.toFixed(2).split(".");
+		return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+			return num + (num != "-" && i && !(i % 3) ? "," : "") + acc;
+		}, "") + "." + p[1];
+	}
 		function getDateTime() {
 			var now = new Date();
 			var year = now.getFullYear();
@@ -118,7 +145,7 @@ a {
 				type:"GET",
 				url:"http://localhost:8080/potteryshop/api/queries/tongDoanhThuThang",
 				success:function(data){
-					document.getElementById("doanhThu").innerText=data;
+					document.getElementById("doanhThu").innerText=formatDollar(data);
 			}
 			
 			})
@@ -142,7 +169,15 @@ a {
 				type:"GET",
 				url:"http://localhost:8080/potteryshop/api/queries/tongDoanhThuTheoNgay",
 				success:function(data){
-					document.getElementById("doanhThuNgay").innerText=data;
+					document.getElementById("doanhThuNgay").innerText=formatDollar(data);
+			}
+			
+			})
+			$.ajax({
+				type:"GET",
+				url:"http://localhost:8080/potteryshop/api/queries/sodonhoanthanh",
+				success:function(data){
+					document.getElementById("donhoanthanh").innerText=(data);
 			}
 			
 			})
@@ -238,24 +273,7 @@ Swal.fire('Bạn có thông báo mới!', 'Nhấn "ok" để hủy',
 	<p style="font-size: 26px">Bạn có:
 	<p>
 	<ul class="list-group">
-
-
-
-
-		<c:if test="${listCongViec.soDonHangMoi > 0}">
-			<li
-				class="list-group-item d-flex justify-content-between align-items-center"
-				id="donHangMoi"><img alt="" src="Frontend/img/donhang.png"
-				style="margin-right: 10px;"> <a
-				href='<c:url value="/admin/don-hang" />'
-				style="color: #286090; font-size: 20px; font-family: 'auto';"><b>Đơn
-						hàng chờ giao</b></a> <span
-				style="font-size: 20px; font-family: 'auto'; background-color: #DC143C"
-				class="badge bg-primary rounded-pill">${listCongViec.soDonHangMoi}</span>
-			</li>
-		</c:if>
-
-		<c:if test="${listCongViec.soLienHeMoi > 0}">
+			<c:if test="${listCongViec.soLienHeMoi > 0}">
 			<li
 				class="list-group-item d-flex justify-content-between align-items-center"
 				id="lienHeMoi"><img alt="" src="Frontend/img/lienhe.png"
@@ -270,19 +288,19 @@ Swal.fire('Bạn có thông báo mới!', 'Nhấn "ok" để hủy',
 	</ul>
 	<div class="thongke">
 		<div class="thongke1">
-		<div class="text">Doanh Thu tháng này</div>
-			
+			<div class="text">Doanh Thu tháng này (VND)</div>
+
 			<div>
 				<img src="Frontend/img/money.png" alt="" style="margin-top: 15px;">
 			</div>
-			
+
 			<div class="soluong">
 				<b id="doanhThu"></b>
 			</div>
 		</div>
 		<div class="thongke2">
-		<div class="text">Số Lượng nhân viên</div>
-			
+			<div class="text">Số Lượng nhân viên</div>
+
 			<div>
 				<img src="Frontend/img/user.png" alt="">
 			</div>
@@ -291,8 +309,8 @@ Swal.fire('Bạn có thông báo mới!', 'Nhấn "ok" để hủy',
 			</div>
 		</div>
 		<div class="thongke3">
-		<div class="text">Số lượng mặt hàng hiện có</div>
-			
+			<div class="text">Số lượng mặt hàng hiện có</div>
+
 			<div>
 				<img src="Frontend/img/product.png" alt="">
 			</div>
@@ -302,8 +320,8 @@ Swal.fire('Bạn có thông báo mới!', 'Nhấn "ok" để hủy',
 
 		</div>
 		<div class="thongke4">
-		<div class="text">Tổng doanh thu trong ngày</div>
-			
+			<div class="text">Tổng doanh thu trong ngày (VND)</div>
+
 			<div>
 				<img src="Frontend/img/guarantee.png" alt="">
 			</div>
@@ -312,7 +330,24 @@ Swal.fire('Bạn có thông báo mới!', 'Nhấn "ok" để hủy',
 			</div>
 
 		</div>
-		
+
 	</div>
-	
+	<div class="hihi">
+		<div class="thongke5">
+			<div class="text">Số đơn hàng hoàn thành trong ngày</div>
+
+			<div>
+				<img src="Frontend/img/shopping_cart.png" alt="">
+			</div>
+			<div class="soluong">
+				<b id="donhoanthanh"></b>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
 </div>

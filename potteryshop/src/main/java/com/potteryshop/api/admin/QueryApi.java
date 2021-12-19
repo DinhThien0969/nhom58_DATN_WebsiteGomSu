@@ -32,4 +32,8 @@ public class QueryApi {
 	public int tongDoanhThuTheoNgay() {
 		return QueryServiceImplement.tongDoanhThuTheoNgay();
 	}
+	@GetMapping("sodonhoanthanh")
+	public int sodonhoanthanh() {
+		return QueryServiceImplement.sodonhoanthanh();
+	}
 }

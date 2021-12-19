@@ -33,8 +33,17 @@ public class QueryServiceImplement implements QueryService {
 	@Override
 	public int tongDoanhThuTheoNgay() {
 		// TODO Auto-generated method stub
-		return rep.tongDoanhThuTheoNgay();
+		 return rep.tongDoanhThuTheoNgay();
 	}
+
+	@Override
+	public int sodonhoanthanh() {
+		// TODO Auto-generated method stub
+		return rep.sodonhoanthanh();
+	}
+
+	
+
 	
 	
 }

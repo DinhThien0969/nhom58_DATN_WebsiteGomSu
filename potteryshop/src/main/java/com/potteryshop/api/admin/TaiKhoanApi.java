@@ -100,12 +100,24 @@ public class TaiKhoanApi {
 
 	@PutMapping("/switchStatus/{id}")
 	public NguoiDung switchStatus(@PathVariable long id) {
+
 		NguoiDung user = nguoiDungService.findById(id);
-			System.out.println(user);
-			user.setIsBlocked(!user.getIsBlocked());
-			nguoiDungService.switchStatus(user);
-			System.out.println(user.getIsBlocked());
-			
+		Calendar date = Calendar.getInstance();
+		long timeInSecs = date.getTimeInMillis();
+		Date afterAdding1Mins = new Date(0);
+		if(user.getBlockTodate().before(date.getTime())||!user.getIsBlocked() ) {
+			afterAdding1Mins = new Date("01/01/3000");
+			System.out.println(afterAdding1Mins);
+			user.setIsBlocked(true);
+		}else if(user.getIsBlocked() || user.getBlockTodate().after(date.getTime())){
+			afterAdding1Mins = new Date(0);
+			System.out.println("Mở Khóa tài khoản "+user.getId());
+			user.setIsBlocked(false);
+		}
+		
+		//System.out.println(user.getPassword());
+		user.setBlockTodate(afterAdding1Mins);
+		nguoiDungRepository.save(user);
 		return user;
 	}
 	

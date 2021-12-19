@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.potteryshop.api.admin.TaiKhoanApi;
 import com.potteryshop.dto.CapNhatDonHangEmployee;
 import com.potteryshop.dto.SearchDonHangObject;
+import com.potteryshop.dto.TaiKhoanDTO;
 import com.potteryshop.entities.ChiTietDonHang;
 import com.potteryshop.entities.DonHang;
 import com.potteryshop.entities.NguoiDung;
+import com.potteryshop.entities.SanPham;
 import com.potteryshop.service.DonHangService;
 import com.potteryshop.service.NguoiDungService;
 
@@ -31,7 +34,7 @@ public class DonHangEmployeeApi {
 
 	@Autowired
 	private NguoiDungService nguoiDungService;
-
+	long employeeID;
 	@GetMapping("/all")
 	public Page<DonHang> getDonHangByFilter(@RequestParam(defaultValue = "1") int page, @RequestParam String trangThai,
 			@RequestParam String tuNgay, @RequestParam String denNgay, @RequestParam long idEmployee)
@@ -42,18 +45,16 @@ public class DonHangEmployeeApi {
 		object.setTrangThaiDon(trangThai);
 		object.setTuNgay(tuNgay);
 
-		
-		
 		NguoiDung employee = nguoiDungService.findById(idEmployee);
-		System.out.println(employee);
+		
 		Page<DonHang> listDonHang = donHangService.findDonHangByEmployee(object, page, 6, employee);
 		return listDonHang;
 	}
 
 @GetMapping("/listConfirmGuest")
 	public Page<DonHang> getDonHangByFilter(@RequestParam(defaultValue = "1") int page,
-       @RequestParam String tuNgay, @RequestParam String denNgay) throws ParseException {
-
+       @RequestParam String tuNgay, @RequestParam String denNgay, @RequestParam long idEmployee) throws ParseException {
+	employeeID = idEmployee;
 		SearchDonHangObject object = new SearchDonHangObject();
 		object.setDenNgay(denNgay);
 		object.setTrangThaiDon("Đang chờ xác nhận khách mua");
@@ -68,13 +69,31 @@ public class DonHangEmployeeApi {
 	}
 
 	@PostMapping("/confirmGuest")
-	public void xacNhanKhachMua(@RequestBody CapNhatDonHangEmployee capNhatDonHangEmployee) {
+	public void phanCongDonHang(@RequestBody CapNhatDonHangEmployee capNhatDonHangEmployee) {
 		DonHang donHang = donHangService.findById(capNhatDonHangEmployee.getIdDonHang());
-
+		
+		donHang.setEmployee(nguoiDungService.findById(employeeID));
+		
 		for (ChiTietDonHang chiTiet : donHang.getDanhSachChiTiet()) {
+			SanPham sp =chiTiet.getSanPham();
+			
+			
 			for (CapNhatDonHangEmployee.CapNhatChiTietDon chiTietCapNhat : capNhatDonHangEmployee
 					.getDanhSachCapNhatChiTietDon()) {
-				if (chiTiet.getId() == chiTietCapNhat.getIdChiTiet()) {
+				if (chiTiet.getId() == chiTietCapNhat.getIdChiTiet()) {	
+					if(chiTietCapNhat.getSoLuongNhanHang() >chiTiet.getSoLuongDat() ) {	
+						/*
+						 * System.out.println("So luong yeu cau "+chiTietCapNhat.getSoLuongNhanHang());
+						 * System.out.println("So luong dat "+chiTiet.getSoLuongDat());
+						 * System.out.println("So luong trong kho "+sp.getSoLuong());
+						 */
+						if(sp.getSoLuong()<(chiTietCapNhat.getSoLuongNhanHang()-chiTiet.getSoLuongDat())) {
+							sp.setSoLuong(0);
+						}else
+						{sp.setSoLuong(sp.getSoLuong()-(chiTietCapNhat.getSoLuongNhanHang()-chiTiet.getSoLuongDat()));}
+					}else if(chiTietCapNhat.getSoLuongNhanHang() <chiTiet.getSoLuongDat() ) {
+						sp.setSoLuong(sp.getSoLuong()+(chiTiet.getSoLuongDat()-chiTietCapNhat.getSoLuongNhanHang()));
+					}
 					chiTiet.setSoLuongNhanHang(chiTietCapNhat.getSoLuongNhanHang());
 				}
 			}
@@ -90,15 +109,14 @@ public class DonHangEmployeeApi {
 			e.printStackTrace();
 		}
 
-		donHang.setTrangThaiDonHang("Đang chờ giao");
+		donHang.setTrangThaiDonHang("Đang giao");
 
 		String ghiChu = capNhatDonHangEmployee.getGhiChuEmployee();
 
 		if (!ghiChu.equals("")) {
-			donHang.setGhiChu("Ghi chú employee xác nhận khách: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
+			donHang.setGhiChu(capNhatDonHangEmployee.getGhiChuEmployee());
 		}
-		donHangService.save(donHang);
-
+		 donHangService.save(donHang); 
 	}
 	
 	@PostMapping("/update")
@@ -106,9 +124,14 @@ public class DonHangEmployeeApi {
 		DonHang donHang = donHangService.findById(capNhatDonHangEmployee.getIdDonHang());
 
 		for (ChiTietDonHang chiTiet : donHang.getDanhSachChiTiet()) {
+			SanPham sp =chiTiet.getSanPham();
 			for (CapNhatDonHangEmployee.CapNhatChiTietDon chiTietCapNhat : capNhatDonHangEmployee
 					.getDanhSachCapNhatChiTietDon()) {
 				if (chiTiet.getId() == chiTietCapNhat.getIdChiTiet()) {
+					
+					if(chiTiet.getSoLuongNhanHang()>chiTietCapNhat.getSoLuongNhanHang()) {
+						sp.setSoLuong(sp.getSoLuong()+(chiTiet.getSoLuongNhanHang()-chiTietCapNhat.getSoLuongNhanHang()));
+					}
 					chiTiet.setSoLuongNhanHang(chiTietCapNhat.getSoLuongNhanHang());
 				}
 			}
@@ -124,25 +147,27 @@ public class DonHangEmployeeApi {
 			e.printStackTrace();
 		}
 
-		donHang.setTrangThaiDonHang("Chờ khách xác nhận");
+		donHang.setTrangThaiDonHang("Hoàn thành");
 
 		String ghiChu = capNhatDonHangEmployee.getGhiChuEmployee();
 
 		if (!ghiChu.equals("")) {
-			donHang.setGhiChu("Ghi chú employee giao hàng: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
+			donHang.setGhiChu(capNhatDonHangEmployee.getGhiChuEmployee());
 		}
-		donHangService.save(donHang);
+		 donHangService.save(donHang); 
 
 	}
 	@PostMapping("/cancelConfirm") public void
 	  huyDonHangEmployee(@RequestBody CapNhatDonHangEmployee capNhatDonHangEmployee) {
 			DonHang donHang = donHangService.findById(capNhatDonHangEmployee.getIdDonHang());
-
+			donHang.setEmployee(nguoiDungService.findById(employeeID));
 			for (ChiTietDonHang chiTiet : donHang.getDanhSachChiTiet()) {
+				SanPham sp =chiTiet.getSanPham();
 				for (CapNhatDonHangEmployee.CapNhatChiTietDon chiTietCapNhat : capNhatDonHangEmployee
 						.getDanhSachCapNhatChiTietDon()) {
 					if (chiTiet.getId() == chiTietCapNhat.getIdChiTiet()) {
 						chiTiet.setSoLuongNhanHang(chiTietCapNhat.getSoLuongNhanHang());
+						sp.setSoLuong(sp.getSoLuong()+chiTietCapNhat.getSoLuongNhanHang());
 					}
 				}
 			}
@@ -162,7 +187,7 @@ public class DonHangEmployeeApi {
 			String ghiChu = capNhatDonHangEmployee.getGhiChuEmployee();
 
 			if (!ghiChu.equals("")) {
-				donHang.setGhiChu("Ghi chú employee xác nhận khách: \n" + capNhatDonHangEmployee.getGhiChuEmployee());
+				donHang.setGhiChu(capNhatDonHangEmployee.getGhiChuEmployee());
 			}
 			System.out.println("GHI CHU :"+ghiChu);
 			donHangService.save(donHang);

@@ -58,10 +58,15 @@ public class NguoiDungValidator implements Validator {
 		if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
 			errors.rejectValue("password", "error.password", "Mật khẩu phải dài 8-32 ký tự");
 		}
-
+		if (user.getSoDienThoai().length() != 10) {
+			errors.rejectValue("soDienThoai", "error.soDienThoai", "Hãy nhập số điện thoại 10 số");
+		}
 		// check match pass và confirmPass
 		if (!user.getConfirmPassword().equals(user.getPassword())) {
 			errors.rejectValue("confirmPassword", "error.confirmPassword", "Nhắc lại mật khẩu không chính xác");
+		}
+		if (nguoiDungService.findBysoDienThoai(user.getSoDienThoai()) != null) {
+			errors.rejectValue("soDienThoai", "error.soDienThoai", "Số điện thoại này đã được đăng ký");
 		}
 	}
 

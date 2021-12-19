@@ -198,13 +198,7 @@
 	</script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-	<c:if test = "${listCongViec.soDonHangMoi > 0}" >
-       <div hidden id="donHangMoi"> ${listCongViec.soDonHangMoi}</div> 
-       </c:if>
-       
-       <c:if test = "${listCongViec.soLienHeMoi > 0}">
-       <div hidden id="lienHeMoi"> ${listCongViec.soLienHeMoi}</div> 
-       </c:if>
+	
 	<script src="<c:url value='/js/profileAdminAjax.js'/>"></script>
 </body>
 </html>

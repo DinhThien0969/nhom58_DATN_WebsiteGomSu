@@ -10,4 +10,7 @@ public interface QueryService {
 	
 	public int tongDoanhThuTheoNgay();
 	
+	public int sodonhoanthanh();
+
+	
 }

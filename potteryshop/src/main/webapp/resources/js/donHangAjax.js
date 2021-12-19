@@ -28,10 +28,11 @@ $(document).ready(function() {
 					var donHangRow = '<tr>' +
 					                  '<td>' + donHang.id+ '</td>' +
 					                  '<td>' + donHang.hoTenNguoiNhan + '</td>' +
+					                  '<td>' + donHang.sdtNhanHang + '</td>' +
 					                  '<td>' + donHang.trangThaiDonHang + '</td>' +
 					                  '<td>' + sum + '</td>' +
 					                  '<td>' + donHang.ngayDatHang + '</td>' +
-					                  '<td>' + donHang.ngayGiaoHang + '</td>' +
+					                 
 					                  '<td>' + donHang.ngayNhanHang + '</td>' +
 					                  '<td width="0%">' + '<input type="hidden" class="nguoiDatId" value=' + donHang.nguoiDat.id + '>' + '</td>' +
 					                  '<td width="0%">'+'<input type="hidden" class="donHangId" value=' + donHang.id + '>'+ '</td>'+
@@ -46,26 +47,26 @@ $(document).ready(function() {
 					             $( "#date3" ).html("Ngày xác nhận đơn hàng");
 					            }else if(donHang.trangThaiDonHang == "Đang giao"){
 					             $('#date1').html("Ngày đặt");
-					             $('#date2').html("Ngày phân công giao");
-					             $( "#date3" ).html("Ngày xác nhận đơn hàng");
+					             $('#date2').html("Ngày xác nhận đơn hàng");
+					             $( "#date3" ).html("");
 					            }else if(donHang.trangThaiDonHang == "Chờ khách xác nhận" || donHang.trangThaiDonHang == "Hoàn thành"){
 					             $('#date1').html("Ngày đặt");
-					             $('#date2').html("Ngày phân công giao");
-					             $( "#date3" ).html("Ngày giao hàng");
+					             $('#date2').html("Ngày giao hàng");
+					             $( "#date3" ).html("");
 					            }else if(donHang.trangThaiDonHang == "Đã bị hủy"){
 					             $('#date1').html("Ngày đặt");
-					             $( "#date2" ).html("");
-					             $( "#date3" ).html("Ngày hủy đơn");
+					             $( "#date2" ).html("Ngày hủy đơn");
+					             $( "#date3" ).html("");
 					            }
-					                  
-					     if(donHang.trangThaiDonHang == "Đang chờ giao" || donHang.trangThaiDonHang == "Đang giao"){
+
+/* if(donHang.trangThaiDonHang == "Đang chờ giao" || donHang.trangThaiDonHang == "Đang giao"){
 					    	 donHangRow += ' &nbsp;<button class="btn btn-primary btnPhanCong">Phân công</button>'+
 					    	               ' &nbsp;<button class="btn btn-danger btnHuy">Hủy đơn</button>' ;
 					     } else if (donHang.trangThaiDonHang == "Chờ duyệt"){
 					         donHangRow += ' &nbsp;<button class="btn btn-primary btnCapNhat" >Duyệt hoàn thành </button> </td>';
 					     }else{
-					   /*  donHangRow += ' &nbsp;<label>Đang đợi nhân viên xác nhận khách</label> </td>';*/
-					     } 
+					     donHangRow += ' &nbsp;<label>Đang đợi nhân viên xác nhận khách</label> </td>';
+					     } */
 					                  
 					$('.donHangTable tbody').append(donHangRow);
 					
@@ -190,7 +191,7 @@ $(document).on('click', '.btnPhanCong', function (event){
 			}
 			
 			if(donHang.employee != null){
-$("#employee").html("<strong>Employee giao hàng</strong>: "+ donHang.employee.hoTen);
+$("#employee").html("<strong>Employee Xác nhận</strong>: "+ donHang.employee.hoTen);
 			}
 			 
 			var check = donHang.trangThaiDonHang == "Hoàn thành" || donHang.trangThaiDonHang == "Chờ duyệt" ;
@@ -221,7 +222,7 @@ $("#employee").html("<strong>Employee giao hàng</strong>: "+ donHang.employee.h
 				if(check){
 					chiTietRow += '<td>' + chiTiet.soLuongNhanHang + '</td>';
 					sum += chiTiet.sanPham.donGia * chiTiet.soLuongNhanHang;
-				} else {
+} else {
 	                sum += chiTiet.sanPham.donGia * chiTiet.soLuongDat;
 				}
 	             
@@ -265,7 +266,7 @@ $("#employee").html("<strong>Employee giao hàng</strong>: "+ donHang.employee.h
              '<td>' + donHang.trangThaiDonHang + '</td>' +
              '<td>' + sum + '</td>' +
              '<td>' + donHang.ngayDatHang + '</td>' +
-             '<td>' + donHang.ngayGiaoHang + '</td>' +
+            
              '<td>' + donHang.ngayNhanHang + '</td>' +
              '<td width="0%">'+'<input type="hidden" id="donHangId" value=' + donHang.id + '>'+ '</td>'+
              '<td><button class="btn btn-primary btnChiTiet" >Chi Tiết</button>';
@@ -302,7 +303,7 @@ donHangRow += ' &nbsp;<button class="btn btn-warning btnCapNhat" >Duyệt hoàn 
 				'<td>' + stt + '</td>' +
                 '<td>' + chiTiet.sanPham.tenSanPham + '</td>' +
                 '<td>' + chiTiet.sanPham.donGia + '</td>'+
-                '<td>' + chiTiet.soLuongDat + '</td>'+
+'<td>' + chiTiet.soLuongDat + '</td>'+
                 '<td>' + chiTiet.soLuongNhanHang + '</td>'+
                 '<td><input type="hidden" value="'+chiTiet.id+'" ></td>'
 				 $('.chiTietTable tbody').append(chiTietRow);
@@ -403,7 +404,7 @@ donHangRow += ' &nbsp;<button class="btn btn-warning btnCapNhat" >Duyệt hoàn 
  			contentType : "application/json",
  			url : "http://localhost:8080/potteryshop/api/don-hang/cancel?donHangId="+donHangId,
 			success : function(response) {
-				alert("Hủy đơn hàng thành công");
+alert("Hủy đơn hàng thành công");
 			},
 			error : function(e) {
 				alert("Error!")
@@ -423,12 +424,8 @@ console.log("ERROR: ", e);
 		$('.chiTietCapNhatTable tbody tr').remove();
 	});
 	function ajaxPUTKhoaTaiKhoanDen(idNguoiDat){
-		//alert("chạy function khóa tài khoản "+idNguoiDat+" đến ngày");
-		Swal.fire(
-  'Thông báo',
-  'Khóa tài khoản với ID là:'+idNguoiDat,
-  'warning'
-)
+		alert("Khóa tài khoản ID"+idNguoiDat+" hủy quá 3 lần đơn hàng");
+	
 		$.ajax({
 			type:"PUT",
 			url:"http://localhost:8080/potteryshop/api/tai-khoan/setBlockToDate/"+idNguoiDat
